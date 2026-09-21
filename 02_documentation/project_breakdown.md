@@ -97,15 +97,11 @@ Raw column → Trim whitespace → Standardize text → Replace invalid values �
                 - This immediately tells us what the table can legitimately answer.
 
                 - For instance:
+                    - An order, say Order 1001 may have Product A, Product B and Product C
 
-                    Order 1001
-                      ├── Product A
-                      ├── Product B
-                      └── Product C
+                        - That's three rows in the fact table but one order.
 
-                    - That's three rows in the fact table but one order.
-
-                        - This distinction is particularly important when writing DAX.
+                - This distinction is particularly important for when I'll be writing DAX.
 
 - We'll similarly establish the grain of:
 
@@ -234,7 +230,9 @@ Raw column → Trim whitespace → Standardize text → Replace invalid values �
 
 ### Phase 8 — Dashboard structure
 
-- I intend to report the findings in 4–5 dashboard pages; it would not be aesthetically pleasing to put everything on one page. I want to structure the pages as follows:
+- I intend to report the findings in 4–5 dashboard pages; it would not be aesthetically pleasing to put everything on one page. 
+
+- I want to structure the pages as follows:
 
     - **Page 1 — Executive Overview**
 
