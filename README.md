@@ -8,8 +8,7 @@ Lotus Group Retail Analytics
 
 # Repository Structure
 
-lotus-group-retail-bi/
-
+    lotus-group-retail-bi/
     │
     ├── 01_data/
     │   ├── raw/
