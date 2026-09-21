@@ -10,18 +10,18 @@ The principle here is we are not cleaning the dataset yet; we are simply trying 
 
 Our first deliverable will be the table below:
 
-Our first deliverable is a table as follows:
+Our first deliverable is the following table:
 
-Table	                | Type	    | Expected      | Role	| Rows	| Columns	| Primary Key	Grain
-------------------------|-----------|---------------|-------|-------|-----------|----------------
-dim_date	            | Dimension	| Date	        |  ?	|    ?	|    ?	    | One row/date
-dim_stores	            | Dimension	| Store	        |  ?	|    ?	|    ?	    | One row/store
-dim_customers	        | Dimension	| Customer      |  ?	|    ?	|    ?	    | One row/customer
-dim_employees	        | Dimension	| Employee	    |  ?	|    ?	|    ?	    | One row/employee
-dim_products	        | Dimension	| Product	    |  ?	|    ?	|    ?	    | One row/product
-fact_orders_2022_2023	| Fact	    | Orders	    |  ?	|    ?	|    ?	    | ?
-fact_orders_2024	    | Fact	    | Orders	    |  ?	|    ?	|    ?	    | ?
-fact_order_details	    | Fact	    | Order lines	|  ?	|    ?	|    ?	    | ?
-fact_returns	        | Fact	    | Returns	    |  ?	|    ?	|    ?	    | ?
+Table	                | Type	    | Expected Role	| Rows	| Columns   | Primary Key |	Grain
+------------------------|-----------|---------------|-------|-----------|-------------|---------------
+dim_date	            | Dimension	| Date	        |  ?	|    ?	    |    ?	      | One row/date
+dim_stores	            | Dimension	| Store	        |  ?	|    ?	    |    ?	      | One row/store
+dim_customers	        | Dimension	| Customer      |  ?	|    ?	    |    ?	      | One row/customer
+dim_employees	        | Dimension	| Employee	    |  ?	|    ?	    |    ?	      | One row/employee
+dim_products	        | Dimension	| Product	    |  ?	|    ?  	|    ?	      | One row/product
+fact_orders_2022_2023	| Fact	    | Orders	    |  ?	|    ?	    |    ?	      | One row/ order
+fact_orders_2024	    | Fact	    | Orders	    |  ?	|    ?	    |    ?	      | One row/ order
+fact_order_details	    | Fact	    | Order lines	|  ?	|    ?  	|    ?	      | One row/ order-product line
+fact_returns	        | Fact	    | Returns	    |  ?	|    ?	    |    ?	      | One row/ return
 
 
