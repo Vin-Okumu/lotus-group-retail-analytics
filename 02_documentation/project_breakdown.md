@@ -98,10 +98,10 @@ Raw column → Trim whitespace → Standardize text → Replace invalid values �
 
                 - For instance:
 
-                    - Order 1001
-                         ├── Product A
-                         ├── Product B
-                         └── Product C
+                    Order 1001
+                      ├── Product A
+                      ├── Product B
+                      └── Product C
 
                     - That's three rows in the fact table but one order.
 
