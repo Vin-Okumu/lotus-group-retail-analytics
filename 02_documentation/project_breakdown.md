@@ -9,12 +9,15 @@ Instead of providing perfectly clean data, this dataset intentionally contains c
 
 The dataset follows a Star Schema architecture and is suitable for hands-on practicing of:
 
-    - Data Warehousing
-    - Star Schema Modeling
-    - Power BI
-    - Power Query
-    - SQL
-    - DAX
-    - ETL
-    - Business Intelligence, and
-    - Data Modeling
+  - Data Warehousing
+  - Star Schema Modeling
+  - Power BI
+  - Power Query
+  - SQL
+  - DAX
+  - ETL
+  - Business Intelligence, and
+  - Data Modeling
+
+
+
