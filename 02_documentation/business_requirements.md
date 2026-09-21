@@ -213,11 +213,11 @@ But we need to establish the exact relationship between:
 
 - For instance, in a case where an order, say Order 1001 has multiple products, as illustrated below:
 
-Order 1001
-     │
-     ├── Product A
-     ├── Product B
-     └── Product C
+    Order 1001
+         │
+         ├── Product A
+         ├── Product B
+         └── Product C
 
 - My assumption is that if `fact_orders` contains one row per order while `fact_order_details` contains one row per product line, then calculating revenue from both tables without understanding the grain could lead to double counting.
 
