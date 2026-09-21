@@ -37,3 +37,7 @@ lotus-group-retail-bi/
 │
 └── README.md
 
+# Background
+
+The Lotus Group Retail company is a 
+
