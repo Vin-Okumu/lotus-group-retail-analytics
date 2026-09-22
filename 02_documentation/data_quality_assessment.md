@@ -56,11 +56,11 @@ Expected grain: customer_id
     customer_id: should uniquely identify a customer
 
 ###### Duplicates
-customer_id
-Nulls: 0
-Distinct values: 3000
-Unique values: 2950
-Duplicates: 50
+    customer_id
+    Nulls: 0
+    Distinct values: 3000
+    Unique values: 2950
+    Duplicates: 50
 
 #### Missing values
 
