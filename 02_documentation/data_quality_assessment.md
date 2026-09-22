@@ -12,7 +12,7 @@ Our first deliverable will be the table below:
 
 Our first deliverable is as follows:
 
-    **Table**	          **Type**   **Expected Role** **Rows**	 **Columns**  **Primary Key** 	**Grain**
+    Table	              Type       Expected Role      Rows        Columns    Primary Key 	  Grain
    
     dim_date	          Dimension  Date	            1096	         13    date_id          One row/date
     dim_stores	          Dimension  Store	              15	          8    store_id	        One row/store
@@ -31,18 +31,18 @@ Our first deliverable is as follows:
 
 #### Data types: Expected vs Actual
 
-    Column	            |Expected type  |Actual type | Analytical impact
-    --------------------|-------------- |------------|-------------------
-    customer_id	        |   Text        |   Text     |
-    full_name	        |   Text        |   Text     |
-    gender	            |   Text        |   Text     |
-    birth_date	        |   Date        |   Text     | Prevents reliable date calculations
-    phone	            |   Text        |   Integer  | potential loss of leading zeros
-    email	            |   Text        |   Text     |
-    city	            |   Text        |   Text     |
-    region	            |   Text        |   Text     |
-    loyalty_tier	    |   Text        |   Text     |
-    registration_date	|   Date        |   Date     |
+    Column	            Expected type  Actual type  Analytical impact
+    
+    customer_id	           Text           Text     
+    full_name	           Text           Text     
+    gender	               Text           Text     
+    birth_date	           Date           Text      Prevents reliable date calculations
+    phone	               Text           Integer   potential loss of leading zeros
+    email	               Text           Text     
+    city	               Text           Text     
+    region	               Text           Text     
+    loyalty_tier	       Text           Text     
+    registration_date	   Date           Date     
 
 #### Table size
 Table: dim_customers
@@ -67,18 +67,18 @@ Violates expected dimension grain
 - Here we are going column by column and confirming column quality.
 Below is our resultant profile for dim_customers table
 
-    Column	            |   Empty?|	Errors?| 
-    --------------------|---------|--------|
-    customer_id			|      0% |     0% |           
-    full_name			|      0% |     0% |           
-    gender			    |      0% |     0% |           
-    birth_date			|      0% |     0% |           
-    phone			    |      0% |     0% |           
-    email			    |     13% |     0% |           
-    city			    |      0% |     0% |           
-    region			    |      0% |     0% |           
-    loyalty_tier		|	   0% |     0% |           
-    registration_date   |      0% |     0% |           
+    Column	               Empty?	Errors? 
+    
+    customer_id			      0%      0%            
+    full_name			      0%      0%            
+    gender			          0%      0%            
+    birth_date			      0%      0%            
+    phone			          0%      0%            
+    email			         13%      0%            
+    city			          0%      0%            
+    region			          0%      0%            
+    loyalty_tier			  0%      0%            
+    registration_date         0%      0%            
 
 #### Categorical columns Profile
 ##### gender
@@ -132,22 +132,22 @@ Maximum - 12/28/2023
 - Working assumption: One row represents a unique date
 
 #### Data Types: Expected vs Actual
-
-    Column         | Expected type |  Actual
-    ---------------|---------------|------------
-    date_id        | Integer       | Integer
-    full_date      | Date          | Date
-    day            | Integer       | Integer
-    month          | Integer       | Integer
-    month_name     | Text          | Text
-    quarter        | Integer       | Integer
-    quarter_name   | Text          | Text
-    year           | Date          | Integer
-    day_of_week    | Integer       | Integer
-    day_name       | Text          | Text
-    is_weekend     | Binary        | Integer
-    week_of_year   | Integer       | Integer
-    is_ramadan     | Binary        | Integer
+- 
+    Column          Expected type   Actual
+    
+    date_id         Integer         Integer
+    full_date       Date            Date
+    day             Integer         Integer
+    month           Integer         Integer
+    month_name      Text            Text
+    quarter         Integer         Integer
+    quarter_name    Text            Text
+    year            Date            Integer
+    day_of_week     Integer         Integer
+    day_name        Text            Text
+    is_weekend      Binary          Integer
+    week_of_year    Integer         Integer
+    is_ramadan      Binary          Integer
 
 
 
