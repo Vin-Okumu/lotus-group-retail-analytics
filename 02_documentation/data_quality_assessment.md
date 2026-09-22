@@ -12,37 +12,37 @@ Our first deliverable will be the table below:
 
 Our first deliverable is as follows:
 
-Table	             | Type	     | Expected Role| Rows	| Columns | Primary Key |	Grain
----------------------|-----------|--------------|-------|---------|-------------|---------------------
-dim_date	         | Dimension | Date	        |  1096	|      13 |date_id      | One row/date
-dim_stores	         | Dimension | Store	    |    15	|       8 |store_id	    | One row/store
-dim_customers	     | Dimension | Customer     |  3000	|      10 |customer_id  | One row/customer
-dim_employees	     | Dimension | Employee	    |   216	|       8 |employee_id  | One row/employee
-dim_products	     | Dimension | Product	    |   345	|      10 |product_id   | One row/product
-fact_orders_2022_2023| Fact	     | Orders	    |  7942 |      10 |order_id     | One row/ order
-fact_orders_2024	 | Fact	     | Orders	    |  4058	|      10 |order_id     | One row/ order
-fact_order_details	 | Fact	     | Order lines	| 25099 |      10 |detail_id    | One row/ order-product line
-fact_returns	     | Fact	     | Returns	    |  1056 |       7 |return_id    | One row/ return
+    Table	             | Type	     | Expected Role| Rows	| Columns | Primary Key |	Grain
+    ---------------------|-----------|--------------|-------|---------|-------------|---------------------
+    dim_date	         | Dimension | Date	        |  1096	|      13 |date_id      | One row/date
+    dim_stores	         | Dimension | Store	    |    15	|       8 |store_id	    | One row/store
+    dim_customers	     | Dimension | Customer     |  3000	|      10 |customer_id  | One row/customer
+    dim_employees	     | Dimension | Employee	    |   216	|       8 |employee_id  | One row/employee
+    dim_products	     | Dimension | Product	    |   345	|      10 |product_id   | One row/product
+    fact_orders_2022_2023| Fact	     | Orders	    |  7942 |      10 |order_id     | One row/ order
+    fact_orders_2024	 | Fact	     | Orders	    |  4058	|      10 |order_id     | One row/ order
+    fact_order_details	 | Fact	     | Order lines	| 25099 |      10 |detail_id    | One row/ order-product line
+    fact_returns	     | Fact	     | Returns	    |  1056 |       7 |return_id    | One row/ return
 
-## Table Profiling
+## Table Profiling Quality Log
 
 ### Table1: dim_customers
-- Our workng assumption is that one row represents one customer
+- Workng assumption: one row represents one customer
 
-- Expected vs actual data types
+#### Data types: Expected vs Actual
 
-Column	            |Expected type  |Actual type
---------------------|-------------- |------------
-customer_id	        |   Text        |   Text
-full_name	        |   Text        |   Text
-gender	            |   Text        |   Text
-birth_date	        |   Date        |   Text
-phone	            |   Text        |   Integer
-email	            |   Text        |   Text
-city	            |   Text        |   Text
-region	            |   Text        |   Text
-loyalty_tier	    |   Text        |   Text
-registration_date	|   Date        |   Date
+    Column	            |Expected type  |Actual type | Analytical impact
+    --------------------|-------------- |------------|-------------------
+    customer_id	        |   Text        |   Text     |
+    full_name	        |   Text        |   Text     |
+    gender	            |   Text        |   Text     |
+    birth_date	        |   Date        |   Text     | Prevents reliable date calculations
+    phone	            |   Text        |   Integer  | potential loss of leading zeros
+    email	            |   Text        |   Text     |
+    city	            |   Text        |   Text     |
+    region	            |   Text        |   Text     |
+    loyalty_tier	    |   Text        |   Text     |
+    registration_date	|   Date        |   Date     |
 
 #### Table size
 Table: dim_customers
@@ -60,25 +60,25 @@ Expected grain: customer_id
     Nulls: 0
     Distinct values: 3000
     Unique values: 2950
-    Duplicates: 50
+
+Violates expected dimension grain
 
 #### Missing values
-
-- Here we want to go column by column and confirm column quality.
+- Here we are going column by column and confirming column quality.
 - Below is our resultant profile for dim_customers table
 
-Column	            |   Empty?|	Errors?| 
---------------------|---------|--------|
-customer_id			|      0% |     0% |           
-full_name			|      0% |     0% |           
-gender			    |      0% |     0% |           
-birth_date			|      0% |     0% |           
-phone			    |      0% |     0% |           
-email			    |     13% |     0% |           
-city			    |      0% |     0% |           
-region			    |      0% |     0% |           
-loyalty_tier		|	   0% |     0% |           
-registration_date   |      0% |     0% |           
+    Column	            |   Empty?|	Errors?| 
+    --------------------|---------|--------|
+    customer_id			|      0% |     0% |           
+    full_name			|      0% |     0% |           
+    gender			    |      0% |     0% |           
+    birth_date			|      0% |     0% |           
+    phone			    |      0% |     0% |           
+    email			    |     13% |     0% |           
+    city			    |      0% |     0% |           
+    region			    |      0% |     0% |           
+    loyalty_tier		|	   0% |     0% |           
+    registration_date   |      0% |     0% |           
 
 #### Categorical columns Profile
 ##### gender
@@ -91,35 +91,26 @@ Column distribution contains:
     MALE
     FEMALE
 
+Case inconsistency can fragment gender analysis 
+
 ##### city
 - Column distribution shows no variation in city names across records
-
 - Each city is captured consistently across respective records
 
 ##### region
 - column distribution shows no variation in region names
-
 - Each region name is captured consistently across respective records
 
 ##### loyalty_tier
 - Column distribution shows no variation in loyalty_tier names across records
-
 - Each loyalty_tier is captured consistently across respective records
 
 #### Whitespace profile
-- 
+- No whitespace realized in categorical or other text fields
 
 #### Date profile
 ##### birth_date profile
-
-Minimum - 01/01/1984
-
-Maximum - 28/12/1995
-
-- No suspicious dates recorded
-    - No future dates 
-    - No extremely old dates
-    - No invalid dates
+- Stored as text
 
 #### registration_date
 Minimum - 01/01/2020
@@ -132,13 +123,31 @@ Maximum - 12/28/2023
 
 #### Phone profile
 - Phone numbers stored as integer instead of text/string
-
 - No missing phone numbers 
     - Total count - 3050
     - Unique count - 2950
     - distinct - 3000
 
 ### Table 2: dim_date
+- Working assumption: One row represents a unique date
+
+#### Data Types: Expected vs Actual
+
+    Column         | Expected type |  Actual
+    ---------------|---------------|------------
+    date_id        | Integer       | Integer
+    full_date      | Date          | Date
+    day            | Integer       | Integer
+    month          | Integer       | Integer
+    month_name     | Text          | Text
+    quarter        | Integer       | Integer
+    quarter_name   | Text          | Text
+    year           | Date          | Integer
+    day_of_week    | Integer       | Integer
+    day_name       | Text          | Text
+    is_weekend     | Binary        | Integer
+    week_of_year   | Integer       | Integer
+    is_ramadan     | Binary        | Integer
 
 
 
