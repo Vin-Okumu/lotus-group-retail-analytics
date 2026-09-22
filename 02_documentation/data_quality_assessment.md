@@ -132,7 +132,7 @@ Maximum - 12/28/2023
 - Working assumption: One row represents a unique date
 
 #### Data Types: Expected vs Actual
-- 
+ 
     Column          Expected type   Actual
     
     date_id         Integer         Integer
