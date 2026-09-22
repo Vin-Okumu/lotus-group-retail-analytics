@@ -65,6 +65,7 @@ Violates expected dimension grain
 
 #### Missing values
 - Here we are going column by column and confirming column quality.
+
 Below is our resultant profile for dim_customers table
 
     Column	               Empty?	Errors? 
