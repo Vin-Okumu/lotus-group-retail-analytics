@@ -45,10 +45,10 @@ Our first deliverable is as follows:
     registration_date	   Date           Date     
 
 #### Table size
-Table: dim_customers
-Rows: 3050
-Columns: 10
-Expected grain: customer_id
+    Table: dim_customers
+    Rows: 3050
+    Columns: 10
+    Expected grain: one row per customer
 
 ##### profile - customer_id
     customer_id: should not be null
@@ -129,33 +129,101 @@ Maximum - 12/28/2023
     - Unique count - 2950
     - distinct - 3000
 
+#### Transformation candidates
+- Convert `birth_date` to Date after format validation
+- Convert `phone` to Text
+- Standardize case in `gender`
+- Investigate duplicate `customer_id` records 
+- Investigate repeated phone numbers
+- Determine treatment of missing email values
+
 ### Table 2: dim_date
-- Working assumption: One row represents a unique date
+- Working assumption: One row represents a unique calendar date
 
 #### Data Types: Expected vs Actual
  
-    Column          Expected type   Actual
+    Column          Expected type   Actual    What we're testing
     
-    date_id         Integer         Integer
-    full_date       Date            Date
-    day             Integer         Integer
-    month           Integer         Integer
-    month_name      Text            Text
-    quarter         Integer         Integer
-    quarter_name    Text            Text
-    year            Date            Integer
-    day_of_week     Integer         Integer
-    day_name        Text            Text
-    is_weekend      Binary          Integer
-    week_of_year    Integer         Integer
-    is_ramadan      Binary          Integer
+    date_id         Integer         Integer   Date key format
+    full_date       Date            Date      Actual calendar date
+    day             Integer         Integer   Day of month
+    month           Integer         Integer   Month number
+    month_name      Text            Text      Month label
+    quarter         Integer         Integer   Quarter number
+    quarter_name    Text            Text      Quarter label
+    year            Date            Integer   Calendar year
+    day_of_week     Integer         Integer   Day-of-week number
+    day_name        Text            Text      Day label
+    is_weekend      Binary          Integer   Weekend indicator
+    week_of_year    Integer         Integer   Week number
+    is_ramadan      Binary          Integer   Ramadan indicator
 
+#### Table size
+    Table: dim_date
+    Rows: 1096
+    Columns: 13
+    Expected grain: one row per calendar date
 
+#### Profile date_id
+date_id is the candidate primary key
+- basic requirements are:
+    - date_id should not be null
+    - date_id should not contain errors
+    - date_id should be unique
 
+Column quality
 
+    empty - 0%
+    error - 0%
 
+Column Distribution
 
+    distinct values - 1096
+    unique values - 1096
 
+##### Findings
+    date_id
+    Nulls: 0
+    Distinct: 1096
+    Unique: 1096
+
+#### Profile full_date
+    full_date
+    Nulls: 0
+    Distinct: 1096
+    Unique: 1096
+
+#### Validate day
+    check_day
+    Nulls: 0
+    Error: 0%
+    Empty: 0%
+    Valid: 100%
+    Invalid: 0%
+
+#### Validate month
+    check_month
+    Nulls: 0
+    Error: 0%
+    Empty: 0%
+    Valid: 100%
+    Invalid: 0%
+
+#### Validate year
+    check_year
+    Nulls: 0
+    Error: 0%
+    Empty: 0%
+    Valid: 100%
+    Invalid: 0%
+
+#### Validate month_name
+    month_name_check
+    Nulls: 0
+    Error: 0%
+    Empty: 0%
+    Valid: 100%
+    Invalid: 0%
 
 
 
