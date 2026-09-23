@@ -250,17 +250,40 @@ Column Distribution
 
 #### Profile completeness
 
-| Column             | Empty | Errors |
-| ------------------ | ----: | -----: |
-| employee_id        |   0%  |    0%  |
-| first_name         |   0%  |    0%  |
-| last_name          |   0%  |    0%  |
-| gender             |   0%  |    0%  |
-| role               |   0%  |    0%  |
-| store_id           |   0%  |    0%  |
-| hire_date          |   0%  |    0%  |
-| monthly_salary_egp |   0%  |    0%  |
+    Column              Empty  Errors  Nulls    Distinct    Unique
 
+    employee_id           0%      0%      0%         216       216
+    first_name            0%      0%      0%          65        10
+    last_name             0%      0%      0%          34         2
+    gender                0%      0%      0%           2         0
+    role                  0%      0%      0%           5         0
+    store_id              0%      0%      0%          15         0
+    hire_date             0%      0%      0%         207       199
+    monthly_salary_egp    0%      0%      0%         211       206
+
+#### Categorical columns Profile
+##### gender
+Column distribution contains:
+
+    Male
+    Female
+
+No inconsistency that can fragment analysis in gender
+
+##### role
+Column distribution contains:
+
+    Cashier
+    Sales Associate
+    Store Manager
+    Department Manager
+    Senior Sales Associate
+    
+No inconsistency that can fragment analysis in role
+
+#### Profile monthly_salary_egp
+    Minimum: 3516
+    Maximum: 15490
 
 
 
