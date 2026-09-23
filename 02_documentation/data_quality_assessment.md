@@ -151,12 +151,12 @@ Maximum - 12/28/2023
     month_name      Text            Text      Month label
     quarter         Integer         Integer   Quarter number
     quarter_name    Text            Text      Quarter label
-    year            Date            Integer   Calendar year
+    year            Integer         Integer   Calendar year
     day_of_week     Integer         Integer   Day-of-week number
     day_name        Text            Text      Day label
-    is_weekend      Binary          Integer   Weekend indicator
+    is_weekend      Integer         Integer   Weekend indicator
     week_of_year    Integer         Integer   Week number
-    is_ramadan      Binary          Integer   Ramadan indicator
+    is_ramadan      Integer         Integer   Ramadan indicator
 
 #### Table size
     Table: dim_date
@@ -193,37 +193,38 @@ Column Distribution
     Distinct: 1096
     Unique: 1096
 
-#### Validate day
-    check_day
-    Nulls: 0
-    Error: 0%
-    Empty: 0%
-    Valid: 100%
-    Invalid: 0%
+#### Validate columns
+    
+    Column            Nulls    Error    Empty    Valid    Invalid  Distinct     Unique
+    
+    date_id              0%       0%       0%     100%         0%      1096       1096
+    full_date            0%       0%       0%     100%         0%      1096       1096
+    day                  0%       0%       0%     100%         0%        31          0
+    month                0%       0%       0%     100%         0%        12          0
+    year                 0%       0%       0%     100%         0%         3          0
+    month_name           0%       0%       0%     100%         0%        12          0
+    quarter              0%       0%       0%     100%         0%         4          0
+    quarter_name         0%       0%       0%     100%         0%         4          0
+    day_name             0%       0%       0%     100%         0%         7          0
+    week_of_year         0%       0%       0%     100%         0%        52          0
+    is_weekend           0%       0%       0%     100%         0%         2          0
 
-#### Validate month
-    check_month
-    Nulls: 0
-    Error: 0%
-    Empty: 0%
-    Valid: 100%
-    Invalid: 0%
+### Table 3: dim_employees
+- Working assumption: one row represents one employee
 
-#### Validate year
-    check_year
-    Nulls: 0
-    Error: 0%
-    Empty: 0%
-    Valid: 100%
-    Invalid: 0%
+#### Data types Expected vs Actual
 
-#### Validate month_name
-    month_name_check
-    Nulls: 0
-    Error: 0%
-    Empty: 0%
-    Valid: 100%
-    Invalid: 0%
+Column                  Expected        Actual
+
+employee_id             Text            Text
+first_name              Text            Text
+last_name               Text            Text
+gender                  Text            Text
+role                    Text            Text
+store_id                Text            Integer
+hire_date               Date            Date
+monthly_salary_egp      Decimal         Integer
+
 
 
 
