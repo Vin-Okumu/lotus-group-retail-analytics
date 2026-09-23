@@ -214,16 +214,16 @@ Column Distribution
 
 #### Data types Expected vs Actual
 
-Column                  Expected        Actual
+    Column                  Expected        Actual
 
-employee_id             Text            Text
-first_name              Text            Text
-last_name               Text            Text
-gender                  Text            Text
-role                    Text            Text
-store_id                Text            Integer
-hire_date               Date            Date
-monthly_salary_egp      Decimal         Integer
+    employee_id             Text            Text
+    first_name              Text            Text
+    last_name               Text            Text
+    gender                  Text            Text
+    role                    Text            Text
+    store_id                Text            Integer
+    hire_date               Date            Date
+    monthly_salary_egp      Decimal         Integer
 
 
 
