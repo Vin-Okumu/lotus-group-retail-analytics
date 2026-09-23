@@ -214,20 +214,52 @@ Column Distribution
 
 #### Data types Expected vs Actual
 
-    Column                  Expected        Actual
+    Column                  Expected        Actual      What we're testing
 
-    employee_id             Text            Text
-    first_name              Text            Text
-    last_name               Text            Text
-    gender                  Text            Text
-    role                    Text            Text
-    store_id                Text            Integer
-    hire_date               Date            Date
-    monthly_salary_egp      Decimal         Integer
+    employee_id             Text            Text        Employee identifier
+    first_name              Text            Text        Employee name
+    last_name               Text            Text        Employee name
+    gender                  Text            Text        Employee category
+    role                    Text            Text        Employee role
+    store_id                Text            Integer     Store foreign key
+    hire_date               Date            Date        Employment start date
+    monthly_salary_egp      Decimal         Integer     Salary amount
 
+#### Table size
+    Table: dim_employees
+    Rows: 216
+    Columns: 8
+    Expected grain: one row per employee
 
+#### Profile employee_id
+employee_id is the candidate primary key
+- basic requirements are:
+    - date_id should not be null
+    - date_id should not contain errors
+    - date_id should be unique
 
+Column quality
 
+    empty - 0%
+    error - 0%
+
+Column Distribution
+
+    distinct values - 216
+    unique values - 216
+
+#### Profile completeness
+
+| Column             | Empty | Errors |
+| ------------------ | ----: | -----: |
+| employee_id        |   0%  |    0%  |
+| first_name         |   0%  |    0%  |
+| last_name          |   0%  |    0%  |
+| gender             |   0%  |    0%  |
+| role               |   0%  |    0%  |
+| store_id           |   0%  |    0%  |
+| hire_date          |   0%  |    0%  |
+| monthly_salary_egp |   0%  |    0%  |
 
 
 
