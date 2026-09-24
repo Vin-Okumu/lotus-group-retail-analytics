@@ -290,18 +290,18 @@ No inconsistency that can fragment analysis in role
 
 #### Data types Expected vs Actual
 
-Column              Expected        Actual      What we're testing
+    Column              Expected        Actual      What we're testing
 
-product_id          Text            Text        product identifier
-product_name_raw    Text            Text        product name
-category            Text            Text        product category
-subcategory         Text            Text        product subcategory
-brand               Text            Text        product brand
-unit_price_text     Text            Text        product price category
-unit_price          Fixed decimal   Integer     product unit price
-unit_cost           Fixed decimal   Integer     
-stock_qty           Integer         Integer     product quantity
-is_active           Integer         Integer     product availability
+    product_id          Text            Text        product identifier
+    product_name_raw    Text            Text        product name
+    category            Text            Text        product category
+    subcategory         Text            Text        product subcategory
+    brand               Text            Text        product brand
+    unit_price_text     Text            Text        product price category
+    unit_price          Fixed decimal   Integer     product unit price
+    unit_cost           Fixed decimal   Integer     
+    stock_qty           Integer         Integer     product quantity
+    is_active           Integer         Integer     product availability
 
 #### Table size
     Table: dim_product
