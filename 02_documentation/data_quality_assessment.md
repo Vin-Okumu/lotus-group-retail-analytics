@@ -376,7 +376,91 @@ Column distribution shows unique identification of brand categories.
 
 No inconsistency that can fragment analysis by brand
 
+### Table 5: dim_stores
+- working assumption: one row represents one store
 
+#### Data types Expecte vs Actual
+
+    Columns         Expected        Actual      What we're measuring
+    
+    store_id        Integer         Integer     Store identifier
+    store_name      Text            Text        Store name
+    city            Text            Text        Store city location
+    district        Text            Text        Store dictrict location
+    region          Text            Text        Store regional location
+    opening_year    Integer         Integer     Year store was openned
+    size_sqm        Integer         Integer     Store size
+    store_type      Text            Text        Store type
+
+#### Table size
+    Table: dim_stores
+    Rows: 15
+    Columns: 8
+    Expected grain: one row per store
+
+#### Profile product_id
+store_id is the candidate primary key
+- basic requirements are:
+    - store_id should not be null
+    - store_id should not contain errors
+    - store_id should be unique
+
+Column quality
+
+    empty - 0%
+    error - 0%
+
+Column Distribution
+
+    distinct values - 15
+    unique values - 15
+
+#### Profile completeness
+
+    Column              Empty  Errors  Nulls    Distinct    Unique
+
+    store_id               0%      0%     0%          15        15
+    store_name             0%      0%     0%          15        15
+    city                   0%      0%     0%          13        11
+    district               0%      0%     0%          15        15
+    region                 0%      0%     0%           7         2
+    opening_year           0%      0%     0%           7         1
+    size_sqm               0%      0%     0%          15        15
+    store_type             0%      0%     0%           3         0        
+
+
+#### Categorical columns Profile
+##### city
+- Column distribution shows unique identification of cities.
+
+- No inconsistency that can fragment analysis by city
+
+##### district
+- Column distribution shows unique identification of districts.
+
+- No inconsistency that can fragment analysis by district
+
+#### region
+- Column distribution shows unique identification of regins.
+
+- No inconsistency that can fragment analysis by region
+
+#### store_type
+- Column distribution shows unique identification of store types.
+
+- No inconsistency that can fragment analysis by store type
+
+
+### Table 6: fact_order_details
+
+
+### Table 7: fact_orders_2022_2023
+
+
+### Table 8: fact_orders_2024
+
+
+### Table 9: fact_returns
 
 
 
