@@ -348,7 +348,7 @@ Column distribution contains:
     Clothing
     Electronics
 
-No inconsistency that can fragment analysis in category
+No inconsistency that can fragment analysis by category
 
 ##### subcategory
 Column distribution contains:
@@ -372,9 +372,9 @@ Column distribution contains:
 No inconsistency that can fragment analysis by subcategory
 
 ##### brand
-Column distribution shows unique identification of brand categories.
+- Column distribution shows unique identification of brand categories.
 
-No inconsistency that can fragment analysis by brand
+- No inconsistency that can fragment analysis by brand
 
 ### Table 5: dim_stores
 - working assumption: one row represents one store
@@ -449,9 +449,66 @@ Column Distribution
 - Column distribution shows unique identification of store types.
 
 - No inconsistency that can fragment analysis by store type
-
+#### profile opening_year
+    Minimum: 2016
+    Maximum: 2022
 
 ### Table 6: fact_order_details
+- Working assumption: one row represents one order-product line
+
+#### Data types Ecpected vs Actual
+
+    Columns             Expected        Actual          What we're measuring
+
+    detail_id           Text            Text            Order detail identifier
+    order_id            Text            Text            Order identifier
+    product_id          Text            Text            Product identifier
+    quantity            Integer         Integer         Order quantity
+    unit_price          Integer         Integer         Order price
+    discount_pct        Integer         Integer         Discount per order
+    selling_price       Fixed decimal   Fixed decimal   Order selling price
+    unit_cost           Fixed decimal   Integer         Unit cost per order detail
+    line_total_revenue  Fixed decimal   Fixed decimal   Revenue per order
+    line_total_cost     Fixed decimal   Integer         Order cost
+
+#### Table size
+    Table: fact_order_details
+    Rows: 25099
+    Columns: 10
+    Expected grain: one row per order detail
+
+#### Profile product_id
+detail_id is the candidate primary key
+- basic requirements are:
+    - detail_id should not be null
+    - detail_id should not contain errors
+    - detail_id should be unique
+
+Column quality
+
+    empty - 0%
+    error - 0%
+
+Column Distribution
+
+    distinct values - 25099
+    unique values - 25099
+
+#### Profile completeness
+
+    Column              Empty  Errors  Nulls    Distinct    Unique
+
+    detail_id              0%      0%     0%       25099     25099
+    order_id               0%      0%     0%       12000      4843
+    product_id             0%      0%     0%         345         0
+    quantity               0%      0%     0%           4         0
+    unit_price             0%      0%     0%          93         0
+    discount_pct           0%      0%     0%           7         0
+    selling_price          0%      0%     0%         537        17
+    unit_cost              0%      0%     0%          66         0    
+    line_total_revenue     0%      0%     0%        1239       206
+    line_total_cost        0%      0%     0%         187         2
+
 
 
 ### Table 7: fact_orders_2022_2023
