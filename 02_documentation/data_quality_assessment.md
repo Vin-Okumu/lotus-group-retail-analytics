@@ -234,9 +234,9 @@ Column Distribution
 #### Profile employee_id
 employee_id is the candidate primary key
 - basic requirements are:
-    - date_id should not be null
-    - date_id should not contain errors
-    - date_id should be unique
+    - emplpoyee_id should not be null
+    - employee_id should not contain errors
+    - employee_id should be unique
 
 Column quality
 
@@ -285,13 +285,96 @@ No inconsistency that can fragment analysis in role
     Minimum: 3516
     Maximum: 15490
 
+### Table 4: dim_products
+- working assumption: one row represents one product
 
+#### Data types Expected vs Actual
 
+Column              Expected        Actual      What we're testing
 
+product_id          Text            Text        product identifier
+product_name_raw    Text            Text        product name
+category            Text            Text        product category
+subcategory         Text            Text        product subcategory
+brand               Text            Text        product brand
+unit_price_text     Text            Text        product price category
+unit_price          Fixed decimal   Integer     product unit price
+unit_cost           Fixed decimal   Integer     
+stock_qty           Integer         Integer     product quantity
+is_active           Integer         Integer     product availability
 
+#### Table size
+    Table: dim_product
+    Rows: 345
+    Columns: 10
+    Expected grain: one row per product
 
+#### Profile product_id
+product_id is the candidate primary key
+- basic requirements are:
+    - product_id should not be null
+    - product_id should not contain errors
+    - product_id should be unique
 
+Column quality
 
+    empty - 0%
+    error - 0%
+
+Column Distribution
+
+    distinct values - 345
+    unique values - 345
+
+#### Profile completeness
+
+    Column              Empty  Errors  Nulls    Distinct    Unique
+
+    product_id             0%      0%     0%         345       345
+    product_name_raw       0%      0%     0%         345       345
+    category               0%      0%     0%           2         0
+    subcategory            0%      0%     0%          15         0
+    brand                  0%      0%     0%          27        17
+    unit_price_text        0%      0%     0%          93        39
+    unit_price             0%      0%     0%          93        39
+    unit_cost              0%      0%     0%          66        28        
+    stock_qty              0%      0%     0%         243       164    
+    is active              0%      0%     0%           2         0
+
+#### Categorical columns Profile
+##### category
+Column distribution contains:
+
+    Clothing
+    Electronics
+
+No inconsistency that can fragment analysis in category
+
+##### subcategory
+Column distribution contains:
+
+    Women wear
+    Tops
+    Bottoms
+    Outwear
+    Footwear
+    Accessories
+    Audio & wearables
+    Mobile Phones
+    TV & Screens
+    Laptops
+    Accessories & Storage
+    Tablets
+    Gaming
+    Networking
+    Printers
+    
+No inconsistency that can fragment analysis by subcategory
+
+##### brand
+Column distribution shows unique identification of brand categories.
+
+No inconsistency that can fragment analysis by brand
 
 
 
