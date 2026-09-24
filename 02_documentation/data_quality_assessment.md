@@ -512,6 +512,25 @@ Column Distribution
 
 
 ### Table 7: fact_orders_2022_2023
+- Working assumption: one row represents one order
+
+#### Data types Expected vs Actual
+
+    Columns         Expected        Actual          What we're measuring
+
+    order_id        Text            Text            Order identifier
+    order_date      Date            Date            Date of order placement
+    date_id         Integer         Integer         Date identifier
+    customer_id     Text            Text            Customer identifier
+    store_id        Integer         Integer         Store identifier
+    employee_id     Text            Text            Employee identifier
+    payment_method  Text            Text            Mode of customer payment
+    order_status    Text            Text            Order status
+    total_revenue   Fixed decimal   Fixed decimal   Revenue per order
+    total_cost      Fixed decimal   Integer         Cost per order
+
+#### Table size
+
 
 
 ### Table 8: fact_orders_2024
