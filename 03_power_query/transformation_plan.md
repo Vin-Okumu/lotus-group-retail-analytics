@@ -495,13 +495,14 @@ using: Left Anti and name it `audit_orders_missing_stores`
 
 ###### Cross-table audit table
 
-Relationship	    Fact rows	Distinct FK	Unmatched rows	Result
-Orders → Date	    12,000	    1096	    0	            ?
-Orders → Customer	12,000	    3050	    0	            ?
-Orders → Store	    12,000	    15	        0	            ?
-Orders → Employee	12,000	    217	        632	            ?
-Details → Order	    25,099	    12,000	    0	            ?
-Returns → Order	    1,056	    1,056	    0	            ?
+    Relationship	    Fact rows	Distinct FK	Unmatched rows	Result
+
+    Orders → Date	    12,000	    1096	    0	            ?
+    Orders → Customer	12,000	    3050	    0	            ?
+    Orders → Store	    12,000	    15	        0	            ?
+    Orders → Employee	12,000	    217	        632	            ?
+    Details → Order	    25,099	    12,000	    0	            ?
+    Returns → Order	    1,056	    1,056	    0	            ?
 
 
 
