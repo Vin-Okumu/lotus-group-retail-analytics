@@ -24,7 +24,7 @@ Medium  |`fact_orders_2024`   |total_cost |Integer    |Convert to Fixed Decimal 
 Medium  |`fact_orders_2022_2023` + `2024`   |Both tables    |Same business grain, separate years    |Append Queries  |Create consolidated order fact
 High    |`dim_date`   |Derived columns    |Need validation against full_date  |Recalculate/correct only if validation fails   |Ensures date dimension is internally consistent
 
-`dim_customers` — the most important transformation area
+#### `dim_customers` — the most important transformation area
 
    - birth_date → Date
     - This is a fairly clear transformation.
