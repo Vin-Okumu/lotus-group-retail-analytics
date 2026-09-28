@@ -645,12 +645,12 @@ Column Distribution
     customer_id           0%      0%     0%        2243       1076
     store_id              0%      0%     0%          15          0
     employee_id           0%      0%     0%         217          0
-    payment method        0%      0%     0%          12          0
+    payment_method        0%      0%     0%          12          0
     order_status          0%      0%     0%           3          0
     total_revenue         0%      0%     0%        2301       1706
     total_cost            0%      0%     0%         774        498
  
- #### Categorical columns Profile
+#### Categorical columns Profile
 ##### payment_method
 - Column distribution shows unique identification of cities.
 
@@ -677,14 +677,78 @@ Column Distribution
     Minimum: 40
     Maximum: 64720
 
-
 ### Table 9: fact_returns
+- Working assumption: one row represents one return order
 
+#### Data types Expected vs Actual
 
+    Columns         Expected        Actual          What we're measuring
+    return_id       Text            Text            Return identifier
+    order_id        Text            Text            order identifier
+    return_date     Date            Date            return date
+    return_reason   Text            Text            reason for return
+    return_amount   Fixed decimal   Fixed decimal   amount returned
+    refund_method   Text            Text            method of refund
+    return_status   Text            Text            status of return order
 
+#### Table size
+    Table: fact_returns
+    Rows: 1056
+    Columns: 7
+    Expected grain: one row per order return
 
+#### Profile return_id
+return_id is the candidate primary key
+- basic requirements are:
+    - return_id should not be null
+    - return_id should not contain errors
+    - return_id should be unique
 
+Column quality
 
+    empty - 0%
+    error - 0%
+
+Column Distribution
+
+    distinct values - 1056
+    unique values - 1056
+
+#### Profile completeness
+
+    Column              Empty  Errors  Nulls    Distinct    Unique
+
+    return_id              0%      0%     0%        1056      1056
+    order_id               0%      0%     0%        1056      1056
+    return_date            0%      0%     0%         679       411
+    return_reason          0%      0%     0%           6         0
+    return_amount          0%      0%     0%         787       648
+    refund_method          0%      0%     0%           6         0
+    return_status          0%      0%     0%           3         0
+    
+#### Categorical columns Profile
+##### return_reason
+- Column distribution shows unique identification of cities.
+
+- No inconsistency that can fragment analysis by city
+
+##### refund_method
+- Column distribution shows unique identification of districts.
+
+- No inconsistency that can fragment analysis by district
+
+##### return_status
+- Column distribution shows unique identification of districts.
+
+- No inconsistency that can fragment analysis by district
+
+#### profile return_date
+    Minimum: 1/8/2022
+    Maximum: 12/31/2024
+
+#### profile return_amount
+    Minimum: 76.5
+    Maximum: 3800.29
 
 
 
