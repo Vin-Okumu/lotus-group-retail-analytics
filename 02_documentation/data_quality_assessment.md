@@ -16,7 +16,7 @@ Our first deliverable is as follows:
    
     dim_date	          Dimension  Date	            1096	         13    date_id          One row/date
     dim_stores	          Dimension  Store	              15	          8    store_id	        One row/store
-    dim_customers	      Dimension  Customer           3000	         10    customer_id      One row/customer
+    dim_customers	      Dimension  Customer           3050	         10    customer_id      One row/customer
     dim_employees	      Dimension  Employee	         216	          8    employee_id      One row/employee
     dim_products	      Dimension  Product	         345	         10    product_id       One row/product
     fact_orders_2022_2023 Fact	     Orders	            7942             10    order_id         One row/ order
@@ -92,7 +92,7 @@ Column distribution contains:
     MALE
     FEMALE
 
-Case inconsistency can fragment gender analysis 
+Case inconsistency can fragment analysis by gender
 
 ##### city
 - Column distribution shows no variation in city names across records
@@ -114,9 +114,9 @@ Case inconsistency can fragment gender analysis
 - Stored as text
 
 #### registration_date
-Minimum - 01/01/2020
-
-Maximum - 12/28/2023
+    
+    Minimum - 01/01/2020
+    Maximum - 12/28/2023
 
 - No suspicous dates recorded
     - No future dates-
@@ -285,6 +285,10 @@ No inconsistency that can fragment analysis in role
     Minimum: 3516
     Maximum: 15490
 
+#### Profile hire_date
+    Minimum: 4/10/2016
+    Maximum: 12/25/2024
+
 ### Table 4: dim_products
 - working assumption: one row represents one product
 
@@ -351,7 +355,7 @@ Column distribution contains:
 No inconsistency that can fragment analysis by category
 
 ##### subcategory
-Column distribution contains:
+- Column distribution contains:
 
     Women wear
     Tops
@@ -369,11 +373,10 @@ Column distribution contains:
     Networking
     Printers
     
-No inconsistency that can fragment analysis by subcategory
+- No inconsistency that can fragment analysis by subcategory
 
 ##### brand
 - Column distribution shows unique identification of brand categories.
-
 - No inconsistency that can fragment analysis by brand
 
 ### Table 5: dim_stores
@@ -432,22 +435,18 @@ Column Distribution
 #### Categorical columns Profile
 ##### city
 - Column distribution shows unique identification of cities.
-
 - No inconsistency that can fragment analysis by city
 
 ##### district
 - Column distribution shows unique identification of districts.
-
 - No inconsistency that can fragment analysis by district
 
 #### region
 - Column distribution shows unique identification of regins.
-
 - No inconsistency that can fragment analysis by region
 
 #### store_type
 - Column distribution shows unique identification of store types.
-
 - No inconsistency that can fragment analysis by store type
 #### profile opening_year
     Minimum: 2016
@@ -569,14 +568,14 @@ Column Distribution
  
  #### Categorical columns Profile
 ##### payment_method
-- Column distribution shows unique identification of cities.
+- Column distribution shows unique identification of payment method.
 
-- No inconsistency that can fragment analysis by city
+- No inconsistency that can fragment analysis by payment method
 
 ##### order_status
-- Column distribution shows unique identification of districts.
+- Column distribution shows unique identification of order status.
 
-- No inconsistency that can fragment analysis by district
+- No inconsistency that can fragment analysis by order status
 
 #### profile order_date
     Minimum: 1/1/2022
@@ -652,14 +651,14 @@ Column Distribution
  
 #### Categorical columns Profile
 ##### payment_method
-- Column distribution shows unique identification of cities.
+- Column distribution shows unique identification of payment method.
 
-- No inconsistency that can fragment analysis by city
+- No inconsistency that can fragment analysis by payment method
 
 ##### order_status
-- Column distribution shows unique identification of districts.
+- Column distribution shows unique identification of orer status.
 
-- No inconsistency that can fragment analysis by district
+- No inconsistency that can fragment analysis by order status
 
 #### profile order_date
     Minimum: 1/1/2024
@@ -728,19 +727,19 @@ Column Distribution
     
 #### Categorical columns Profile
 ##### return_reason
-- Column distribution shows unique identification of cities.
+- Column distribution shows unique identification of return reason.
 
-- No inconsistency that can fragment analysis by city
+- No inconsistency that can fragment analysis by return reason
 
 ##### refund_method
-- Column distribution shows unique identification of districts.
+- Column distribution shows unique identification of refund method.
 
-- No inconsistency that can fragment analysis by district
+- No inconsistency that can fragment analysis by refund method
 
 ##### return_status
-- Column distribution shows unique identification of districts.
+- Column distribution shows unique identification of return status.
 
-- No inconsistency that can fragment analysis by district
+- No inconsistency that can fragment analysis by return status
 
 #### profile return_date
     Minimum: 1/8/2022
@@ -749,7 +748,5 @@ Column Distribution
 #### profile return_amount
     Minimum: 76.5
     Maximum: 3800.29
-
-
 
 
