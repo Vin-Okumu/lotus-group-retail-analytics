@@ -398,7 +398,7 @@ No inconsistency that can fragment analysis by subcategory
     Columns: 8
     Expected grain: one row per store
 
-#### Profile product_id
+#### Profile store_id
 store_id is the candidate primary key
 - basic requirements are:
     - store_id should not be null
@@ -477,7 +477,7 @@ Column Distribution
     Columns: 10
     Expected grain: one row per order detail
 
-#### Profile product_id
+#### Profile detail_id
 detail_id is the candidate primary key
 - basic requirements are:
     - detail_id should not be null
@@ -505,7 +505,7 @@ Column Distribution
     unit_price             0%      0%     0%          93         0
     discount_pct           0%      0%     0%           7         0
     selling_price          0%      0%     0%         537        17
-    unit_cost              0%      0%     0%          66         0    
+    unit_cost              0%      0%     0%          66         0
     line_total_revenue     0%      0%     0%        1239       206
     line_total_cost        0%      0%     0%         187         2
 
@@ -530,10 +530,152 @@ Column Distribution
     total_cost      Fixed decimal   Integer         Cost per order
 
 #### Table size
+    Table: fact_orders_2022_2023
+    Rows: 7942
+    Columns: 10
+    Expected grain: one row per order
 
+#### Profile order_id
+order_id is the candidate primary key
+- basic requirements are:
+    - order_id should not be null
+    - order_id should not contain errors
+    - order_id should be unique
 
+Column quality
+
+    empty - 0%
+    error - 0%
+
+Column Distribution
+
+    distinct values - 7942
+    unique values - 7942
+
+#### Profile completeness
+
+    Column              Empty  Errors  Nulls    Distinct    Unique
+
+    order_id              0%      0%     0%        7942       7942
+    order_date            0%      0%     0%         730          0
+    date_id               0%      0%     0%         730          0
+    customer_id           0%      0%     0%        2788        566
+    store_id              0%      0%     0%          15          0
+    employee_id           0%      0%     0%         217          0
+    payment method        0%      0%     0%          12          0
+    order_status          0%      0%     0%           3          0
+    total_revenue         0%      0%     0%        3654       2530
+    total_cost            0%      0%     0%        1130        666
+ 
+ #### Categorical columns Profile
+##### payment_method
+- Column distribution shows unique identification of cities.
+
+- No inconsistency that can fragment analysis by city
+
+##### order_status
+- Column distribution shows unique identification of districts.
+
+- No inconsistency that can fragment analysis by district
+
+#### profile order_date
+    Minimum: 1/1/2022
+    Maximum: 12/31/2023
+
+#### profile date_id
+    Minimum: 20220101
+    Maximum: 20231231
+
+#### profile total_revenue
+    Minimum: 63
+    Maximum: 105577.5
+
+#### profile total_cost
+    Minimum: 40
+    Maximum: 88410
 
 ### Table 8: fact_orders_2024
+- Working assumption: one row represents one order
+
+#### Data types Expected vs Actual
+
+    Columns         Expected        Actual          What we're measuring
+
+    order_id        Text            Text            Order identifier
+    order_date      Date            Date            Date of order placement
+    date_id         Integer         Integer         Date identifier
+    customer_id     Text            Text            Customer identifier
+    store_id        Integer         Integer         Store identifier
+    employee_id     Text            Text            Employee identifier
+    payment_method  Text            Text            Mode of customer payment
+    order_status    Text            Text            Order status
+    total_revenue   Fixed decimal   Fixed decimal   Revenue per order
+    total_cost      Fixed decimal   Integer         Cost per order
+
+#### Table size
+    Table: fact_orders_2024
+    Rows: 4058
+    Columns: 10
+    Expected grain: one row per order
+
+#### Profile order_id
+order_id is the candidate primary key
+- basic requirements are:
+    - order_id should not be null
+    - order_id should not contain errors
+    - order_id should be unique
+
+Column quality
+
+    empty - 0%
+    error - 0%
+
+Column Distribution
+
+    distinct values - 4058
+    unique values - 4058
+
+#### Profile completeness
+
+    Column              Empty  Errors  Nulls    Distinct    Unique
+
+    order_id              0%      0%     0%        4058       4058
+    order_date            0%      0%     0%         366          0
+    date_id               0%      0%     0%         366          0
+    customer_id           0%      0%     0%        2243       1076
+    store_id              0%      0%     0%          15          0
+    employee_id           0%      0%     0%         217          0
+    payment method        0%      0%     0%          12          0
+    order_status          0%      0%     0%           3          0
+    total_revenue         0%      0%     0%        2301       1706
+    total_cost            0%      0%     0%         774        498
+ 
+ #### Categorical columns Profile
+##### payment_method
+- Column distribution shows unique identification of cities.
+
+- No inconsistency that can fragment analysis by city
+
+##### order_status
+- Column distribution shows unique identification of districts.
+
+- No inconsistency that can fragment analysis by district
+
+#### profile order_date
+    Minimum: 1/1/2024
+    Maximum: 12/31/2024
+
+#### profile date_id
+    Minimum: 20240101
+    Maximum: 20241231
+
+#### profile total_revenue
+    Minimum: 60
+    Maximum: 75120
+
+#### profile total_cost
+    Minimum: 40
+    Maximum: 64720
 
 
 ### Table 9: fact_returns
