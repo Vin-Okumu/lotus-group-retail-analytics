@@ -554,25 +554,19 @@ We don't want to modify the existing columns though, so:
 
     fact_order_details
 
-and call it:
-
-    profile_detail_financial_validation
+and call it: `profile_detail_financial_validation`
 
 ##### First investigate discount_pct
 
 The dataset has discoiunt_pct recorded as 10 to mean 10%
 
-Knowing this, we create:
-
-    `calculated_selling_price`
+Knowing this, we create: `calculated_selling_price`
 
 with:
 
     [unit_price] * (1 - [discount_pct] / 100)
 
-Then we create:
-
-    `check_selling_price`
+Then we create: `check_selling_price`
 
 with:
 
@@ -586,35 +580,87 @@ The rounding is intentional because we're dealing with monetary calculations.
 
 Invalid = 0: Implying the discount/selling-price relationship is internally consistent.
 
-##### Validate line revenue
+### Validate line revenue
 
-Now we create:
-
-    `calculated_line_revenue`
+Now we create: `calculated_line_revenue`
 
 Formula:
 
-[quantity] * [selling_price]
+    [quantity] * [selling_price]
+
+Then create `check_line_revenue`
+
+Formula:
+
+    if Number.Round([line_total_revenue], 2) =
+       Number.Round([calculated_line_revenue], 2)
+    then "Valid"
+    else "Invalid"
+
+**Result**: Invalid = 0%
+
+### Validate line cost
+
+Here we create: `calculated_line_cost`
+
+Formula:
+
+    [quantity] * [unit_cost]
+
+Then we create: `check_line_cost`
+
+Formula:
+
+    if Number.Round([line_total_cost], 2) =
+       Number.Round([calculated_line_cost], 2)
+    then "Valid"
+    else "Invalid"
+
+Again, invalid = 0%
+
+### Now we aggregate the detail table
+
+Having completed the three checks above, we create another Reference from:
+
+    fact_order_details
+
+and call it:
+
+    profile_order_detail_totals
 
 Then:
 
-check_line_revenue
+we transform and group by order_id
 
-Formula:
+Add: 
+- Revenue as new column a
 
-if Number.Round([line_total_revenue], 2) =
-   Number.Round([calculated_line_revenue], 2)
-then "Valid"
-else "Invalid"
+    New column: detail_total_revenue
 
-Filter to:
+    Operation: Sum
 
-Invalid
+    Column: line_total_revenue
+- Cost as a new column
 
-Record:
+    New column: detail_total_cost
+    
+    Operation:Sum
 
-number of invalid rows
-percentage of total detail rows
+    Column: line_total_cost
+- Units as new column
 
-With 25,099 detail records, we'll know exactly how many financial records don't reconcile.
+- detail_total_quantity
+
+    Operation: Sum
+    Column: quantity
+
+We want to end up with approximately:
+
+    order_id
+    detail_total_revenue
+    detail_total_cost
+    detail_total_quantity
+
+and around 12,000 rows, because there are 12,000 orders.
+
 
