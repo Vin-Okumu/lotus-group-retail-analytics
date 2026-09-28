@@ -285,7 +285,7 @@ This deliberately uses Sunday as day 0, making:
 
 Therefore:
 
->= 5 → Friday/Saturday
+    >= 5 → Friday/Saturday
 
 #### Step 11 — Validate `week_of_year`
 
