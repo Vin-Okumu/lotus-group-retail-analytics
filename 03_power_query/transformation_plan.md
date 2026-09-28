@@ -3,7 +3,7 @@
 Lotus Group Retail Analytics: Transformation Plan
 </h1>
 
-### Transformation Candidate Register
+# Transformation Candidate Register
 
 Here we are creating a transformation register
 
@@ -31,7 +31,7 @@ At this point, we have already established the fields that need transformation, 
 
 Before starting to clean, we are interested in establishing whether suspected issues are real, and if they are, how large they are, and whether they require transformation.
 
-### Investigation Sequence
+# Investigation Sequence
 
 We'll investigate in an orderly manner, following the sequence suggested below
 
@@ -48,7 +48,7 @@ We'll investigate in an orderly manner, following the sequence suggested below
 
 We'll start with **Investigation 1: `dim_date`** because it is the foundation for all subsequent time-based analysis.
 
-#### Investigation 1 — Validate `dim_date`
+## Investigation 1 — Validate `dim_date`
 
 Our profiling has already established:
 
@@ -75,7 +75,7 @@ There is nothing "invalid" from Power Query's data-type perspective. The value i
 
 So we're going to test the actual relationships.
 
-##### Step 1 — Create a profiling/reference query
+### Step 1 — Create a profiling/reference query
 
 We don't want to modify the original `dim_date`.
 
@@ -95,7 +95,7 @@ This is important for us to separate:
 
 rather than embedding investigative columns into the production table.
 
-##### Step 2 — Validate `day`
+### Step 2 — Validate `day`
 
 Go to: **Add Column → Custom Column**
 
@@ -111,7 +111,7 @@ Formula:
 
 Now filter check_day to:
 
-###### Results
+#### Results
     Invalid: 0%
     Valid: 100%
 
@@ -119,7 +119,7 @@ Implication:
 
     day correctly represents the day component of full_date.
 
-##### Step 3 — Validate `month`
+### Step 3 — Validate `month`
 
 Create: `check_month`
 
@@ -131,7 +131,7 @@ Formula:
 
 Filter to Invalid.
 
-###### Results
+#### Results
     Invalid: 0%
     Valid: 100%
 
@@ -139,7 +139,7 @@ Implication:
 
     month correctly represents the month component of full_date.
 
-##### Step 4 — Validate `year`
+### Step 4 — Validate `year`
 
 Create: `check_year`
 
@@ -151,7 +151,7 @@ Formula:
 
 Filter to Invalid.
 
-###### Results
+#### Results
     Invalid: 0%
     Valid: 100%
 
@@ -159,7 +159,7 @@ Implication:
 
     year correctly represents the year component of full_date.
 
-##### Step 5 — Validate month_name
+### Step 5 — Validate month_name
 
 Create: `check_month_name`
 
@@ -169,11 +169,11 @@ Formula:
     then "Valid"
     else "Invalid"
 
-###### Results
+#### Results
     Invalid: 0%
     Valid: 100%
 
-##### Step 6 — Validate `quarter`
+### Step 6 — Validate `quarter`
 
 Create: `check_quarter`
 
@@ -183,11 +183,11 @@ Formula:
     then "Valid"
     else "Invalid"
 
-###### Results
+#### Results
     Invalid: 0%
     Valid: 100%
 
-##### Step 7 — Validate `quarter_name`
+### Step 7 — Validate `quarter_name`
 
 Here we first have to know the dataset's naming convention.
 
@@ -204,11 +204,11 @@ Hence we'll use:
     then "Valid"
     else "Invalid"
 
-###### Results
+#### Results
     Invalid: 0%
     Valid: 100%
 
-##### Step 8 — Validate `day_of_week`
+### Step 8 — Validate `day_of_week`
 
 Here, it's important to note that Power Query's:
 
@@ -241,7 +241,7 @@ then we'll use:
     then "Valid"
     else "Invalid"
 
-##### Step 9 — Validate `day_name`
+### Step 9 — Validate `day_name`
 
 Create: `check_day_name`
 
@@ -251,7 +251,7 @@ Our dataset uses English names so:
     then "Valid"
     else "Invalid"
 
-##### Step 10 — Validate `is_weekend`
+### Step 10 — Validate `is_weekend`
 
 We need to first establish the dataset's definition.
 
@@ -287,7 +287,7 @@ Therefore:
 
     >= 5 → Friday/Saturday
 
-##### Step 11 — Validate `week_of_year`
+### Step 11 — Validate `week_of_year`
 
 This one needs slightly more care because week numbering systems differ.
 
@@ -318,11 +318,11 @@ Then compare:
     week_of_year
     calculated_week
 
-###### Results
+#### Results
 
 There are discrepancies occuring, so we'll need to investigate the convention rather than automatically replacing the dataset values.
 
-##### Step 12 — Validate `is_ramadan`
+### Step 12 — Validate `is_ramadan`
 
 This is different:
 - We cannot simply derive this from full_date using a standard Power Query date function.
@@ -364,9 +364,9 @@ rather than isolated random values.
 We won't change is_ramadan just yet.
 
 
-####  Investigation 2: Validate facts_orders date
+##  Investigation 2: Validate facts_orders date
 
-##### Cross-table investigation framework
+### Cross-table investigation framework
 
     Area	                            What we're checking
     1. Orders → Date	                Do order dates and date keys agree, and do keys exist?
@@ -377,7 +377,7 @@ We won't change is_ramadan just yet.
 
 We'll use Merge Queries rather than creating lots of custom columns.
 
-###### 1. First: We'll create the consolidated Orders table
+#### 1. First: We'll create the consolidated Orders table
 
 Because `fact_orders_2022_2023` and `fact_orders_2024` have the same structure, we eventually want:
 
@@ -407,7 +407,7 @@ But before we actually create the production table, let's create a profiling ver
 
 It means the two source tables do not contain duplicate order IDs across the 2022–2024 boundary.
 
-###### 2. Referential-integrity audit
+#### 2. Referential-integrity audit
 
 Now we'll use one repeatable technique.
 
@@ -448,7 +448,7 @@ Name:
 
 meaning: Every order's date_id exists in dim_date.
 
-###### Orders → Customers
+#### Orders → Customers
 
 We want to create another Merge query.
 
@@ -476,7 +476,7 @@ A customer ID appearing multiple times in the dimension can still match an order
 
 The separate question of whether those duplicate customer records should be resolved comes later.
 
-###### Orders → Stores
+#### Orders → Stores
 
 We'll merge: `profile_fact_orders` with  `dim_stores`
 
@@ -493,7 +493,7 @@ using: Left Anti and name it `audit_orders_missing_stores`
 - audit_details_missing_orders:  The table is empty.
 - audit_returns_missing_orders: The table is empty 
 
-###### Cross-table audit table
+#### Cross-table audit table
 
     Relationship	    Fact rows	Distinct FK	Unmatched rows	Result
 
@@ -504,6 +504,117 @@ using: Left Anti and name it `audit_orders_missing_stores`
     Details → Order	    25,099	    12,000	    0	            ?
     Returns → Order	    1,056	    1,056	    0	            ?
 
+## Investigation 3: Financial Reconciliation
 
+Here we're interested in determining whether the financial information at the order-line level agrees with the financial information at the order level.
 
+Our structure is:
+
+    fact_order_details
+            ↓
+        order_id
+            ↓
+    fact_orders
+
+At the detail level we have:
+
+    quantity
+    unit_price
+    discount_pct
+    selling_price
+    unit_cost
+    line_total_revenue
+    line_total_cost
+
+At the order level:
+
+    total_revenue
+    total_cost
+
+### Phase 1 — Validate each order line
+
+Before aggregating anything, we want to test the arithmetic within fact_order_details.
+
+There are three relationships worth checking:
+
+#### A. Discount → selling price
+
+Conceptually:
+    selling_price = unit_price × (1 - discount)
+
+#### B. Quantity → revenue
+    line_total_revenue = quantity × selling_price
+
+#### C. Quantity → cost
+    line_total_cost = quantity × unit_cost
+
+We don't want to modify the existing columns though, so:
+
+- Create a Reference of:
+
+    fact_order_details
+
+and call it:
+
+    profile_detail_financial_validation
+
+##### First investigate discount_pct
+
+The dataset has discoiunt_pct recorded as 10 to mean 10%
+
+Knowing this, we create:
+
+    `calculated_selling_price`
+
+with:
+
+    [unit_price] * (1 - [discount_pct] / 100)
+
+Then we create:
+
+    `check_selling_price`
+
+with:
+
+    if Number.Round([selling_price], 2) =
+       Number.Round([calculated_selling_price], 2)
+    then "Valid"
+    else "Invalid"
+
+The rounding is intentional because we're dealing with monetary calculations.
+- What we're looking for:
+
+Invalid = 0: Implying the discount/selling-price relationship is internally consistent.
+
+##### Validate line revenue
+
+Now we create:
+
+    `calculated_line_revenue`
+
+Formula:
+
+[quantity] * [selling_price]
+
+Then:
+
+check_line_revenue
+
+Formula:
+
+if Number.Round([line_total_revenue], 2) =
+   Number.Round([calculated_line_revenue], 2)
+then "Valid"
+else "Invalid"
+
+Filter to:
+
+Invalid
+
+Record:
+
+number of invalid rows
+percentage of total detail rows
+
+With 25,099 detail records, we'll know exactly how many financial records don't reconcile.
 
