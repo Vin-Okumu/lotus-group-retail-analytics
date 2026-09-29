@@ -55,7 +55,7 @@ Keep missing email as null
 
 Standardize monetary fields to fixed decimal
 
-## Append order tables
+## 3. Append order tables
 
 Create:
 
@@ -67,4 +67,24 @@ Select:
     fact_orders_2024
 
 Name of the resulting query: `fact_orders`
+
+## Resulting model
+
+                        dim_date
+                           │
+                           │
+    dim_customers ───── fact_orders ───── dim_stores
+                           │
+                           │
+                     dim_employees
+                           │
+                           │
+                    fact_order_details
+                           │
+                           │
+                      dim_products
+
+
+    fact_orders ───── fact_returns
+
 
