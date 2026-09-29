@@ -24,6 +24,10 @@ In Power BI → Modeling → New Table, enter:
         }
     )
 
+We won't necessarily create all measures at once. 
+ 
+ - A good rule of thumb is to create a handful and validate before proceeding with the next handful
+
 # Core Sales measures
 
 These will be the most important measures in the project.
