@@ -130,5 +130,34 @@ This should tell us how many distinct products generated sales in the current co
 
 This is more useful than simply averaging the selling_price column because it is weighted by units sold.
 
+# Core Returns measures
+
+Now we use `fact_returns`.
+
+## Returned Amount
+    Returned Amount =
+    SUM(fact_returns[return_amount])
+
+## Number of Returns
+    Number of Returns =
+    DISTINCTCOUNT(fact_returns[return_id])
+
+## Return Rate
+
+I'd recommend defining return rate based on returned orders relative to total orders, rather than dividing returned monetary value by sales.
+
+    Return Rate % =
+    DIVIDE(
+        [Number of Returns],
+        [Total Orders]
+    )
+
+We'll format as Percentage.
+
+This gives management an intuitive measure:
+ - What proportion of orders resulted in a recorded return?
+
+
+
 
 
