@@ -19,14 +19,15 @@ Lotus Group Retail Analytics
     │   ├── business_requirements.md
     │   ├── data_dictionary.md
     │   ├── data_quality_assessment.md
-    │   ├── data_model.md
-    │   └── dax_measure_catalog.md
+    │   └── data_model.md
     │
     ├── 03_power_query/
-    │   └── transformation_notes.md
+    │   ├── transformation_notes.md
+    │   ├── transformation_plan.md
+    │   └── transformations_log.md
     │
-    ├── 04_sql/
-    │   └── analysis_queries.sql
+    ├── 04_DAX/
+    │   └── DAX_measures_catalog.md
     │
     ├── 05_powerbi/
     │   ├── lotus_group_retail.pbix
