@@ -1,9 +1,9 @@
 
 <h1 align = "center"> 
 Lotus Group Retail Analytics
-<h3 align = "center">
+<h5 align = "center">
 An End-to-End Retail Business Intelligence Project Using Power BI
-</h3>
+</h5>
 </h1>
 
 <p align = "center">
