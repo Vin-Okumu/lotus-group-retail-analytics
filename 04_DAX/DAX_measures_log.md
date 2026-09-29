@@ -157,7 +157,34 @@ We'll format as Percentage.
 This gives management an intuitive measure:
  - What proportion of orders resulted in a recorded return?
 
+# Time-performance measures
 
+Now we can take advantage of `dim_date`.
+
+## Sales YTD
+    Sales YTD =
+    TOTALYTD(
+        [Total Sales],
+        dim_date[full_date]
+    )
+
+## Sales Previous Year
+    Sales Previous Year =
+    CALCULATE(
+        [Total Sales],
+        SAMEPERIODLASTYEAR(dim_date[full_date])
+    )
+
+## YoY Sales Growth
+    YoY Sales Growth % =
+    DIVIDE(
+        [Total Sales] - [Sales Previous Year],
+        [Sales Previous Year]
+    )
+
+Format as Percentage.
+
+This will be particularly useful for your executive page.
 
 
 
