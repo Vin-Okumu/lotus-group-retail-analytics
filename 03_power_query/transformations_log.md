@@ -13,14 +13,58 @@ Fix confirmed structural/type issues, standardize obvious inconsistencies, prese
 
 Applied:
 
-    birth_date: Text → Date
-    phone: Integer → Text
-    gender: standardize male, MALE → Male; female, FEMALE → Female
-    Keep missing email as null
-    Do not delete the 50 duplicate customer IDs yet.
+### Remove duplicates
+Our table has:
 
-For the duplicate customers, we'll document:
+    3,050 rows
+    3,000 distinct customer_id
+    50 duplicate records: duplicates confirmed as exact matches
 
-Duplicate customer IDs were identified during profiling. Because the records were not fully investigated to determine whether they represent exact duplicates, updated customer records, or conflicting records, they were retained to avoid unsupported deletion.
+Remove duplicates: In Power Query:
 
-This is much safer than arbitrarily removing them.
+    Open dim_customers → Select all columns → Go to Home → Remove Rows → Remove Duplicates.
+
+Should restore our intended grain as: One row = one customer
+
+
+### Convert birth_date: Text → Date
+
+In Power Query:
+
+    Select birth_date → Transform → Data Type → Date
+
+- If Power Query asks about locale and the values are formatted as something like: 12/25/1985
+
+    - Choose the appropriate locale rather than allowing an incorrect interpretation.
+    
+### Convert phone: Integer → Text
+
+    Transform → Data Type → Text
+
+### gender: standardize 
+
+male, MALE → Male; female, FEMALE → Female
+    
+    Transform → Format → Capitalize Each Word
+
+### Email
+
+Keep missing email as null
+    
+## 2. dim_products
+
+Standardize monetary fields to fixed decimal
+
+## Append order tables
+
+Create:
+
+    Home → Append Queries → Append Queries as New
+
+Select:
+
+    fact_orders_2022_2023
+    fact_orders_2024
+
+Name of the resulting query: `fact_orders`
+
