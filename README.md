@@ -1,11 +1,10 @@
 
 <h1 align = "center"> 
 Lotus Group Retail Analytics
-</h1>
-
-<h2 align = "center">
+<h3 align = "center">
 An End-to-End Retail Business Intelligence Project Using Power BI
-</h2>
+</h3>
+</h1>
 
 <p align = "center">
 <img src = "Cover.png" width = "1000" height = "350">
