@@ -207,5 +207,31 @@ And:
 
 We can later use these to investigate whether sales patterns differ during Ramadan.
 
+# Weekend sales
+
+Our date table also contains the weekend indicator. So we can create
+
+    Weekend Sales =
+    CALCULATE(
+        [Total Sales],
+        dim_date[is_weekend] = 1
+    )
+
+And:
+
+    Weekday Sales =
+    CALCULATE(
+        [Total Sales],
+        dim_date[is_weekend] = 0
+    )
+
+This gives us another straightforward behavioral analysis without creating unnecessary complexity.
+
+
+
+
+
+
+
 
 
