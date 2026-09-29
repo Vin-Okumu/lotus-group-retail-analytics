@@ -90,6 +90,25 @@ This should help distinguish between:
 - getting more orders
 - selling more products per order.
 
+# Core Customer measures
+
+## Total Customers
+    Total Customers =
+    DISTINCTCOUNT(fact_orders[customer_id])
+
+This counts customers who actually appear in the order data.
+
+## Average Sales per Customer
+    Sales per Customer =
+    DIVIDE(
+        [Total Sales],
+        [Total Customers]
+    )
+
+We shuldn't interpret this as formal customer lifetime value. 
+ - It's simply average sales attributable to each customer within the selected filter context.
+
+
 
 
 
