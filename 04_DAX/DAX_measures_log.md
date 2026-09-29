@@ -186,5 +186,26 @@ Format as Percentage.
 
 This will be particularly useful for your executive page.
 
+# Ramadan analysis
+
+Since the dataset specifically contains `is_ramadan`, let's create one simple measure.
+
+## Ramadan Sales
+    Ramadan Sales =
+    CALCULATE(
+        [Total Sales],
+        dim_date[is_ramadan] = 1
+    )
+
+And:
+
+    Non-Ramadan Sales =
+    CALCULATE(
+        [Total Sales],
+        dim_date[is_ramadan] = 0
+    )
+
+We can later use these to investigate whether sales patterns differ during Ramadan.
+
 
 
