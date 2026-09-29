@@ -108,7 +108,27 @@ This counts customers who actually appear in the order data.
 We shuldn't interpret this as formal customer lifetime value. 
  - It's simply average sales attributable to each customer within the selected filter context.
 
+# Core Product measures
 
+We can now leverage the relationship:
+
+    dim_products → fact_order_details
+
+## Products Sold
+    Products Sold =
+    DISTINCTCOUNT(fact_order_details[product_id])
+
+This should tell us how many distinct products generated sales in the current context.
+ - We can also call this Active Products Sold to make the interpretation clearer.
+
+## Average Selling Price
+    Average Selling Price =
+    DIVIDE(
+        [Total Sales],
+        [Units Sold]
+    )
+
+This is more useful than simply averaging the selling_price column because it is weighted by units sold.
 
 
 
