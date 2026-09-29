@@ -53,3 +53,43 @@ This is important because we established earlier that the order-detail table is 
     )
 
 We'll format this as Percentage.
+
+# Core Order measures
+
+## Total Orders
+
+Since `fact_orders` is at order grain:
+
+    Total Orders =
+    DISTINCTCOUNT(fact_orders[order_id])
+
+This is preferable to COUNTROWS() because it explicitly communicates that we are counting unique orders.
+
+## Units Sold
+    Units Sold =
+    SUM(fact_order_details[quantity])
+
+## Average Order Value
+    Average Order Value =
+    DIVIDE(
+        [Total Sales],
+        [Total Orders]
+    )
+
+We'll use this as one of the key executive KPIs.
+
+## Units per Order
+    Units per Order =
+    DIVIDE(
+        [Units Sold],
+        [Total Orders]
+    )
+
+This should help distinguish between:
+
+- getting more orders
+- selling more products per order.
+
+
+
+
