@@ -10,6 +10,8 @@ An End-to-End Retail Business Intelligence Project Using Power BI
 <img src = "Cover.png" width = "1000" height = "350">
 </p>
 
+---
+
 # Repository Structure
 
     lotus-group-retail-bi/
@@ -42,18 +44,15 @@ An End-to-End Retail Business Intelligence Project Using Power BI
     │
     └── README.md
 
-# Background
-# Lotus Group Retail BI
+---
 
-
-
-## 1. Project Overview
+# Project Overview
 
 **Lotus Group** is a fictional retail business operating across Egypt, with stores selling products across **Clothing and Electronics**.
 
 This project develops an end-to-end Business Intelligence solution for Lotus Group using **Power BI**.
 
-Rather than treating the project as a simple dashboard-building exercise, the objective is to demonstrate the complete analytical workflow involved in turning imperfect operational data into a structured reporting and decision-support solution.
+Rather than treating the project as a simple dashboard-building exercise, our objective was to demonstrate the complete analytical workflow involved in turning imperfect operational data into a structured reporting and decision-support solution.
 
 The project covers:
 
@@ -68,13 +67,13 @@ The project covers:
 * Data-quality documentation
 * Business insight generation
 
-The underlying dataset intentionally contains realistic data-quality and modeling challenges. This provides an opportunity to demonstrate not only how to build a dashboard, but also how to **investigate, document, and make informed decisions about imperfect data**.
+The underlying raw dataset intentionally contains realistic data-quality and modeling challenges, which provides an opportunity to demonstrate not only how to build a dashboard, but also how to **investigate, document, and make informed decisions about imperfect data**.
 
 ---
 
-# 2. Business Objective
+# Business Objective
 
-The primary objective is to develop an integrated retail BI solution that enables Lotus Group management to:
+Our primary objective was to develop an integrated retail BI solution that enables Lotus Group management to:
 
 * Monitor overall sales and profitability
 * Understand changes in sales performance over time
@@ -83,14 +82,14 @@ The primary objective is to develop an integrated retail BI solution that enable
 * Understand customer purchasing patterns
 * Examine employee-related sales activity
 * Monitor returns
-* Investigate seasonal purchasing patterns, including Ramadan
+* Investigate seasonal purchasing patterns, including during Ramadan
 * Identify important data-quality limitations that may affect reporting
 
 The project therefore combines **operational reporting, descriptive analytics, and data-quality assessment** within a single BI solution.
 
 ---
 
-# 3. Key Business Questions
+# Key Business Questions
 
 The analysis is designed around questions such as:
 
@@ -136,7 +135,7 @@ The analysis is designed around questions such as:
 
 ---
 
-# 4. Dataset Structure
+# Dataset Structure
 
 The final Power BI model contains **8 loaded tables**.
 
@@ -169,7 +168,7 @@ The original source tables are retained as staging queries for transformation tr
 
 ---
 
-# 5. Data Quality Investigation
+# Data Quality Investigation
 
 One of the main purposes of this project is to demonstrate that BI development begins **before the dashboard**.
 
@@ -213,9 +212,7 @@ The orders are retained in the analytical model so that missing employee informa
 
 ### Date data
 
-The date dimension was subjected to additional validation because it contains several derived calendar attributes.
-
-Attributes including:
+The date dimension was subjected to additional validation because it contains several derived calendar attributes including:
 
 * day
 * month
@@ -230,7 +227,7 @@ were checked against the underlying date.
 
 The dataset's calendar conventions were retained where they represented deliberate source conventions rather than clear errors.
 
-The date table also contains business-specific attributes such as:
+The date table also contained business-specific attributes such as:
 
 * weekend indicator
 * Ramadan indicator
@@ -239,9 +236,9 @@ which support subsequent seasonal analysis.
 
 ---
 
-# 6. Data Transformation
+# Data Transformation
 
-Power Query was used as the primary ETL layer.
+Using Power Query as the primary ETL layer:
 
 The transformation process focused on making the data **analytically reliable without unnecessarily altering the source information**.
 
@@ -262,7 +259,7 @@ An important principle throughout the transformation process was:
 
 ---
 
-# 7. Data Model
+# Data Model
 
 The final model follows a dimensional modeling approach.
 
@@ -304,7 +301,7 @@ The `fact_orders` → `fact_order_details` relationship reflects the difference 
 
 ---
 
-# 8. Analytical Layer — DAX
+# Analytical Layer — DAX
 
 The analytical layer is implemented using reusable DAX measures rather than relying heavily on calculated columns.
 
@@ -363,9 +360,9 @@ The measure layer is designed to provide reusable calculations that can be appli
 
 ---
 
-# 9. Planned Dashboard
+# Dashboard
 
-The Power BI report is being developed around several analytical perspectives.
+The Power BI report is developed around several analytical perspectives.
 
 ### Page 1 — Executive Overview
 
@@ -426,7 +423,7 @@ The final dashboard structure may evolve as the analysis reveals which questions
 
 ---
 
-# 10. Project Workflow
+# Project Workflow
 
 The project follows the following workflow:
 
@@ -467,41 +464,7 @@ The dashboard is the **final delivery layer**, rather than the starting point of
 
 ---
 
-# 11. Repository Structure
-
-```text
-lotus-group-retail-bi/
-│
-├── README.md
-│
-├── data/
-│   ├── raw/
-│   └── README.md
-│
-├── documentation/
-│   ├── business_requirements.md
-│   ├── data_dictionary.md
-│   ├── data_quality_assessment.md
-│   ├── data_model.md
-│   └── dax_measure_catalog.md
-│
-├── power_query/
-│   └── transformation_notes.md
-│
-├── sql/
-│   └── analysis_queries.sql
-│
-├── powerbi/
-│   ├── lotus_group_retail.pbix
-│   └── screenshots/
-│
-└── analysis/
-    └── business_insights.md
-```
-
----
-
-# 12. Tools & Technologies
+# Tools & Technologies
 
 | Tool             | Purpose                                      |
 | ---------------- | -------------------------------------------- |
@@ -513,7 +476,7 @@ lotus-group-retail-bi/
 
 ---
 
-# 13. What This Project Demonstrates
+# What We Intend to Demonstrate with This Project
 
 This project is intended to demonstrate practical capability across the BI lifecycle, including:
 
@@ -541,20 +504,9 @@ Where a transformation or modeling decision was made, the project aims to docume
 
 ---
 
-# 14. Project Status
+# Project Status
 
 **Current stage:** DAX measure development completed; dashboard development next.
-
-### Completed
-
-* [x] Business questions defined
-* [x] Raw tables profiled
-* [x] Data-quality issues investigated
-* [x] Transformation decisions documented
-* [x] Power Query transformation layer created
-* [x] Final 8-table model loaded
-* [x] Relationships established
-* [x] Core DAX measure layer developed
 
 ### In Progress
 
@@ -569,7 +521,7 @@ Where a transformation or modeling decision was made, the project aims to docume
 
 ---
 
-# 15. Data Disclaimer
+# Data Disclaimer
 
 This project uses a **fictional/educational retail dataset** created for analytical and learning purposes.
 
