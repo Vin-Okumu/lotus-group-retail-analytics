@@ -383,6 +383,7 @@ Single-direction + Active
 Think of the model in terms of business processes rather than simply tables:
 
 **Sales process**
+    
     Customers ──┐
     Stores ─────┤
     Employees ──┤
