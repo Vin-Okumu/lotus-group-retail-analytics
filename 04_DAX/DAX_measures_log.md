@@ -227,6 +227,34 @@ And:
 
 This gives us another straightforward behavioral analysis without creating unnecessary complexity.
 
+# Employee attribution
+
+With 632 orer records missing employee IDs, I'll create one measure specifically to quantify that issue.
+
+    Orders with Employee ID =
+    CALCULATE(
+        [Total Orders],
+        NOT ISBLANK(fact_orders[employee_id])
+    )
+
+And:
+
+    Orders without Employee ID =
+    CALCULATE(
+        [Total Orders],
+        ISBLANK(fact_orders[employee_id])
+    )
+
+Then employee attribution rate becomes:
+
+    Employee Attribution Rate % =
+    DIVIDE(
+        [Orders with Employee ID],
+        [Total Orders]
+    )
+
+This isn't necessarily a dashboard KPI for executives. But it's useful as a data-quality/business-process metric, particularly for the portfolio because it demonstrates that we didn't simply ignore the missing employee attribution.
+
 
 
 
