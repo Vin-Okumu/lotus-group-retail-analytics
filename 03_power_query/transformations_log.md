@@ -89,16 +89,16 @@ Name of the resulting query: `fact_orders`
 
 # Transformation register, final
 
-    Table	            Transformation	                Reason
+    Table	            Transformation	                    Reason
 
-    dim_customers	    Removed 50 exact duplicate rows	Restore one-row-per-customer grain
-    dim_customers	    birth_date Text → Date	        Correct semantic data type
-    dim_customers	    phone Integer → Text	        Phone numbers are identifiers, not measures
-    dim_customers	    Standardized gender	            Prevent category fragmentation
-    dim_products	    Monetary fields → Fixed Decimal	Consistent financial typing
-    fact_orders	        Appended 2022–23 + 2024	        Create consolidated order fact
-    fact_orders	        Revenue/cost → Fixed Decimal	Consistent financial typing
-    fact_order_details	Monetary fields → Fixed Decimal	Consistent financial typing
-    fact_returns	    return_amount → Fixed Decimal	Consistent financial typing
+    dim_customers	    Removed 50 exact duplicate rows	    Restore one-row-per-customer grain
+    dim_customers	    birth_date Text → Date	            Correct semantic data type
+    dim_customers	    phone Integer → Text	            Phone numbers are identifiers, not measures
+    dim_customers	    Standardized gender	                Prevent category fragmentation
+    dim_products	    Monetary fields → Fixed Decimal	    Consistent financial typing
+    fact_orders	        Appended 2022–23 + 2024	            Create consolidated order fact
+    fact_orders	        Revenue/cost → Fixed Decimal	    Consistent financial typing
+    fact_order_details	Monetary fields → Fixed Decimal	    Consistent financial typing
+    fact_returns	    return_amount → Fixed Decimal	    Consistent financial typing
 
 
