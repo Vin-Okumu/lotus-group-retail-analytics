@@ -366,6 +366,10 @@ The Power BI report is developed around several analytical perspectives.
 
 ### Page 1 — Executive Overview
 
+<p align = "center">
+<img src = "05_power_bi/screenshots/executive_analysis.png" width = "1000" height = "400">
+</p>
+
 This is a management-level summary of:
 
 * Revenue
