@@ -398,20 +398,39 @@ Examines:
       - *How much on average did clothing bring in as revenue in period y?*
 * **Ramadan vs Non-Ramadan Sales**: For a business in an Islamic region, this provides perspective on whether the Lotus Group gains more revenue during Ramadan or non-Ramadan season.
 
+---
+
 ### Page 2 — Sales & Product Performance
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/sales_and_product_performance.png" width = "950" height = "450">
 </p>
 
+This page is essential for answering the question: **What products and product groups are driving Lotus Group's sales, volume, and profitability?**
+
+The cards at the top provide a great overview of **Total Sales**, **Total Units Sold**, **Total Orders Placed**, **Average Order Value**, and **Gross Profit**
+
 Examines:
 
-* Category performance
-* Subcategory performance
-* Product contribution
-* Units sold
-* Selling price
-* Revenue and profitability
+* **Category performance** - Perfect for answering:
+   - *Which category contributed to the highest revenue in period x?*
+   - *How much sales were realized by each category in period y?*
+      - Embedded tooltips provide further detail regarding
+         * Gross profit
+         * Percentage Gross Margin
+         * Units sold per category
+         * Percentage contribution to total sales realized
+* **Subcategory performance** - Answers:
+   - *Which subcategory drove the largest revenue in period x?*
+   - *How much did each subcategory contribute in perms of sale for period y?*
+* **Product contribution** - Best answers:
+   - *Which products brought in the largest revenue in period x?*
+   - *How much in revenue did each of the top 10 products bring to the business in period y?*
+* **Sales Trend** - Best answers:
+   - *How has Lotus Group's sales faired over period y?*
+   - *In which periods did the company realize the most revenue from electronics/clothing sales?*
+
+---
 
 ### Page 3 — Store & Geographic Performance
 
