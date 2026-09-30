@@ -367,7 +367,7 @@ The Power BI report is developed around several analytical perspectives.
 ### Page 1 — Executive Overview
 
 <p align = "center">
-<img src = "05_power_bi/screenshots/executive_overview.png" width = "900" height = "400">
+<img src = "05_power_bi/screenshots/executive_overview.png" width = "950" height = "450">
 </p>
 
 This is a management-level summary of:
@@ -383,7 +383,11 @@ This is a management-level summary of:
 
 ### Page 2 — Sales & Product Performance
 
-Focuses on:
+<p align = "center">
+<img src = "05_power_bi/screenshots/sales_and_product_performance.png" width = "950" height = "450">
+</p>
+
+This page focuses on:
 
 * Category performance
 * Subcategory performance
@@ -393,6 +397,10 @@ Focuses on:
 * Revenue and profitability
 
 ### Page 3 — Store & Geographic Performance
+
+<p align = "center">
+<img src = "05_power_bi/screenshots/store_and_geographic_performance.png" width = "950" height = "450">
+</p>
 
 Examines:
 
@@ -404,7 +412,11 @@ Examines:
 
 ### Page 4 — Customer Analysis
 
-Examines:
+<p align = "center">
+<img src = "05_power_bi/screenshots/customer_analysis.png" width = "950" height = "450">
+</p>
+
+This page examines:
 
 * Customer activity
 * Loyalty tiers
@@ -412,12 +424,20 @@ Examines:
 
 ### Page 5 — Employee Analysis
 
-Examines:
+<p align = "center">
+<img src = "05_power_bi/screenshots/employee_analysis.png" width = "950" height = "450">
+</p>
+
+This page examines:
 
 * Employee-attributed orders
 * Employee sales activity
 
 ### Page 6 — Seasonality Analysis
+
+<p align = "center">
+<img src = "05_power_bi/screenshots/seasonality_analysis.png" width = "950" height = "450">
+</p>
 
 Examines:
 
@@ -427,7 +447,11 @@ Examines:
 
 ### Page 7 — Returns Analysis
 
-Examines:
+<p align = "center">
+<img src = "05_power_bi/screenshots/returns_analysis.png" width = "950" height = "450">
+</p>
+
+This page examines:
 
 * Return volume
 * Return value
