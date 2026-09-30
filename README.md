@@ -364,7 +364,7 @@ The measure layer is designed to provide reusable calculations that can be appli
 
 The Power BI report is developed around several analytical perspectives.
 
-### Page 1 — Executive Overview
+## Page 1 — Executive Overview
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/executive_overview.png" width = "950" height = "450">
@@ -400,7 +400,7 @@ Examines:
 
 ---
 
-### Page 2 — Sales & Product Performance
+## Page 2 — Sales & Product Performance
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/sales_and_product_performance.png" width = "950" height = "450">
@@ -432,7 +432,7 @@ Examines:
 
 ---
 
-### Page 3 — Store & Geographic Performance
+## Page 3 — Store & Geographic Performance
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/store_and_geographic_performance.png" width = "950" height = "450">
@@ -446,11 +446,13 @@ Examines:
 * Store type
 * Store-level profitability
 
-### Page 4 — Customer Analysis
+## Page 4 — Customer Analysis
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/customer_analysis.png" width = "950" height = "450">
 </p>
+
+This page aims to answer such questions as: **Where is Lotus Group performing well?**, and **How does performance differ across stores, cities, regions, and store types?**
 
 Examines:
 
@@ -458,7 +460,7 @@ Examines:
 * Loyalty tiers
 * Customer contribution
 
-### Page 5 — Employee Analysis
+## Page 5 — Employee Analysis
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/employee_analysis.png" width = "950" height = "450">
@@ -469,7 +471,7 @@ Examines:
 * Employee-attributed orders
 * Employee sales activity
 
-### Page 6 — Seasonality Analysis
+## Page 6 — Seasonality Analysis
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/seasonality_analysis.png" width = "950" height = "450">
@@ -481,7 +483,7 @@ Examines:
 * Weekend vs weekday patterns
 * Trends over time
 
-### Page 7 — Returns Analysis
+## Page 7 — Returns Analysis
 
 <p align = "center">
 <img src = "05_power_bi/screenshots/returns_analysis.png" width = "950" height = "450">
