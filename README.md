@@ -370,18 +370,17 @@ The Power BI report is developed around several analytical perspectives.
 <img src = "05_power_bi/screenshots/executive_overview.png" width = "950" height = "450">
 </p>
 
-This is a management-level summary 
+This is a management-level summary: At a glance, it answers the question of **How is Lotus Group performing?** **What is driving that performance?** and **Where should management investigate further?**
 
 Examines:
 
-* Revenue
-* Orders
-* Units
-* Profitability
-* Sales trends
-* Store performance
-* Product/category contribution
-* Returns and seasonal indicators
+* **Revenue**, **Orders**, and **Profitability**: All extractable from the data cards at the top
+* **Sales trends**: Compares sales for selected periods with sales from similar periods in the past.
+   - For instance, the executive can now compare sales in Q1 of 2024 with those in Q1 of 2023
+      - provides insights into whether the business has improved on sales or not.
+* **Store performance**: Gives an impression of the best and worst performing stores by sales made within a select period.
+* **Product/category contribution**: Gives the executive better picture of which category of products drive sales best, *is it clothing or electronics that comprise the largest share of teh business' revenue?*
+* **Ramadan vs Non-Ramadan Sales**: For a buiness in an Islamic region, this provides perspective on whether the lotus Group gains more revenue during Ramadan or whether it's during non-Ramadan season.
 
 ### Page 2 — Sales & Product Performance
 
