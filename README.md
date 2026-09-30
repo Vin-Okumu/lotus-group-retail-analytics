@@ -448,6 +448,8 @@ Examines:
 * Store type
 * Store-level profitability
 
+---
+
 ## Page 4 — Customer Analysis
 
 <p align = "center">
@@ -462,6 +464,8 @@ Examines:
 * Loyalty tiers
 * Customer contribution
 
+---
+
 ## Page 5 — Employee Analysis
 
 <p align = "center">
@@ -472,6 +476,8 @@ Examines:
 
 * Employee-attributed orders
 * Employee sales activity
+
+---
 
 ## Page 6 — Seasonality Analysis
 
@@ -484,6 +490,8 @@ Examines:
 * Ramadan vs non-Ramadan sales
 * Weekend vs weekday patterns
 * Trends over time
+
+---
 
 ## Page 7 — Returns Analysis
 
