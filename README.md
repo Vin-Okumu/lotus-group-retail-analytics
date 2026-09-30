@@ -370,7 +370,9 @@ The Power BI report is developed around several analytical perspectives.
 <img src = "05_power_bi/screenshots/executive_overview.png" width = "950" height = "450">
 </p>
 
-This is a management-level summary of:
+This is a management-level summary 
+
+Examines:
 
 * Revenue
 * Orders
@@ -387,7 +389,7 @@ This is a management-level summary of:
 <img src = "05_power_bi/screenshots/sales_and_product_performance.png" width = "950" height = "450">
 </p>
 
-This page focuses on:
+Examines:
 
 * Category performance
 * Subcategory performance
@@ -416,7 +418,7 @@ Examines:
 <img src = "05_power_bi/screenshots/customer_analysis.png" width = "950" height = "450">
 </p>
 
-This page examines:
+Examines:
 
 * Customer activity
 * Loyalty tiers
@@ -428,7 +430,7 @@ This page examines:
 <img src = "05_power_bi/screenshots/employee_analysis.png" width = "950" height = "450">
 </p>
 
-This page examines:
+Examines:
 
 * Employee-attributed orders
 * Employee sales activity
@@ -451,13 +453,11 @@ Examines:
 <img src = "05_power_bi/screenshots/returns_analysis.png" width = "950" height = "450">
 </p>
 
-This page examines:
+Examines:
 
 * Return volume
 * Return value
 * Return reasons
-
-The final dashboard structure may evolve as the analysis reveals which questions are most useful.
 
 ---
 
@@ -514,7 +514,7 @@ The dashboard is the **final delivery layer**, rather than the starting point of
 
 ---
 
-# What We Intend to Demonstrate with This Project
+# What We Intend to Demonstrate Taking on This Project
 
 This project is intended to demonstrate practical capability across the BI lifecycle, including:
 
@@ -542,23 +542,6 @@ Where a transformation or modeling decision was made, the project aims to docume
 
 ---
 
-# Project Status
-
-**Current stage:** DAX measure development completed; dashboard development next.
-
-### In Progress
-
-* [ ] Executive dashboard
-* [ ] Sales & product dashboard
-* [ ] Store & geographic dashboard
-* [ ] Customer & employee dashboard
-* [ ] Returns & seasonality dashboard
-* [ ] Business insights
-* [ ] Final documentation
-* [ ] Dashboard screenshots
-
----
-
 # Data Disclaimer
 
 This project uses a **fictional/educational retail dataset** created for analytical and learning purposes.
@@ -573,7 +556,7 @@ The dataset is intentionally structured to contain realistic data-quality challe
 
 **Vincent Okumu**
 
-This repository documents an end-to-end BI project developed to demonstrate practical skills in data analysis, data preparation, dimensional modeling, Power BI, Power Query and DAX.
+> This repository documents an end-to-end BI project developed to demonstrate practical skills in data analysis, data preparation, dimensional modeling, Power BI, Power Query and DAX.
 
 
 
