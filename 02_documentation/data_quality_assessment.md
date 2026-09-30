@@ -61,7 +61,7 @@ Our first deliverable is as follows:
     Distinct values: 3000
     Unique values: 2950
 
-Violates expected dimension grain
+Not unique, so the expected one-row-per-customer grain is not currently satisfied
 
 #### Missing values
 - Here we are going column by column and confirming column quality.
@@ -95,7 +95,7 @@ Column distribution contains:
 Case inconsistency can fragment analysis by gender
 
 ##### city
-- Column distribution shows no variation in city names across records
+- No obvious categorical inconsistencies were observed in the profiled city values.
 - Each city is captured consistently across respective records
 
 ##### region
@@ -301,7 +301,7 @@ No inconsistency that can fragment analysis in role
     category            Text            Text        product category
     subcategory         Text            Text        product subcategory
     brand               Text            Text        product brand
-    unit_price_text     Text            Text        product price category
+    unit_price_text     Text            Text        Text-form representation of unit price
     unit_price          Fixed decimal   Integer     product unit price
     unit_cost           Fixed decimal   Integer     
     stock_qty           Integer         Integer     product quantity
