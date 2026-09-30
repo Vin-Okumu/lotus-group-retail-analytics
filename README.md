@@ -366,7 +366,7 @@ The Power BI report is developed around several analytical perspectives.
 
 ### Page 1 — Executive Overview
 
-A management-level summary of:
+This is a management-level summary of:
 
 * Revenue
 * Orders
@@ -398,26 +398,36 @@ Examines:
 * Store type
 * Store-level profitability
 
-### Page 4 — Customer & Employee Analysis
+### Page 4 — Customer Analysis
 
 Examines:
 
 * Customer activity
 * Loyalty tiers
 * Customer contribution
+
+### Page 5 — Employee Analysis
+
+Examines:
+
 * Employee-attributed orders
 * Employee sales activity
 
-### Page 5 — Returns & Seasonality
+### Page 6 — Seasonality Analysis
+
+Examines:
+
+* Ramadan vs non-Ramadan sales
+* Weekend vs weekday patterns
+* Trends over time
+
+### Page 7 — Returns Analysis
 
 Examines:
 
 * Return volume
 * Return value
 * Return reasons
-* Ramadan vs non-Ramadan sales
-* Weekend vs weekday patterns
-* Trends over time
 
 The final dashboard structure may evolve as the analysis reveals which questions are most useful.
 
