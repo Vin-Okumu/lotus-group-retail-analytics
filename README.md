@@ -375,12 +375,28 @@ This is a management-level summary: At a glance, it answers the question of **Ho
 Examines:
 
 * **Revenue**, **Orders**, and **Profitability**: All extractable from the data cards at the top
+
 * **Sales trends**: Compares sales for selected periods with sales from similar periods in the past.
    - For instance, the executive can now compare sales in Q1 of 2024 with those in Q1 of 2023
       - provides insights into whether the business has improved on sales or not.
-* **Store performance**: Gives an impression of the best and worst performing stores by sales made within a select period.
-* **Product/category contribution**: Gives the executive better picture of which category of products drive sales best, *is it clothing or electronics that comprise the largest share of teh business' revenue?*
-* **Ramadan vs Non-Ramadan Sales**: For a buiness in an Islamic region, this provides perspective on whether the lotus Group gains more revenue during Ramadan or whether it's during non-Ramadan season.
+
+* **Store performance**: Gives an impression of the store performance for whichever select period.
+   - Suitable for answering questions such as:
+      - *Which store brought in the most revenue per sale?*
+      - *Which one brought in the least revenue per sale?*
+      - *How much revenue per sale did the best performing store bring in?*
+
+* **Regional Performance**: Provides the executive an overview of how stores in given regions perform overall.
+   - Best for answering:
+      - *Which region brought in the most revenue on average in perid x? and what was the average revenue the region brought in?*
+      - *Which is the least performing region by average revenue made per sale?*
+
+* **Product/category contribution**: Provides the executive a better picture of which category of products drive sales best.
+   - Perfect for answering questions such as:
+      - *Is it clothing or electronics that drive our revenue the most?*
+      - *How much on average did electronics bring in revenue in period x?*
+      - *How much on average did clothing bring in as revenue in period y?*
+* **Ramadan vs Non-Ramadan Sales**: For a business in an Islamic region, this provides perspective on whether the Lotus Group gains more revenue during Ramadan or non-Ramadan season.
 
 ### Page 2 — Sales & Product Performance
 
