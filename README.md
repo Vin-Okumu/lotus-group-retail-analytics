@@ -438,6 +438,8 @@ Examines:
 <img src = "05_power_bi/screenshots/store_and_geographic_performance.png" width = "950" height = "450">
 </p>
 
+This page aims to answer such questions as: **Where is Lotus Group performing well?**, and **How does performance differ across stores, cities, regions, and store types?**
+
 Examines:
 
 * Store sales
@@ -452,7 +454,7 @@ Examines:
 <img src = "05_power_bi/screenshots/customer_analysis.png" width = "950" height = "450">
 </p>
 
-This page aims to answer such questions as: **Where is Lotus Group performing well?**, and **How does performance differ across stores, cities, regions, and store types?**
+
 
 Examines:
 
