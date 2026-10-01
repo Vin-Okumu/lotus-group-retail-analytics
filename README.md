@@ -13,7 +13,7 @@ An End-to-End Retail Business Intelligence Project Using Power BI
 ---
 
 # Repository Structure
-
+```
     lotus-group-retail-bi/
     │
     ├── 01_data/
@@ -43,7 +43,7 @@ An End-to-End Retail Business Intelligence Project Using Power BI
     │   └── business_insights.md
     │
     └── README.md
-
+```
 ---
 
 # Project Overview
@@ -455,7 +455,7 @@ Examines:
    - *On average, how much in sales does each type of store generate over a period x?*
 * **Store size profitability** - Best answers:
    - *Are larger stores more profitable than smaller stores?* - *in other words, do larger stores generate higher profit margins than smaller ones?*
-   
+
 ---
 
 ## Page 4 — Customer Analysis
@@ -490,8 +490,17 @@ This page best answers the questions: **How much sales activity can actually be 
 
 Examines:
 
-* Employee-attributed orders
-* Employee sales activity
+* **Employee-attributed orders** - best answers:
+   - *Of the total orders sold over period x, how many were attributed to employees?*
+   - *What was the employee attribution rate over period y?* in other words *what percentage of orders can be traced back to an employee*
+   - *How many orders sold in month x were not attributed to employees?*
+   - *What is the trend of orders not being attributed to employees over a period y?*
+   - *Which employees have the most sales attributed to them over a period x?*
+* **Employee sales activity** - best answers:
+   - *How much of sales over period x were attributed to cashiers/sales associates/store managers/department managers/senior sales associates?*
+* **Employee Allocation** - best answers:
+   - *Which stores rank top 5 in terms of number of employeesassigned?*
+   - *Does store size directly correlate with the number of employees assigned?*
 
 ---
 
@@ -501,11 +510,19 @@ Examines:
 <img src = "05_power_bi/screenshots/seasonality_analysis.png" width = "950" height = "450">
 </p>
 
+This page is essential to understanding **When sales occur** and **how seasonality affects performance**.
+
 Examines:
 
-* Ramadan vs non-Ramadan sales
-* Weekend vs weekday patterns
-* Trends over time
+* **Ramadan vs non-Ramadan sales** - best answers:
+   - *Is revenue from sales generally higher during Ramadan season or not?*
+   - *How much revenue, on average does Lotus Group garner during Ramadan vs non-Ramadan seasons?*
+* **Weekend vs weekday patterns** - best answers:
+   - *Is revenue from sales generally higher during weekdays or weekends?*
+   - *How much on average does Lotus Group generate in revenue on weekdays vs on weekends?*
+* **Trends over time** - best answers:
+   - *What is teh overall trend in monthly sales over a period x?*
+   - *Does the trend in sales differ during Ramadan and non-Ramadan seasons?*
 
 ---
 
@@ -515,11 +532,18 @@ Examines:
 <img src = "05_power_bi/screenshots/returns_analysis.png" width = "950" height = "450">
 </p>
 
+This page is essential for understanding **what the return patterns look like**
+
 Examines:
 
-* Return volume
-* Return value
-* Return reasons
+* **Return value** - best answers:
+   - *How much in value did customers return in month x of year y?*
+   - *How much in value of returned orders have been refunded/rejected/still pending?*
+   - *During which quarter did Lotus Group realize the most returns by value?*
+* **Return trend** - best answers:
+   - *What has been the trend in merchandise being returned by value over a period x?*
+* **Return reasons** - best answers:
+   - *What reasons account for the most orders being returned by value?*
 
 ---
 
@@ -558,9 +582,7 @@ Business Analysis
 Documentation & Insights
 ```
 
-This workflow is intentional.
-
-The dashboard is the **final delivery layer**, rather than the starting point of the project.
+This workflow is intentional: It reiterates the logic that the dashboard is the **final delivery layer**, rather than the starting point of the project.
 
 ---
 
