@@ -420,7 +420,7 @@ Examines:
          * Percentage Gross Margin
          * Units sold per category
          * Percentage contribution to total sales realized
-* **Subcategory performance** - Answers:
+* **Subcategory performance** - Best answers:
    - *Which subcategory drove the largest revenue in period x?*
    - *How much did each subcategory contribute in perms of sale for period y?*
 * **Product contribution** - Best answers:
@@ -438,16 +438,24 @@ Examines:
 <img src = "05_power_bi/screenshots/store_and_geographic_performance.png" width = "950" height = "450">
 </p>
 
-This page aims to answer such questions as: **Where is Lotus Group performing well?**, and **How does performance differ across stores, cities, regions, and store types?**
+This page is key to answering such questions as: **Where is Lotus Group performing well?**, and **How does performance differ across stores, cities, regions, and store types?**
 
 Examines:
 
-* Store sales
-* Regional performance
-* City performance
-* Store type
-* Store-level profitability
-
+* **Store sales** - Best answers: 
+   - *Which stores generate Lotus Group the most sales over a period x?*
+   - *Do total sales per store directly correspond to gross profit for respective stores?*
+   - *Does average order value per store correlate with total sales - in other words, do stores with high average order value automatically register high total sales over a period y?*   - 
+* **Regional performance**: Best answers:
+   - *Which region generates Lotus Group the most revenue from sales?*
+   - *How much does each region generate in sales for the business?*
+   - *What has been the comparative trend in sales for all regions over a period x?*
+* **Store type** - Best answers:
+   - *Which types f stores generate the most revenue for Lotus Group over a period y?*
+   - *On average, how much in sales does each type of store generate over a period x?*
+* **Store size profitability** - Best answers:
+   - *Are larger stores more profitable than smaller stores?* - *in other words, do larger stores generate higher profit margins than smaller ones?*
+   
 ---
 
 ## Page 4 — Customer Analysis
@@ -456,13 +464,19 @@ Examines:
 <img src = "05_power_bi/screenshots/customer_analysis.png" width = "950" height = "450">
 </p>
 
-
+This page best answers the question: **Who are Lotus Group's customers?**, **Where are they?**, and **How much business do they bring to Lotus Group?**
 
 Examines:
 
-* Customer activity
-* Loyalty tiers
+* **Customer activity** - best answers:
+   - *How many cutsomers in total transacted with Lotus Group over period x?*
+   - *How much on average does a customer transact with the business over period y?*
+   - *Which customers are notably transacting the most, and which regions do they come from?*
+* **Loyalty tiers** - best answers:
+   - *How many customers are affiliated to the platinum/gold/silver/bronze tiers?*
+   - *How much in customer purchases were realized in each tier*
 * Customer contribution
+   - *What has been the trend in customer engagement in terms of purchases over a period x?*
 
 ---
 
@@ -471,6 +485,8 @@ Examines:
 <p align = "center">
 <img src = "05_power_bi/screenshots/employee_analysis.png" width = "950" height = "450">
 </p>
+
+This page best answers the questions: **How much sales activity can actually be attributed to employees?** and **Where is employee attribution incomplete?**
 
 Examines:
 
