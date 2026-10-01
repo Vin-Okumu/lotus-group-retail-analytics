@@ -552,34 +552,25 @@ Examines:
 The project follows the following workflow:
 
 ```text
-Raw Data
-   │
-   ▼
-Data Profiling
-   │
-   ▼
-Data Quality Assessment
-   │
-   ▼
-Power Query Transformation
-   │
-   ▼
-Data Model
-   │
-   ▼
-Relationships
-   │
-   ▼
-DAX Measures
-   │
-   ▼
-Dashboard Development
-   │
-   ▼
-Business Analysis
-   │
-   ▼
-Documentation & Insights
+                        Raw Data 
+                           ▼
+                     Data Profiling
+                           ▼
+                  Data Quality Assessment
+                           ▼
+                 Power Query Transformation
+                           ▼
+                       Data Model
+                           ▼
+                     Relationships
+                           ▼
+                     DAX Measures
+                           ▼
+                  Dashboard Development
+                           ▼
+                    Business Analysis
+                           ▼
+                Documentation & Insights
 ```
 
 This workflow is intentional: It reiterates the logic that the dashboard is the **final delivery layer**, rather than the starting point of the project.
