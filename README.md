@@ -175,7 +175,7 @@ This project uses a **fictional, educational dataset**. The company, customers, 
 
 I can do the same for your business: *clean your data, build a Power BI report your team trusts, and show you where your profit really comes from.*
 
-Invite to work on [Upwork](https://www.upwork.com/freelancers/uv23o9) · Reach out on [LinkedIn](https://www.linkedin.com/in/vince-okumu23/) · send me an email at vinny.otieno23@gmail.com
+Invite to work on [Upwork](https://www.upwork.com/freelancers/uv23o9) · Reach out on [LinkedIn](https://www.linkedin.com/in/vince-okumu23/) · or send me an email at vinny.otieno23@gmail.com
 
 **Vincent Okumu** · Data Analyst / BI Developer
 
