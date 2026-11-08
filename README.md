@@ -1,11 +1,11 @@
 <h1 align="center">Lotus Group Retail Analytics</h1>
 
 <p align="center">
-<b>A Power BI analysis of a 15-store Egyptian retail chain (EGP 45.4M in sales, 12,000 orders, 2022–2024). It found that clothing earns 54% of gross profit from just 24% of sales.</b>
+<img src="Cover.png" width="1000">
 </p>
 
 <p align="center">
-<img src="Cover.png" width="1000">
+<b>A Power BI analysis of a 15-store Egyptian retail chain (EGP 45.4M in sales, 12,000 orders, 2022–2024). It found that clothing earns 54% of gross profit from just 24% of sales.</b>
 </p>
 
 <p align="center">
@@ -174,4 +174,5 @@ This project uses a **fictional, educational dataset**. The company, customers, 
 ---
 
 **Vincent Okumu** · Data Analyst / BI Developer
+
 *Open to freelance Power BI, Power Query and retail analytics work.*
