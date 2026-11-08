@@ -1,646 +1,177 @@
+<h1 align="center">Lotus Group Retail Analytics</h1>
 
-<h1 align = "center"> 
-Lotus Group Retail Analytics
-<h5 align = "center">
-An End-to-End Retail Business Intelligence Project Using Power BI
-</h5>
-</h1>
+<p align="center">
+<b>A Power BI analysis of a 15-store Egyptian retail chain (EGP 45.4M in sales, 12,000 orders, 2022–2024). It found that clothing earns 54% of gross profit from just 24% of sales.</b>
+</p>
 
-<p align = "center">
-<img src = "Cover.png" width = "1000" height = "350">
+<p align="center">
+<img src="Cover.png" width="1000">
+</p>
+
+<p align="center">
+<code>Power BI</code> · <code>Power Query</code> · <code>DAX</code> · <code>Star-schema modelling</code> · <code>Data quality auditing</code> · <code>7-page interactive report</code>
 </p>
 
 ---
 
-# Repository Structure
+## At a glance
+
+| | |
+|---|---|
+| **Revenue analysed** | EGP 45.4M across 12,000 orders and 43,300 units |
+| **Gross margin** | 21.4% overall: 47.4% on clothing vs 13.1% on electronics |
+| **Growth** | Sales fell 4.8% in 2023, then recovered 7.3% in 2024 |
+| **Customer concentration** | The top 20% of customers drive 59% of revenue |
+| **Returns** | 8.8% of orders are returned. 37% of returned value comes from operational errors such as duplicate orders and wrong items |
+| **Deliverable** | 7-page interactive Power BI report, documented data model and 25 reusable DAX measures |
+
+---
+
+## 1. The problem
+
+> *"We run 15 stores across Egypt selling clothing and electronics. Our sales data is spread across nine separate tables, and we don't trust some of it. We need one place to see where our revenue and profit actually come from, which stores and customers matter most, what Ramadan does to our sales, and why customers return products."*
+
+Lotus Group's management had operational data but no single, trustworthy view of performance. The job was to clean and model the data, build a reporting layer, and turn it into clear answers on sales, products, stores, customers, staff, seasonality and returns.
+
+---
+
+## 2. The data
+
+| | |
+|---|---|
+| **Source** | Lotus Group operational exports (a fictional, educational dataset, see the [disclaimer](#data-disclaimer)) |
+| **Size** | 9 raw CSV tables, ~43,000 rows in total |
+| **Time range** | 1 Jan 2022 – 31 Dec 2024 (3 full years, including 3 Ramadan seasons) |
+| **Scope** | 15 stores in 7 regions · 3,000 customers · 345 products · 216 employees · 25,099 order lines · 1,056 returns |
+
+The data contained the kinds of problems real client data has, and each one was investigated and documented before anything was built:
+
+- **50 exact duplicate customer records** (3,050 rows but only 3,000 customers). They were removed.
+- **632 orders (5.3%) with no employee recorded.** They were kept so that no revenue was lost, and flagged with an attribution-rate KPI.
+- **Orders split across two tables** (2022–23 and 2024). They were appended into one fact table.
+- **Wrong data types** (phone numbers stored as integers, dates stored as text) and **inconsistent category labels**. Both were fixed.
+- **Missing customer emails.** These were left blank on purpose rather than filled with invented values.
+
+---
+
+## 3. Approach
+
 ```
-    lotus-group-retail-bi/
-    │
-    ├── 01_data/
-    │   ├── raw/
-    │   └── README.md
-    │
-    ├── 02_documentation/
-    │   ├── project_breakdown.md
-    │   ├── business_requirements.md
-    │   ├── data_dictionary.md
-    │   ├── data_quality_assessment.md
-    │   └── data_model.md
-    │
-    ├── 03_power_query/
-    │   ├── transformation_notes.md
-    │   ├── transformation_plan.md
-    │   └── transformations_log.md
-    │
-    ├── 04_DAX/
-    │   └── DAX_measures_catalog.md
-    │
-    ├── 05_powerbi/
-    │   ├── lotus_group_retail.pbix
-    │   └── screenshots/
-    │
-    ├── 06_analysis/
-    │   └── business_insights.md
-    │
-    └── README.md
-```
----
-
-# Project Overview
-
-**Lotus Group** is a fictional retail business operating across Egypt, with stores selling products across **Clothing and Electronics**.
-
-This project develops an end-to-end Business Intelligence solution for Lotus Group using **Power BI**.
-
-Rather than treating the project as a simple dashboard-building exercise, our objective was to demonstrate the complete analytical workflow involved in turning imperfect operational data into a structured reporting and decision-support solution.
-
-The project covers:
-
-* Data profiling and quality assessment
-* Data cleaning and transformation using Power Query
-* Fact and dimension table design
-* Star-schema modeling
-* Relationship design
-* DAX measure development
-* Interactive Power BI reporting
-* Retail performance analysis
-* Data-quality documentation
-* Business insight generation
-
-The underlying raw dataset intentionally contains realistic data-quality and modeling challenges, which provides an opportunity to demonstrate not only how to build a dashboard, but also how to **investigate, document, and make informed decisions about imperfect data**.
-
----
-
-# Business Objective
-
-Our primary objective was to develop an integrated retail BI solution that enables Lotus Group management to:
-
-* Monitor overall sales and profitability
-* Understand changes in sales performance over time
-* Compare store and regional performance
-* Identify important product and category drivers
-* Understand customer purchasing patterns
-* Examine employee-related sales activity
-* Monitor returns
-* Investigate seasonal purchasing patterns, including during Ramadan
-* Identify important data-quality limitations that may affect reporting
-
-The project therefore combines **operational reporting, descriptive analytics, and data-quality assessment** within a single BI solution.
-
----
-
-# Key Business Questions
-
-The analysis is designed around questions such as:
-
-### Sales Performance
-
-* How much revenue is Lotus Group generating?
-* How are sales changing over time?
-* How much gross profit is being generated?
-* What is the gross margin?
-* How large is the average order?
-
-### Product Performance
-
-* Which categories and subcategories generate the most sales?
-* Which products contribute most to revenue?
-* How many products are actively generating sales?
-* How does selling price vary across products and categories?
-
-### Store Performance
-
-* Which stores generate the most revenue?
-* How does performance differ across regions?
-* Do different store types exhibit different sales patterns?
-
-### Customer Performance
-
-* How many customers are purchasing from Lotus Group?
-* How much sales value is associated with the customer base?
-* How does performance vary across customer segments such as loyalty tiers?
-
-### Returns
-
-* How many returns are recorded?
-* What is the value of returned merchandise?
-* What reasons are associated with returns?
-* How do returns vary over time?
-
-### Seasonality
-
-* How do sales differ between Ramadan and non-Ramadan periods?
-* How do weekend and weekday sales compare?
-* Are there identifiable seasonal patterns in purchasing activity?
-
----
-
-# Dataset Structure
-
-The final Power BI model contains **8 loaded tables**.
-
-### Dimension tables
-
-| Table           | Grain                     | Purpose                                 |
-| --------------- | ------------------------- | --------------------------------------- |
-| `dim_customers` | One row per customer      | Customer attributes                     |
-| `dim_date`      | One row per calendar date | Time intelligence and calendar analysis |
-| `dim_employees` | One row per employee      | Employee attributes                     |
-| `dim_products`  | One row per product       | Product attributes                      |
-| `dim_stores`    | One row per store         | Store and geographic attributes         |
-
-### Fact tables
-
-| Table                | Grain                          | Purpose                       |
-| -------------------- | ------------------------------ | ----------------------------- |
-| `fact_orders`        | One row per order              | Order-level sales activity    |
-| `fact_order_details` | One row per order-product line | Product-level sales and cost  |
-| `fact_returns`       | One row per return             | Returned merchandise activity |
-
-The original order data was supplied in two separate tables:
-
-* `fact_orders_2022_2023`
-* `fact_orders_2024`
-
-These were appended in Power Query to create the final `fact_orders` table.
-
-The original source tables are retained as staging queries for transformation traceability but are not loaded into the final analytical model.
-
----
-
-# Data Quality Investigation
-
-One of the main purposes of this project is to demonstrate that BI development begins **before the dashboard**.
-
-The raw data was systematically profiled to investigate:
-
-* Row and column counts
-* Data types
-* Missing values
-* Duplicate records
-* Unique values
-* Date ranges
-* Categorical consistency
-* Key uniqueness
-* Referential relationships between tables
-* Derived date attributes
-
-Several issues were identified and documented.
-
-### Customer data
-
-The raw `dim_customers` table contained **3,050 rows**, but only **3,000 distinct customers**.
-
-Investigation showed that the duplicated records were exact matches. Therefore, the 50 duplicate rows were removed during Power Query transformation.
-
-Other customer-level issues included:
-
-* `birth_date` stored as text
-* `phone` stored as an integer rather than text
-* inconsistent capitalization in gender values
-* missing email values
-
-The missing email values were retained rather than artificially replaced because missing contact information is different from an unknown value.
-
-### Employee attribution
-
-The order data contains orders for which the employee ID was **not captured**.
-
-This is treated as a **missing employee attribution issue**, rather than as evidence of invalid employee IDs.
-
-The orders are retained in the analytical model so that missing employee information does not result in the loss of sales records.
-
-### Date data
-
-The date dimension was subjected to additional validation because it contains several derived calendar attributes including:
-
-* day
-* month
-* year
-* month name
-* quarter
-* quarter name
-* day of week
-* day name
-
-were checked against the underlying date.
-
-The dataset's calendar conventions were retained where they represented deliberate source conventions rather than clear errors.
-
-The date table also contained business-specific attributes such as:
-
-* weekend indicator
-* Ramadan indicator
-
-which support subsequent seasonal analysis.
-
----
-
-# Data Transformation
-
-Using Power Query as the primary ETL layer:
-
-The transformation process focused on making the data **analytically reliable without unnecessarily altering the source information**.
-
-Key transformations included:
-
-* Removing exact duplicate customer records
-* Converting date fields to appropriate date types
-* Converting identifier fields such as phone numbers to text
-* Standardizing categorical values
-* Converting monetary fields to Fixed Decimal Number
-* Appending the 2022–2023 and 2024 order tables
-* Standardizing data types across the final fact tables
-* Retaining documented source attributes where no clear transformation was justified
-
-An important principle throughout the transformation process was:
-
-> **Do not "fix" data simply because it looks unusual. Investigate first, establish the business meaning, and transform only when there is sufficient justification.**
-
----
-
-# Data Model
-
-The final model follows a dimensional modeling approach.
-
-```text
-                         dim_date
-                            │
-                            │
-                            ▼
-dim_customers ───────► fact_orders ◄────── dim_stores
-                            │
-                            │
-                            ▼
-                     fact_order_details
-                            ▲
-                            │
-                      dim_products
-
-                      dim_employees
-                            │
-                            ▼
-                       fact_orders
-
-dim_date ─────────────► fact_returns
+Raw CSVs → Profiling & quality audit → Power Query cleaning → Star-schema model → DAX measures → 7-page report → Insights
 ```
 
-The main relationships are:
+1. **Profiling and data-quality audit.** Every table was checked for row counts, key uniqueness, nulls, duplicates, date ranges and referential integrity. → [`data_quality_assessment.md`](02_documentation/data_quality_assessment.md)
+2. **Cleaning and transformation in Power Query.** Duplicates were removed, data types fixed, labels standardised and the order tables appended. Every step was logged with its reason. → [`transformations_log.md`](03_power_query/transformations_log.md)
+3. **Data modelling.** A star schema with 5 dimension tables (date, customers, stores, employees, products) and 3 fact tables (orders, order lines, returns), joined by one-to-many relationships with single-direction filters.
+4. **DAX measure layer.** 25 reusable measures cover sales, margin, AOV, YoY growth, YTD, return rate, Ramadan vs non-Ramadan and weekend vs weekday sales, and employee attribution rate. → [`DAX_measures_catalog.md`](04_DAX/DAX_measures_catalog.md)
+5. **Report design.** Seven pages, each built around one stakeholder's questions: Executive, Sales & Product, Store & Geography, Customers, Employees, Seasonality and Returns.
 
-* `dim_date` → `fact_orders`
-* `dim_customers` → `fact_orders`
-* `dim_stores` → `fact_orders`
-* `dim_employees` → `fact_orders`
-* `dim_products` → `fact_order_details`
-* `fact_orders` → `fact_order_details`
-* `dim_date` → `fact_returns`
-
-The model uses **one-to-many relationships with single-direction filtering**.
-
-The `fact_orders` → `fact_order_details` relationship reflects the difference in grain between order headers and product-level order lines.
+**Tools:** Power BI Desktop · Power Query (M) · DAX · Git/GitHub
 
 ---
 
-# Analytical Layer — DAX
+## 4. Results
 
-The analytical layer is implemented using reusable DAX measures rather than relying heavily on calculated columns.
+### Executive overview
 
-Core measures include:
-
-### Sales & Profitability
-
-* Total Sales
-* Total Cost
-* Gross Profit
-* Gross Margin %
-
-### Order Performance
-
-* Total Orders
-* Units Sold
-* Average Order Value
-* Units per Order
-
-### Customer Performance
-
-* Total Customers
-* Sales per Customer
-
-### Product Performance
-
-* Products Sold
-* Average Selling Price
-
-### Returns
-
-* Returned Amount
-* Number of Returns
-* Return Rate %
-
-### Time Intelligence
-
-* Sales YTD
-* Sales Previous Year
-* YoY Sales Growth %
-
-### Seasonality
-
-* Ramadan Sales
-* Non-Ramadan Sales
-* Weekend Sales
-* Weekday Sales
-
-### Data Quality
-
-* Orders with Employee ID
-* Orders without Employee ID
-* Employee Attribution Rate %
-
-The measure layer is designed to provide reusable calculations that can be applied across different dimensions and dashboard pages.
-
----
-
-# Dashboard
-
-The Power BI report is developed around several analytical perspectives.
-
-## Page 1 — Executive Overview
-
-<p align = "center">
-<img src = "05_power_bi/screenshots/executive_overview.png" width = "950" height = "450">
+<p align="center">
+<img src="05_power_bi/screenshots/executive_overview.png" width="950">
 </p>
 
-This is a management-level summary: At a glance, it answers the question of **How is Lotus Group performing?** **What is driving that performance?** and **Where should management investigate further?**
+### Sales and product performance
 
-Examines:
-
-* **Revenue**, **Orders**, and **Profitability**: All extractable from the data cards at the top
-
-* **Sales trends**: Compares sales for selected periods with sales from similar periods in the past.
-   - For instance, the executive can now compare sales in Q1 of 2024 with those in Q1 of 2023
-      - provides insights into whether the business has improved on sales or not.
-
-* **Store performance**: Gives an impression of the store performance for whichever select period.
-   - Suitable for answering questions such as:
-      - *Which store brought in the most revenue per sale?*
-      - *Which one brought in the least revenue per sale?*
-      - *How much revenue per sale did the best performing store bring in?*
-
-* **Regional Performance**: Provides the executive an overview of how stores in given regions perform overall.
-   - Best for answering:
-      - *Which region brought in the most revenue on average in perid x? and what was the average revenue the region brought in?*
-      - *Which is the least performing region by average revenue made per sale?*
-
-* **Product/category contribution**: Provides the executive a better picture of which category of products drive sales best.
-   - Perfect for answering questions such as:
-      - *Is it clothing or electronics that drive our revenue the most?*
-      - *How much on average did electronics bring in revenue in period x?*
-      - *How much on average did clothing bring in as revenue in period y?*
-* **Ramadan vs Non-Ramadan Sales**: For a business in an Islamic region, this provides perspective on whether the Lotus Group gains more revenue during Ramadan or non-Ramadan season.
-
----
-
-## Page 2 — Sales & Product Performance
-
-<p align = "center">
-<img src = "05_power_bi/screenshots/sales_and_product_performance.png" width = "950" height = "450">
+<p align="center">
+<img src="05_power_bi/screenshots/sales_and_product_performance.png" width="950">
 </p>
 
-This page is essential for answering the question: **What products and product groups are driving Lotus Group's sales, volume, and profitability?**
+### Key findings
 
-The cards at the top provide a great overview of **Total Sales**, **Total Units Sold**, **Total Orders Placed**, **Average Order Value**, and **Gross Profit**
+**1. Electronics brings in the revenue, but clothing brings in the profit.**
+Electronics accounts for 76% of sales but earns only a 13.1% margin. Clothing accounts for 24% of sales at a 47.4% margin, which makes it **54% of total gross profit** (EGP 5.2M vs 4.5M).
 
-Examines:
+**2. Three flagship stores carry the business.**
+The three Greater Cairo flagships produce **37% of all sales**. The seven Small-format stores produce 29% between them, and each one averages about a third of a flagship's revenue.
 
-* **Category performance** - Perfect for answering:
-   - *Which category contributed to the highest revenue in period x?*
-   - *How much sales were realized by each category in period y?*
-      - Embedded tooltips provide further detail regarding
-         * Gross profit
-         * Percentage Gross Margin
-         * Units sold per category
-         * Percentage contribution to total sales realized
-* **Subcategory performance** - Best answers:
-   - *Which subcategory drove the largest revenue in period x?*
-   - *How much did each subcategory contribute in perms of sale for period y?*
-* **Product contribution** - Best answers:
-   - *Which products brought in the largest revenue in period x?*
-   - *How much in revenue did each of the top 10 products bring to the business in period y?*
-* **Sales Trend** - Best answers:
-   - *How has Lotus Group's sales faired over period y?*
-   - *In which periods did the company realize the most revenue from electronics/clothing sales?*
+**3. Revenue is highly concentrated in a small group of customers.**
+The **top 20% of customers generate 59% of revenue**, and the top 10% generate 39%. However, average spend per customer is almost the same in every loyalty tier (about EGP 15–16K), so the loyalty programme isn't identifying the high-value customers.
 
----
+**4. Ramadan lowers electronics sales but not clothing.**
+Average daily sales are **14% lower during Ramadan**. All of that drop comes from electronics (-19% per day). Clothing sales hold steady and rise slightly (+3%).
 
-## Page 3 — Store & Geographic Performance
+**5. Over a third of returned value could be prevented.**
+Returns total EGP 4.0M (8.8% of sales value). The largest single reason is **duplicate orders (21% of returned value)**, and wrong items delivered add another 16%. Both are process failures, not product problems.
 
-<p align = "center">
-<img src = "05_power_bi/screenshots/store_and_geographic_performance.png" width = "950" height = "450">
-</p>
+**6. Sales recovered in 2024.**
+After a 4.8% fall in 2023, sales grew **7.3% in 2024** to EGP 15.6M. Margin held steady at about 21% throughout.
 
-This page is key to answering such questions as: **Where is Lotus Group performing well?**, and **How does performance differ across stores, cities, regions, and store types?**
+<details>
+<summary><b>See the other 5 report pages</b></summary>
 
-Examines:
+#### Store and geographic performance
+<img src="05_power_bi/screenshots/store_and_geographic_performance.png" width="950">
 
-* **Store sales** - Best answers: 
-   - *Which stores generate Lotus Group the most sales over a period x?*
-   - *Do total sales per store directly correspond to gross profit for respective stores?*
-   - *Does average order value per store correlate with total sales - in other words, do stores with high average order value automatically register high total sales over a period y?*   - 
-* **Regional performance**: Best answers:
-   - *Which region generates Lotus Group the most revenue from sales?*
-   - *How much does each region generate in sales for the business?*
-   - *What has been the comparative trend in sales for all regions over a period x?*
-* **Store type** - Best answers:
-   - *Which types f stores generate the most revenue for Lotus Group over a period y?*
-   - *On average, how much in sales does each type of store generate over a period x?*
-* **Store size profitability** - Best answers:
-   - *Are larger stores more profitable than smaller stores?* - *in other words, do larger stores generate higher profit margins than smaller ones?*
+#### Customer analysis
+<img src="05_power_bi/screenshots/customer_analysis.png" width="950">
+
+#### Employee analysis
+<img src="05_power_bi/screenshots/employee_analysis.png" width="950">
+
+#### Seasonality analysis
+<img src="05_power_bi/screenshots/seasonality_analysis.png" width="950">
+
+#### Returns analysis
+<img src="05_power_bi/screenshots/returns_analysis.png" width="950">
+
+</details>
 
 ---
 
-## Page 4 — Customer Analysis
+## 5. Recommendations
 
-<p align = "center">
-<img src = "05_power_bi/screenshots/customer_analysis.png" width = "950" height = "450">
-</p>
-
-This page best answers the question: **Who are Lotus Group's customers?**, **Where are they?**, and **How much business do they bring to Lotus Group?**
-
-Examines:
-
-* **Customer activity** - best answers:
-   - *How many cutsomers in total transacted with Lotus Group over period x?*
-   - *How much on average does a customer transact with the business over period y?*
-   - *Which customers are notably transacting the most, and which regions do they come from?*
-* **Loyalty tiers** - best answers:
-   - *How many customers are affiliated to the platinum/gold/silver/bronze tiers?*
-   - *How much in customer purchases were realized in each tier*
-* Customer contribution
-   - *What has been the trend in customer engagement in terms of purchases over a period x?*
+1. **Grow and protect clothing.** It earns more than half the gross profit. Give it more floor space, marketing and stock depth, especially in the Small stores, where higher-margin goods matter most.
+2. **Use electronics to bring customers in, and sell high-margin add-ons alongside it.** Bundle accessories, warranties and audio products with laptops, phones and TVs to raise the 13% margin.
+3. **Fix the checkout and fulfilment problems behind returns.** Adding duplicate-order detection at the point of sale and pick-and-pack checks could prevent up to EGP 1.5M in returns over a period like this one.
+4. **Redesign the loyalty tiers around actual spend.** The top 20% of customers should be in the top tiers. At the moment, half of all revenue comes from Bronze members.
+5. **Plan electronics promotions around Ramadan.** Shift electronics campaigns to the weeks before and after Ramadan, and push clothing (Eid outfits) during it.
+6. **Make staff record the employee on every order.** About 5% of orders can't be credited to anyone, which weakens any commission or performance analysis.
 
 ---
 
-## Page 5 — Employee Analysis
+## 6. How to run
 
-<p align = "center">
-<img src = "05_power_bi/screenshots/employee_analysis.png" width = "950" height = "450">
-</p>
+**Requirements:** Power BI Desktop (Windows, free)
 
-This page best answers the questions: **How much sales activity can actually be attributed to employees?** and **Where is employee attribution incomplete?**
-
-Examines:
-
-* **Employee-attributed orders** - best answers:
-   - *Of the total orders sold over period x, how many were attributed to employees?*
-   - *What was the employee attribution rate over period y?* in other words *what percentage of orders can be traced back to an employee*
-   - *How many orders sold in month x were not attributed to employees?*
-   - *What is the trend of orders not being attributed to employees over a period y?*
-   - *Which employees have the most sales attributed to them over a period x?*
-* **Employee sales activity** - best answers:
-   - *How much of sales over period x were attributed to cashiers/sales associates/store managers/department managers/senior sales associates?*
-* **Employee Allocation** - best answers:
-   - *Which stores rank top 5 in terms of number of employeesassigned?*
-   - *Does store size directly correlate with the number of employees assigned?*
-
----
-
-## Page 6 — Seasonality Analysis
-
-<p align = "center">
-<img src = "05_power_bi/screenshots/seasonality_analysis.png" width = "950" height = "450">
-</p>
-
-This page is essential to understanding **When sales occur** and **how seasonality affects performance**.
-
-Examines:
-
-* **Ramadan vs non-Ramadan sales** - best answers:
-   - *Is revenue from sales generally higher during Ramadan season or not?*
-   - *How much revenue, on average does Lotus Group garner during Ramadan vs non-Ramadan seasons?*
-* **Weekend vs weekday patterns** - best answers:
-   - *Is revenue from sales generally higher during weekdays or weekends?*
-   - *How much on average does Lotus Group generate in revenue on weekdays vs on weekends?*
-* **Trends over time** - best answers:
-   - *What is teh overall trend in monthly sales over a period x?*
-   - *Does the trend in sales differ during Ramadan and non-Ramadan seasons?*
-
----
-
-## Page 7 — Returns Analysis
-
-<p align = "center">
-<img src = "05_power_bi/screenshots/returns_analysis.png" width = "950" height = "450">
-</p>
-
-This page is essential for understanding **what the return patterns look like**
-
-Examines:
-
-* **Return value** - best answers:
-   - *How much in value did customers return in month x of year y?*
-   - *How much in value of returned orders have been refunded/rejected/still pending?*
-   - *During which quarter did Lotus Group realize the most returns by value?*
-* **Return trend** - best answers:
-   - *What has been the trend in merchandise being returned by value over a period x?*
-* **Return reasons** - best answers:
-   - *What reasons account for the most orders being returned by value?*
-
----
-
-# Project Workflow
-
-The project follows the following workflow:
-
-```text
-                        Raw Data 
-                           ▼
-                     Data Profiling
-                           ▼
-                  Data Quality Assessment
-                           ▼
-                 Power Query Transformation
-                           ▼
-                       Data Model
-                           ▼
-                     Relationships
-                           ▼
-                     DAX Measures
-                           ▼
-                  Dashboard Development
-                           ▼
-                    Business Analysis
-                           ▼
-                Documentation & Insights
+```bash
+git clone https://github.com/Vin-Okumu/lotus-group-retail-analytics.git
 ```
 
-This workflow is intentional: It reiterates the logic that the dashboard is the **final delivery layer**, rather than the starting point of the project.
+1. Open `05_power_bi/lotus-group-retail-analytics.pbix` in Power BI Desktop.
+2. If prompted, go to **Transform data → Data source settings** and point the source to your local `01_data/raw/` folder, then click **Refresh**.
+3. No Power BI? A static export of the full report is in [`05_power_bi/lotus-group-retail-analytics.pdf`](05_power_bi/lotus-group-retail-analytics.pdf).
+
+### Repository structure
+
+```
+lotus-group-retail-analytics/
+├── 01_data/raw/                  # 9 source CSV tables
+├── 02_documentation/             # Business requirements, data-quality audit, project breakdown
+├── 03_power_query/               # Transformation plan, notes and step-by-step log
+├── 04_DAX/                       # Catalogue of every DAX measure with its logic
+├── 05_power_bi/
+│   ├── lotus-group-retail-analytics.pbix
+│   ├── lotus-group-retail-analytics.pdf
+│   └── screenshots/
+├── 06_analysis/                  # Business insights
+└── README.md
+```
 
 ---
 
-# Tools & Technologies
+### Data disclaimer
 
-| Tool             | Purpose                                      |
-| ---------------- | -------------------------------------------- |
-| **Power BI**     | Data modeling, DAX and dashboard development |
-| **Power Query**  | Data profiling, transformation and ETL       |
-| **DAX**          | Analytical measures and time intelligence    |
-| **SQL**          | Supporting analytical queries                |
-| **Git / GitHub** | Version control and portfolio documentation  |
+This project uses a **fictional, educational dataset**. The company, customers, employees and transactions are not real and do not represent any actual business. Figures are in Egyptian pounds (EGP).
 
 ---
 
-# What We Intend to Demonstrate Taking on This Project
-
-This project is intended to demonstrate practical capability across the BI lifecycle, including:
-
-* Translating business questions into analytical requirements
-* Working with imperfect operational data
-* Conducting structured data-quality investigations
-* Making defensible transformation decisions
-* Building dimensional data models
-* Designing relationships between fact and dimension tables
-* Developing reusable DAX measures
-* Applying time intelligence
-* Designing management-oriented dashboards
-* Communicating analytical findings
-* Documenting assumptions and limitations
-
-An important focus is **traceability**.
-
-Where a transformation or modeling decision was made, the project aims to document:
-
-1. What was observed
-2. Why it mattered
-3. What decision was made
-4. How it was implemented
-5. What effect it had on the analytical model
-
----
-
-# Data Disclaimer
-
-This project uses a **fictional/educational retail dataset** created for analytical and learning purposes.
-
-The company, customers, employees, stores, transactions and associated business information should not be interpreted as representing actual Lotus Group operations or real individuals.
-
-The dataset is intentionally structured to contain realistic data-quality challenges so that the project can demonstrate practical data preparation and BI development techniques.
-
----
-
-## Author
-
-**Vincent Okumu**
-
-> This repository documents an end-to-end BI project developed to demonstrate practical skills in data analysis, data preparation, dimensional modeling, Power BI, Power Query and DAX.
-
-
-
-
-
-
-
-
-
-
-
-
+**Vincent Okumu** · Data Analyst / BI Developer
+*Open to freelance Power BI, Power Query and retail analytics work.*
