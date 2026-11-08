@@ -29,7 +29,7 @@
 
 ## 1. The problem
 
-> *"We run 15 stores across Egypt selling clothing and electronics. Our sales data is spread across nine separate tables, and we don't trust some of it. We need one place to see where our revenue and profit actually come from, which stores and customers matter most, what Ramadan does to our sales, and why customers return products."*
+> *"Client runs 15 stores across Egypt selling clothing and electronics. Their sales data is spread across nine separate tables, and they don't trust some of it. They need one place to see where revenue and profit actually come from, which stores and customers matter most, what Ramadan does to sales, and why customers return products."*
 
 Lotus Group's management had operational data but no single, trustworthy view of performance. The job was to clean and model the data, build a reporting layer, and turn it into clear answers on sales, products, stores, customers, staff, seasonality and returns.
 
