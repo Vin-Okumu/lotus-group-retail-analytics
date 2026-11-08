@@ -1,7 +1,7 @@
 <h1 align="center">Lotus Group Retail Analytics</h1>
 
 <p align="center">
-<img src=".../05_power_bi/images/Cover.png" width="1000">
+<img src="05_power_bi/images/Cover.png" width="1000">
 </p>
 
 <p align="center">
