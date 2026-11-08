@@ -86,29 +86,23 @@ Raw CSVs → Profiling & quality audit → Power Query cleaning → Star-schema 
 
 ### Key findings
 
-**1. Electronics brings in the revenue, but clothing brings in the profit.**
+#### **1. Electronics brings in the revenue, but clothing brings in the profit.**
+Electronics accounts for 76% of sales but earns only a 13.1% margin. Clothing accounts for 24% of sales at a 47.4% margin, which makes it **54% of total gross profit** (EGP 5.2M vs 4.5M).
 
-    Electronics accounts for 76% of sales but earns only a 13.1% margin. Clothing accounts for 24% of sales at a 47.4% margin, which makes it **54% of total gross profit** (EGP 5.2M vs 4.5M).
+#### **2. Three flagship stores carry the business.**
+The three Greater Cairo flagships produce **37% of all sales**. The seven Small-format stores produce 29% between them, and each one averages about a third of a flagship's revenue.
 
-**2. Three flagship stores carry the business.**
+#### **3. Revenue is highly concentrated in a small group of customers.**
+The **top 20% of customers generate 59% of revenue**, and the top 10% generate 39%. However, average spend per customer is almost the same in every loyalty tier (about EGP 15–16K), so the loyalty programme isn't identifying the high-value customers.
 
-    The three Greater Cairo flagships produce **37% of all sales**. The seven Small-format stores produce 29% between them, and each one averages about a third of a flagship's revenue.
+#### **4. Ramadan lowers electronics sales but not clothing.**
+Average daily sales are **14% lower during Ramadan**. All of that drop comes from electronics (-19% per day). Clothing sales hold steady and rise slightly (+3%).
 
-**3. Revenue is highly concentrated in a small group of customers.**
+#### **5. Over a third of returned value could be prevented.**
+Returns total EGP 4.0M (8.8% of sales value). The largest single reason is **duplicate orders (21% of returned value)**, and wrong items delivered add another 16%. Both are process failures, not product problems.
 
-    The **top 20% of customers generate 59% of revenue**, and the top 10% generate 39%. However, average spend per customer is almost the same in every loyalty tier (about EGP 15–16K), so the loyalty programme isn't identifying the high-value customers.
-
-**4. Ramadan lowers electronics sales but not clothing.**
-
-    Average daily sales are **14% lower during Ramadan**. All of that drop comes from electronics (-19% per day). Clothing sales hold steady and rise slightly (+3%).
-
-**5. Over a third of returned value could be prevented.**
-
-    Returns total EGP 4.0M (8.8% of sales value). The largest single reason is **duplicate orders (21% of returned value)**, and wrong items delivered add another 16%. Both are process failures, not product problems.
-
-**6. Sales recovered in 2024.**
-
-    After a 4.8% fall in 2023, sales grew **7.3% in 2024** to EGP 15.6M. Margin held steady at about 21% throughout.
+#### **6. Sales recovered in 2024.**
+After a 4.8% fall in 2023, sales grew **7.3% in 2024** to EGP 15.6M. Margin held steady at about 21% throughout.
 
 <details>
 <summary><b>See the other 5 report pages</b></summary>
