@@ -1,0 +1,100 @@
+table dim_employees
+	lineageTag: a9396756-cac6-4b2d-80ab-aa5be278366b
+
+	column employee_id
+		dataType: string
+		lineageTag: 87a3fb59-dc0e-448b-a7b2-8190dc82c5eb
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_name
+		dataType: string
+		lineageTag: c04ce251-cb45-4208-9676-fc77db79f061
+		summarizeBy: none
+		sourceColumn: first_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_name
+		dataType: string
+		lineageTag: 318a9d17-1b78-4b7e-aa94-0832df15d079
+		summarizeBy: none
+		sourceColumn: last_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: 2a15b2ad-9cab-48bf-814d-908b4c3e03dc
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column role
+		dataType: string
+		lineageTag: f722b3f4-d45a-474b-8ef4-38a29d617520
+		summarizeBy: none
+		sourceColumn: role
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 47f4402b-239f-4b76-a7b9-b7fe44048998
+		summarizeBy: sum
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hire_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: aa03366b-33af-4726-807e-69dac2e6f7aa
+		summarizeBy: none
+		sourceColumn: hire_date
+
+		variation Variation
+			isDefault
+			relationship: add501cf-1f19-4a1d-98da-56e98cff69a1
+			defaultHierarchy: LocalDateTable_218498bb-6ecc-49df-be9b-f3b4b901467a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column monthly_salary_egp
+		dataType: int64
+		formatString: 0
+		lineageTag: 771194cb-07cc-4455-97bb-9f367103f14d
+		summarizeBy: sum
+		sourceColumn: monthly_salary_egp
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Employee Name' =
+			
+			dim_employees[first_name] & " " & dim_employees[last_name]
+		lineageTag: 7eebe2a0-ba68-451c-805c-dfbe32bba6f7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_employees = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\admin\Documents\Projects\lotus-group-retail-analytics\01_data\raw\dim_employees.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"employee_id", type text}, {"first_name", type text}, {"last_name", type text}, {"gender", type text}, {"role", type text}, {"store_id", Int64.Type}, {"hire_date", type date}, {"monthly_salary_egp", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

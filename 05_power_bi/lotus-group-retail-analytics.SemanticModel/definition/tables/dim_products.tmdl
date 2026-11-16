@@ -1,0 +1,102 @@
+table dim_products
+	lineageTag: cdfc849b-c54c-48e7-984e-8ca0980393ad
+
+	column product_id
+		dataType: string
+		lineageTag: 036a9422-b579-4dc8-bdf9-cc3a014e96a3
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name_raw
+		dataType: string
+		lineageTag: 7999618b-750f-4d80-93c0-f25dd9f73d4e
+		summarizeBy: none
+		sourceColumn: product_name_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 793f9ee6-5d4b-45c2-8d1f-d1019562909e
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column subcategory
+		dataType: string
+		lineageTag: ac0b43f0-6793-4d3d-b210-94dcd3fef08b
+		summarizeBy: none
+		sourceColumn: subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	column brand
+		dataType: string
+		lineageTag: 60512cf5-cdc8-4489-bcbc-0b14d3f372f8
+		summarizeBy: none
+		sourceColumn: brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price_text
+		dataType: string
+		lineageTag: 9c4f21b0-2435-4b21-9f36-0df89ef26fb3
+		summarizeBy: none
+		sourceColumn: unit_price_text
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: int64
+		formatString: 0
+		lineageTag: 4b5f304e-fe5b-4ebb-a046-acd58f04dc57
+		summarizeBy: none
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_cost
+		dataType: int64
+		formatString: 0
+		lineageTag: 447cff73-2e68-4a2e-8baa-29a31dcf852a
+		summarizeBy: none
+		sourceColumn: unit_cost
+
+		annotation SummarizationSetBy = Automatic
+
+	column stock_qty
+		dataType: int64
+		formatString: 0
+		lineageTag: d0a43e1a-6a7c-4008-9f72-e87973c67e19
+		summarizeBy: none
+		sourceColumn: stock_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: int64
+		formatString: 0
+		lineageTag: d15fd2e4-3e85-4e0a-83d4-1e83e80a60e7
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_products = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\admin\Documents\Projects\lotus-group-retail-analytics\01_data\raw\dim_products.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"product_id", type text}, {"product_name_raw", type text}, {"category", type text}, {"subcategory", type text}, {"brand", type text}, {"unit_price_text", type text}, {"unit_price", Int64.Type}, {"unit_cost", Int64.Type}, {"stock_qty", Int64.Type}, {"is_active", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

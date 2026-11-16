@@ -1,0 +1,155 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "34711b7b0085d0681868",
+  "position": {
+    "x": 1078.7828946818636,
+    "y": 0,
+    "z": 10000,
+    "height": 60.365107825158432,
+    "width": 183.04258501822233,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_date"
+                    }
+                  },
+                  "Property": "Day Type"
+                }
+              },
+              "queryRef": "dim_date.Day Type",
+              "nativeQueryRef": "Day of Week",
+              "active": true,
+              "displayName": "Day of Week"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FC7107'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "6ab9d1c10db2304072bc",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_employees"
+              }
+            },
+            "Property": "gender"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "dim_employees",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "gender"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
+  }
+}

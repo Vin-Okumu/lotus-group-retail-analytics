@@ -1,0 +1,239 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "c0e7f9b2c655581bd0b5",
+  "position": {
+    "x": 851.43776093082658,
+    "y": 555.218066326477,
+    "z": 5000,
+    "height": 161.292399156295,
+    "width": 421.84165933184846,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_stores"
+                    }
+                  },
+                  "Property": "store_name"
+                }
+              },
+              "queryRef": "dim_stores.store_name",
+              "nativeQueryRef": "Store",
+              "active": true,
+              "displayName": "Store"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Orders"
+                }
+              },
+              "queryRef": "_Measures.Total Orders",
+              "nativeQueryRef": "Total Orders"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Profit"
+                }
+              },
+              "queryRef": "_Measures.Gross Profit",
+              "nativeQueryRef": "Gross Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Margin %"
+                }
+              },
+              "queryRef": "_Measures.Gross Margin %",
+              "nativeQueryRef": "Gross Margin %"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Total Sales"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "innerPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "40L"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2DADAB'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sales by Store'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

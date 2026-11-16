@@ -1,0 +1,146 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "c6bfd897be347dd050b4",
+  "position": {
+    "x": 1088.7236943049913,
+    "y": 4.6526653602777408,
+    "z": 10000,
+    "height": 63.586426590462459,
+    "width": 179.90306059740598,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_date"
+                    }
+                  },
+                  "Property": "Period Type"
+                }
+              },
+              "queryRef": "dim_date.Period Type",
+              "nativeQueryRef": "Period Type",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Season'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FC7107'"
+                    }
+                  }
+                }
+              }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "d",
+                    "Entity": "dim_date",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "d"
+                                }
+                              },
+                              "Property": "Period Type"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'Non-Ramadan'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

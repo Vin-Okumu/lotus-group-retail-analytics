@@ -1,0 +1,257 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "f7a6e7663abb6e1bb6d0",
+  "position": {
+    "x": 803.50642507226644,
+    "y": 544.12486748078879,
+    "z": 6000,
+    "height": 170.61542454906089,
+    "width": 468.03961058728868,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_products"
+                    }
+                  },
+                  "Property": "category"
+                }
+              },
+              "queryRef": "dim_products.category",
+              "nativeQueryRef": "Category",
+              "active": true,
+              "displayName": "Category"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Product Sales Contribution %"
+                }
+              },
+              "queryRef": "_Measures.Product Sales Contribution %",
+              "nativeQueryRef": "Sales Contribution %",
+              "displayName": "Sales Contribution %"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Margin %"
+                }
+              },
+              "queryRef": "_Measures.Gross Margin %",
+              "nativeQueryRef": "Gross Margin %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Gross Margin %"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2A9A98'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "categoryAxis": [
+        {
+          "properties": {
+            "innerPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "50L"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dotted'"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Gross Margin'"
+                }
+              }
+            },
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Gross Margin by Category'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

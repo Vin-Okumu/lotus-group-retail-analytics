@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "ee4764a4c016061bad54",
+  "displayName": "Returns Analysis",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Cover.png'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "Cover9081959948762549.png"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fill'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "97D"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

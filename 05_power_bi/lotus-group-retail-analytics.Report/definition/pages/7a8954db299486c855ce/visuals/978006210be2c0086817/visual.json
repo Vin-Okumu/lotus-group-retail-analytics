@@ -1,0 +1,269 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "978006210be2c0086817",
+  "position": {
+    "x": 10.188893802514373,
+    "y": 170.30008212774024,
+    "z": 6000,
+    "height": 180.48897593025461,
+    "width": 432.30020847810982,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_employees"
+                    }
+                  },
+                  "Property": "role"
+                }
+              },
+              "queryRef": "dim_employees.role",
+              "nativeQueryRef": "role",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Total Sales"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "innerPadding": {
+              "expr": {
+                "Literal": {
+                  "Value": "40L"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total Sales'"
+                }
+              }
+            },
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Attributed Sales by Employee Role'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "269bb6f790cbc13155e9",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_employees"
+              }
+            },
+            "Property": "role"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "d",
+              "Entity": "dim_employees",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Not": {
+                  "Expression": {
+                    "Comparison": {
+                      "ComparisonKind": 0,
+                      "Left": {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "role"
+                        }
+                      },
+                      "Right": {
+                        "Literal": {
+                          "Value": "null"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

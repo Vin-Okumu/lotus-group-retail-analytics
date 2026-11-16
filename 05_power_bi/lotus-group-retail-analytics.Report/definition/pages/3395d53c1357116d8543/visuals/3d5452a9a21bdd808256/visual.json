@@ -1,0 +1,285 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "3d5452a9a21bdd808256",
+  "position": {
+    "x": 415.63810551814481,
+    "y": 350.50079047425646,
+    "z": 8000,
+    "height": 170.59772987685048,
+    "width": 848.33598402397467,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "dim_date"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "full_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Year"
+                }
+              },
+              "queryRef": "dim_date.full_date.Variation.Date Hierarchy.Year",
+              "nativeQueryRef": "full_date Year",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "dim_date"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "full_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Quarter"
+                }
+              },
+              "queryRef": "dim_date.full_date.Variation.Date Hierarchy.Quarter",
+              "nativeQueryRef": "full_date Quarter",
+              "active": true
+            },
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "dim_date"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "full_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Month"
+                }
+              },
+              "queryRef": "dim_date.full_date.Variation.Date Hierarchy.Month",
+              "nativeQueryRef": "full_date Month",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Sales per Customer"
+                }
+              },
+              "queryRef": "_Measures.Sales per Customer",
+              "nativeQueryRef": "Sales per Customer"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "lineStyles": [
+        {
+          "properties": {
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C7DB4'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Sales per Customer"
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dotted'"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Avg Purchase Value'"
+                }
+              }
+            },
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Customer Purchase Trend'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

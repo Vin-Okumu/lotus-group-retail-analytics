@@ -1,0 +1,342 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "2a652df7ee2d4e6945e8",
+  "position": {
+    "x": 462.27557597414472,
+    "y": 177.53226608483362,
+    "z": 4000,
+    "height": 169.46261762643209,
+    "width": 811.576073530668,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_date"
+                    }
+                  },
+                  "Property": "full_date"
+                }
+              },
+              "queryRef": "dim_date.full_date",
+              "nativeQueryRef": "Count of full_date",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_products"
+                    }
+                  },
+                  "Property": "category"
+                }
+              },
+              "queryRef": "dim_products.category",
+              "nativeQueryRef": "category"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Total Sales"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_date"
+                  }
+                },
+                "Property": "full_date"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "legend": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'RightCenter'"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Category'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "lineStyles": [
+        {
+          "properties": {
+            "strokeWidth": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E19C1B'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "dim_products"
+                          }
+                        },
+                        "Property": "category"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Clothing'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3C7DB4'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "dim_products"
+                          }
+                        },
+                        "Property": "category"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Electronics'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dotted'"
+                }
+              }
+            },
+            "showAxisTitle": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total Sales'"
+                }
+              }
+            },
+            "titleFontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            },
+            "titleColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sales Trend by Category'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

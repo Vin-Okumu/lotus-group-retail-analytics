@@ -1,0 +1,62 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "eb37db6c070a65818297",
+  "position": {
+    "x": 158.13519813519815,
+    "y": 0,
+    "z": 0,
+    "height": 91.002331002331,
+    "width": 364.009324009324,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "LOTUS GROUP",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "20pt",
+                      "color": "#053c69"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Retail performance overview | 2022 - 2024",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "10pt",
+                      "color": "#d29132"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Seasonality Analysis",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "12pt",
+                      "color": "#55874b"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

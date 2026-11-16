@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "lotus-group-retail-analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c3e0d4c6-b5e9-4198-8df9-b42ff921e5e3"
+  }
+}

@@ -1,0 +1,276 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "de5861559d27a5d3a30b",
+  "position": {
+    "x": 905.247110092016,
+    "y": 10.618734429231859,
+    "z": 0,
+    "height": 66.367090182699116,
+    "width": 169.89975086770974,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "PropertyVariationSource": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "fact_returns"
+                            }
+                          },
+                          "Name": "Variation",
+                          "Property": "return_date"
+                        }
+                      },
+                      "Hierarchy": "Date Hierarchy"
+                    }
+                  },
+                  "Level": "Year"
+                }
+              },
+              "queryRef": "fact_returns.return_date.Variation.Date Hierarchy.Year",
+              "nativeQueryRef": "return_date Year",
+              "active": true
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "HierarchyLevel": {
+                "Expression": {
+                  "Hierarchy": {
+                    "Expression": {
+                      "PropertyVariationSource": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "fact_returns"
+                          }
+                        },
+                        "Name": "Variation",
+                        "Property": "return_date"
+                      }
+                    },
+                    "Hierarchy": "Date Hierarchy"
+                  }
+                },
+                "Level": "Year"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Values"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "fact_returns.return_date.Variation.Date Hierarchy.Year"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "LocalDateTable_7be9fb89-e595-4063-b903-fae3c393e024"
+                    }
+                  },
+                  "Property": "Year"
+                }
+              }
+            ],
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
+    "objects": {
+      "data": [
+        {
+          "properties": {
+            "mode": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Dropdown'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "l",
+                    "Entity": "LocalDateTable_7be9fb89-e595-4063-b903-fae3c393e024",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "l"
+                                }
+                              },
+                              "Property": "Year"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "2024L"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "Annotations": {
+                      "filterExpressionMetadata": {
+                        "expressions": [
+                          {
+                            "HierarchyLevel": {
+                              "Expression": {
+                                "Hierarchy": {
+                                  "Expression": {
+                                    "PropertyVariationSource": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Entity": "fact_returns"
+                                        }
+                                      },
+                                      "Name": "Variation",
+                                      "Property": "return_date"
+                                    }
+                                  },
+                                  "Hierarchy": "Date Hierarchy"
+                                }
+                              },
+                              "Level": "Year"
+                            }
+                          }
+                        ],
+                        "decomposedIdentities": {
+                          "values": [
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "2024L"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          ],
+                          "columns": [
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "LocalDateTable_7be9fb89-e595-4063-b903-fae3c393e024"
+                                    }
+                                  },
+                                  "Property": "Year"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "valueMap": [
+                          {
+                            "0": "2024"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "header": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Period'"
+                }
+              }
+            },
+            "textSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#FC7107'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

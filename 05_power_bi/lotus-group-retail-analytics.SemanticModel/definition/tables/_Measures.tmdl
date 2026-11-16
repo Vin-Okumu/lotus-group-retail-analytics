@@ -1,0 +1,277 @@
+table _Measures
+	lineageTag: c6f66441-bc06-450d-93fc-ec7751c3c9bd
+
+	measure 'Total Sales' =
+			
+			SUM(fact_order_details[line_total_revenue])
+		formatString: #,0.00
+		lineageTag: 51871990-d79b-4b8e-b3ff-0a30d7c78c8b
+
+	measure 'Total Cost' =
+			
+			SUM(fact_order_details[line_total_cost])
+		formatString: #,0.00
+		lineageTag: 046e5633-0dd5-47d6-8b61-8d5d4f288811
+
+	measure 'Gross Profit' =
+			
+			[Total Sales] - [Total Cost]
+		formatString: #,0.00
+		lineageTag: 1a6655e8-e437-49d9-95e4-54d95dbe0f14
+
+	measure 'Gross Margin %' =
+			
+			DIVIDE(
+			    [Gross Profit],
+			    [Total Sales]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: b8d483c5-0093-41fc-981d-873b0e945337
+
+	measure 'Total Orders' =
+			
+			DISTINCTCOUNT(fact_orders[order_id])
+		formatString: 0
+		lineageTag: ca91b516-e0a5-4a26-b3d7-bb6524ccd6bc
+
+	measure 'Units Sold' =
+			
+			SUM(fact_order_details[quantity])
+		formatString: 0
+		lineageTag: 31e8aacd-3fde-400b-98fa-40fc933cab28
+
+	measure 'Average Order Value' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    [Total Orders]
+			)
+		formatString: #,0.00
+		lineageTag: 08185b98-9aba-443b-9bb4-2c5c5b5637b1
+
+	measure 'Units per Order' =
+			
+			DIVIDE(
+			    [Units Sold],
+			    [Total Orders]
+			)
+		formatString: 0.00
+		lineageTag: 3e6a1ebd-52fe-4002-a2a4-f1beeaa05569
+
+	measure 'Total Customers' =
+			
+			DISTINCTCOUNT(fact_orders[customer_id])
+		formatString: 0
+		lineageTag: 6a952934-119d-47cd-be42-00d72798cc4e
+
+	measure 'Sales per Customer' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    [Total Customers]
+			)
+		formatString: #,0.00
+		lineageTag: d80c7271-e5b3-40e8-b120-9d5455298e0b
+
+	measure 'Products Sold' =
+			
+			DISTINCTCOUNT(fact_order_details[product_id])
+		formatString: 0
+		lineageTag: e391e332-bb45-4850-b925-50ffd8011dbc
+
+	measure 'Average Selling Price' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    [Units Sold]
+			)
+		formatString: #,0.00
+		lineageTag: 89741cbc-7a6e-4802-b18a-781fde1b585e
+
+	measure 'Returned Amount' =
+			
+			SUM(fact_returns[return_amount])
+		formatString: #,0.00
+		lineageTag: 8ecb1803-a3a1-4ee2-aa17-740f36e1fb03
+
+	measure 'Number of Returns' =
+			
+			DISTINCTCOUNT(fact_returns[return_id])
+		formatString: 0.00
+		lineageTag: e6553cd2-21b4-402f-ac79-f1d06eca1b92
+
+	measure 'Return Rate %' =
+			
+			DIVIDE(
+			    [Number of Returns],
+			    [Total Orders]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cf99b30c-7e64-4b81-ac84-0ef01d0211c1
+
+	measure 'Sales YTD' =
+			
+			TOTALYTD(
+			    [Total Sales],
+			    dim_date[full_date]
+			)
+		formatString: #,0.00
+		lineageTag: d20bb1f2-78a8-426c-bdf4-38580c9a3868
+
+	measure 'Sales Previous Year' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    SAMEPERIODLASTYEAR(dim_date[full_date])
+			)
+		formatString: #,0.00
+		lineageTag: 2a725f84-4cd0-4ea4-8464-4835bd91dfb3
+
+	measure 'YoY Sales Growth %' =
+			
+			DIVIDE(
+			    [Total Sales] - [Sales Previous Year],
+			    [Sales Previous Year]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cde0e0ae-71a7-46fb-95cd-a1a1c98374e5
+
+	measure 'Ramadan Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_ramadan] = 1
+			)
+		formatString: #,0.00
+		lineageTag: 8c39cbe3-54b0-4b1a-9f84-2328a3874a7b
+
+	measure 'Non-Ramadan Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_ramadan] = 0
+			)
+		formatString: #,0.00
+		lineageTag: b2224743-735a-4fcc-a1a4-cdee32a1558a
+
+	measure 'Weekend Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_weekend] = 1
+			)
+		formatString: #,0.00
+		lineageTag: f32242f2-c692-42dc-97ee-e7434981c760
+
+	measure 'Weekday Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_weekend] = 0
+			)
+		formatString: #,0.00
+		lineageTag: 63e0b994-8b7a-46fd-b6dd-853663b5e744
+
+	measure 'Orders with Employee ID' =
+			
+			CALCULATE(
+			    [Total Orders], (fact_orders[employee_id] <> "")
+			)
+		formatString: 0.00
+		lineageTag: e4a515ca-64a0-438b-80e2-6231969bdb99
+
+	measure 'Orders without Employee ID' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    (fact_orders[employee_id] = "")
+			)
+		formatString: 0
+		lineageTag: db95a00b-03f4-4c35-b316-46da32bd45c6
+
+	measure 'Employee Attribution Rate %' =
+			
+			DIVIDE(
+			    [Orders with Employee ID],
+			    [Total Orders]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: dbb213cd-a695-4f47-ae3f-6d30b17947c2
+
+	measure 'Product Sales Contribution %' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    CALCULATE(
+			        [Total Sales],
+			        REMOVEFILTERS(dim_products)
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e69d319f-c47a-4381-b76c-d2cb74ce0a03
+
+	measure 'Sales per Store' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    DISTINCTCOUNT(dim_stores[store_id])
+			)
+		formatString: #,0.00
+		lineageTag: 47e93e90-083f-4b56-aabb-e83d77fcc778
+
+	measure 'Number of Employees' =
+			
+			DISTINCTCOUNT(fact_orders[employee_id])
+		formatString: 0
+		lineageTag: c046d87a-8240-482d-971d-4d7d4cdbdd43
+
+	measure 'Average Sales' =
+			
+			DIVIDE(
+			SUM(fact_order_details[line_total_revenue]),
+			COUNT(fact_order_details[line_total_revenue])
+			)
+		formatString: #,0.00
+		lineageTag: 0c09a39e-1bdd-43b9-9314-4d67977ade11
+
+	measure 'Total Orders Returned' =
+			
+			DISTINCTCOUNT(fact_returns[order_id])
+		formatString: 0
+		lineageTag: 415ab811-70ea-45d9-8d8b-4cdfd596e444
+
+	measure 'Avg Returned Order Value' =
+			
+			DIVIDE(
+			    [Returned Amount],
+			    [Total Orders Returned]
+			)
+		formatString: #,0.00
+		lineageTag: 5601529a-b148-421d-b171-b244af961dd4
+
+	column 'Measure Group'
+		isHidden
+		lineageTag: ba831cc5-3b7f-4e8e-80d3-ee07be3bdc97
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Measure Group]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "Measure Group", STRING,
+				    {
+				        {"Sales"},
+				        {"Orders"},
+				        {"Customers"},
+				        {"Products"},
+				        {"Returns"},
+				        {"Performance"}
+				    }
+				)
+
+	annotation PBI_Id = c3e2e890d4bf4fb6815bdd7abd648c97
+

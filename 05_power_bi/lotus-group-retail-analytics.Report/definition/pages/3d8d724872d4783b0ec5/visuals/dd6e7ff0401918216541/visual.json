@@ -1,0 +1,360 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "dd6e7ff0401918216541",
+  "position": {
+    "x": 679.00327742835714,
+    "y": 353.91172524703848,
+    "z": 8000,
+    "height": 180.99068685272,
+    "width": 591.38995130856915,
+    "tabOrder": 8000
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_products"
+                    }
+                  },
+                  "Property": "product_name_raw"
+                }
+              },
+              "queryRef": "dim_products.product_name_raw",
+              "nativeQueryRef": "Product",
+              "active": true,
+              "displayName": "Product"
+            }
+          ]
+        },
+        "Tooltips": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Units Sold"
+                }
+              },
+              "queryRef": "_Measures.Units Sold",
+              "nativeQueryRef": "Units Sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Profit"
+                }
+              },
+              "queryRef": "_Measures.Gross Profit",
+              "nativeQueryRef": "Gross Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Margin %"
+                }
+              },
+              "queryRef": "_Measures.Gross Margin %",
+              "nativeQueryRef": "Gross Margin %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Product Sales Contribution %"
+                }
+              },
+              "queryRef": "_Measures.Product Sales Contribution %",
+              "nativeQueryRef": "Sales Contribution %",
+              "displayName": "Sales Contribution %"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Sales",
+              "displayName": "Sales"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Total Sales"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E19C1B'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "gridlineStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'dotted'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Top 10 Products By Sales'"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ce78e4d73e4c9650a328",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_products"
+              }
+            },
+            "Property": "product_name_raw"
+          }
+        },
+        "type": "TopN",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "subquery",
+              "Expression": {
+                "Subquery": {
+                  "Query": {
+                    "Version": 2,
+                    "From": [
+                      {
+                        "Name": "d",
+                        "Entity": "dim_products",
+                        "Type": 0
+                      },
+                      {
+                        "Name": "_",
+                        "Entity": "_Measures",
+                        "Type": 0
+                      }
+                    ],
+                    "Select": [
+                      {
+                        "Column": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Source": "d"
+                            }
+                          },
+                          "Property": "product_name_raw"
+                        },
+                        "Name": "field"
+                      }
+                    ],
+                    "OrderBy": [
+                      {
+                        "Direction": 2,
+                        "Expression": {
+                          "Measure": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "_"
+                              }
+                            },
+                            "Property": "Total Sales"
+                          }
+                        }
+                      }
+                    ],
+                    "Top": 10
+                  }
+                }
+              },
+              "Type": 2
+            },
+            {
+              "Name": "d",
+              "Entity": "dim_products",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "d"
+                          }
+                        },
+                        "Property": "product_name_raw"
+                      }
+                    }
+                  ],
+                  "Table": {
+                    "SourceRef": {
+                      "Source": "subquery"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

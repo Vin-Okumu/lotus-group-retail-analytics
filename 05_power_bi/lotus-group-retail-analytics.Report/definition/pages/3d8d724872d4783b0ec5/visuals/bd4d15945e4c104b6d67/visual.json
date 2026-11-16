@@ -1,0 +1,584 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "name": "bd4d15945e4c104b6d67",
+  "position": {
+    "x": 4.6112276905151592,
+    "y": 544.12486748078879,
+    "z": 7000,
+    "height": 169.46261762643209,
+    "width": 786.21432123283466,
+    "tabOrder": 7000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_products"
+                    }
+                  },
+                  "Property": "product_id"
+                }
+              },
+              "queryRef": "dim_products.product_id",
+              "nativeQueryRef": "Product Id",
+              "displayName": "Product Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_products"
+                    }
+                  },
+                  "Property": "product_name_raw"
+                }
+              },
+              "queryRef": "dim_products.product_name_raw",
+              "nativeQueryRef": "Product",
+              "displayName": "Product"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_products"
+                    }
+                  },
+                  "Property": "category"
+                }
+              },
+              "queryRef": "dim_products.category",
+              "nativeQueryRef": "Category",
+              "displayName": "Category"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_products"
+                    }
+                  },
+                  "Property": "subcategory"
+                }
+              },
+              "queryRef": "dim_products.subcategory",
+              "nativeQueryRef": "Subcategory",
+              "displayName": "Subcategory"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Units Sold"
+                }
+              },
+              "queryRef": "_Measures.Units Sold",
+              "nativeQueryRef": "Units Sold"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total Sales"
+                }
+              },
+              "queryRef": "_Measures.Total Sales",
+              "nativeQueryRef": "Sales",
+              "displayName": "Sales"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Average Selling Price"
+                }
+              },
+              "queryRef": "_Measures.Average Selling Price",
+              "nativeQueryRef": "Avg Selling Price",
+              "displayName": "Avg Selling Price"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Profit"
+                }
+              },
+              "queryRef": "_Measures.Gross Profit",
+              "nativeQueryRef": "Gross Profit"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gross Margin %"
+                }
+              },
+              "queryRef": "_Measures.Gross Margin %",
+              "nativeQueryRef": "Margin %",
+              "displayName": "Margin %"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "Gross Profit"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnFormatting": [
+        {
+          "properties": {
+            "dataBars": {
+              "positiveColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'maxColor'"
+                      }
+                    }
+                  }
+                }
+              },
+              "negativeColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'minColor'"
+                      }
+                    }
+                  }
+                }
+              },
+              "axisColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'foreground'"
+                      }
+                    }
+                  }
+                }
+              },
+              "reverseDirection": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "hideText": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "totalMatchingOption": {
+                "expr": {
+                  "Literal": {
+                    "Value": "1L"
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Sales"
+          }
+        },
+        {
+          "properties": {
+            "dataBars": {
+              "positiveColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'maxColor'"
+                      }
+                    }
+                  }
+                }
+              },
+              "negativeColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'minColor'"
+                      }
+                    }
+                  }
+                }
+              },
+              "axisColor": {
+                "solid": {
+                  "color": {
+                    "expr": {
+                      "Literal": {
+                        "Value": "'foreground'"
+                      }
+                    }
+                  }
+                }
+              },
+              "reverseDirection": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "hideText": {
+                "expr": {
+                  "Literal": {
+                    "Value": "false"
+                  }
+                }
+              },
+              "totalMatchingOption": {
+                "expr": {
+                  "Literal": {
+                    "Value": "1L"
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Gross Profit"
+          }
+        }
+      ],
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "85.44195277797668D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_products.subcategory"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "149.40078081289133D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_products.product_name_raw"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "68.19724911327556D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Total Sales"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "80.78668229039586D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Gross Profit"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "106.12783198722514D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Average Selling Price"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "68.33138963125342D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Units Sold"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "68.10177687156214D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.Gross Margin %"
+          }
+        }
+      ],
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Measures"
+                            }
+                          },
+                          "Property": "Gross Margin %"
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient3": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'minColor'"
+                              }
+                            }
+                          },
+                          "mid": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'midColor'"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'maxColor'"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.Gross Margin %"
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Product Performance'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "underline": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#414141'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.2
+                    }
+                  }
+                }
+              }
+            },
+            "radius": {
+              "expr": {
+                "Literal": {
+                  "Value": "5D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,84 @@
+table fact_returns
+	lineageTag: ac1efade-9f40-48c2-8d98-3e4378700ea7
+
+	column return_id
+		dataType: string
+		lineageTag: e6b6020c-81bb-4f26-9f6d-5262aa99b29e
+		summarizeBy: none
+		sourceColumn: return_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: bdc7f06c-996a-4fba-ae86-432dce6f169a
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8329802e-6634-4c85-a856-9e7de2c33555
+		summarizeBy: none
+		sourceColumn: return_date
+
+		variation Variation
+			isDefault
+			relationship: 218d8559-e8cc-418e-b654-023a89e78c5a
+			defaultHierarchy: LocalDateTable_7be9fb89-e595-4063-b903-fae3c393e024.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column return_reason
+		dataType: string
+		lineageTag: f8c49a34-04ef-4079-b85a-c88d8e968ffc
+		summarizeBy: none
+		sourceColumn: return_reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_amount
+		dataType: decimal
+		formatString: #,0.00
+		lineageTag: 71fdab76-0513-4a68-a688-0f42f75b7f78
+		summarizeBy: sum
+		sourceColumn: return_amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column refund_method
+		dataType: string
+		lineageTag: 5e1e1c8a-4111-4742-a412-4903d019879c
+		summarizeBy: none
+		sourceColumn: refund_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column return_status
+		dataType: string
+		lineageTag: 6dd1d931-fddd-414c-8bc6-4919690c3c77
+		summarizeBy: none
+		sourceColumn: return_status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_returns = m
+		mode: import
+		queryGroup: Facts
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\admin\Documents\Projects\lotus-group-retail-analytics\01_data\raw\fact_returns.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"return_id", type text}, {"order_id", type text}, {"return_date", type date}, {"return_reason", type text}, {"return_amount", type number}, {"refund_method", type text}, {"return_status", type text}}),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Changed Type",{{"return_amount", Currency.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

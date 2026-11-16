@@ -1,0 +1,166 @@
+table dim_date
+	lineageTag: ccac241c-6e38-47c8-9756-4151c372d834
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ade025c-a7bb-41ec-8964-8a045baf0702
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6efffaeb-f74f-432a-a1b5-d3741ddc2b05
+		summarizeBy: none
+		sourceColumn: full_date
+
+		variation Variation
+			isDefault
+			relationship: 6ea28a49-d8e0-445c-9dd7-86cc9cdf3b55
+			defaultHierarchy: LocalDateTable_8ba0757f-e41a-4cbf-8986-4e7b5a3e4050.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column day
+		dataType: int64
+		formatString: 0
+		lineageTag: e4eb7bfb-a78e-4df3-99cb-853b9cc347b8
+		summarizeBy: sum
+		sourceColumn: day
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: c2c951a7-88e1-4dc3-9417-2d608f0cf419
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: acfa3131-c37a-4cac-8ef5-8bbd29923e4f
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: f9101d63-bb06-4149-9eeb-6e267f876384
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter_name
+		dataType: string
+		lineageTag: 5306213f-c056-4054-a9ad-6244ccfc7594
+		summarizeBy: none
+		sourceColumn: quarter_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a0e1cae-11f9-45b0-93cc-290ad20f9f57
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 627003b7-bb1e-4409-b6d0-a5e42d5c26bd
+		summarizeBy: sum
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		lineageTag: 79d3513f-a990-4c91-9ff8-f1a1ad70800a
+		summarizeBy: none
+		sourceColumn: day_name
+		sortByColumn: day_of_week
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: int64
+		formatString: 0
+		lineageTag: 2662aead-ebdf-4e61-8fa1-3f95885972fa
+		summarizeBy: sum
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_of_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 479e5375-35e7-4fa2-b7a4-507b22f11025
+		summarizeBy: sum
+		sourceColumn: week_of_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_ramadan
+		dataType: int64
+		formatString: 0
+		lineageTag: 9309d34c-0c50-4b47-8be5-b7d98df43072
+		summarizeBy: sum
+		sourceColumn: is_ramadan
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Period Type' =
+			
+			IF(
+			    dim_date[is_ramadan] = 1,
+			    "Ramadan",
+			    "Non-Ramadan"
+			)
+		lineageTag: cbd8343d-5e20-4e21-a502-ad40eb07259f
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Day Type' =
+			
+			IF(
+			    dim_date[is_weekend] = 1,
+			    "Weekend",
+			    "Weekday"
+			)
+		lineageTag: a20a84b9-2c1f-4708-8071-8ba87e7d55db
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\admin\Documents\Projects\lotus-group-retail-analytics\01_data\raw\dim_date.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"date_id", Int64.Type}, {"full_date", type date}, {"day", Int64.Type}, {"month", Int64.Type}, {"month_name", type text}, {"quarter", Int64.Type}, {"quarter_name", type text}, {"year", Int64.Type}, {"day_of_week", Int64.Type}, {"day_name", type text}, {"is_weekend", Int64.Type}, {"week_of_year", Int64.Type}, {"is_ramadan", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
