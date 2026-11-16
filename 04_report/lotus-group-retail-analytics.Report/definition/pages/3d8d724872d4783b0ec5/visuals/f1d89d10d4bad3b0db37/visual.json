@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "f1d89d10d4bad3b0db37",
   "position": {
     "x": 543.17,
@@ -46,8 +46,9 @@
                 }
               },
               "queryRef": "_Measures.Total Sales",
-              "nativeQueryRef": "Total Sales",
-              "active": true
+              "nativeQueryRef": "Sales",
+              "active": true,
+              "displayName": "Sales"
             }
           ]
         },

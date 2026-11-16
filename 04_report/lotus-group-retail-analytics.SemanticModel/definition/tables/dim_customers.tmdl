@@ -32,11 +32,6 @@ table dim_customers
 		summarizeBy: none
 		sourceColumn: birth_date
 
-		variation Variation
-			isDefault
-			relationship: fda25ad7-695d-4009-a3a0-12ad775568c4
-			defaultHierarchy: LocalDateTable_4833b986-8d02-4f8b-bc9c-8684f55accfd.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -87,11 +82,6 @@ table dim_customers
 		lineageTag: 559583a2-033e-4ea6-9300-22b504207c8d
 		summarizeBy: none
 		sourceColumn: registration_date
-
-		variation Variation
-			isDefault
-			relationship: 616daaea-3412-4573-989c-766ca874987b
-			defaultHierarchy: LocalDateTable_9fffffc3-a546-48ac-8df3-16097e7b4f84.'Date Hierarchy'
 
 		annotation SummarizationSetBy = Automatic
 

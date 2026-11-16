@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "0478f9a6a5f3c92da2da",
   "position": {
-    "x": 124,
-    "y": 10,
+    "x": 124.61538461538461,
+    "y": 0,
     "z": 2000,
-    "height": 54,
-    "width": 640,
+    "height": 64.615384615384613,
+    "width": 558.46153846153845,
     "tabOrder": 2000
   },
   "visual": {
@@ -21,13 +21,12 @@
                   {
                     "value": "Returns",
                     "textStyle": {
+                      "fontWeight": "bold",
                       "fontSize": "16pt",
-                      "color": "#1D2633",
-                      "fontWeight": "bold"
+                      "color": "#1d2633"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               },
               {
                 "textRuns": [
@@ -35,11 +34,10 @@
                     "value": "How much do returns cost, and how much is preventable? · For operations & customer service",
                     "textStyle": {
                       "fontSize": "9pt",
-                      "color": "#5B6573"
+                      "color": "#5b6573"
                     }
                   }
-                ],
-                "horizontalTextAlignment": "left"
+                ]
               }
             ]
           }

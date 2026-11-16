@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "6f9cbb5f6075f5c5e847",
   "position": {
     "x": 543.17,
@@ -23,11 +23,11 @@
                       "Entity": "dim_date"
                     }
                   },
-                  "Property": "month_name"
+                  "Property": "short_month"
                 }
               },
-              "queryRef": "dim_date.month_name",
-              "nativeQueryRef": "month_name",
+              "queryRef": "dim_date.short_month",
+              "nativeQueryRef": "short_month",
               "active": true
             }
           ]
@@ -46,7 +46,8 @@
                 }
               },
               "queryRef": "_Measures.Attribution Rate % PY",
-              "nativeQueryRef": "Attribution Rate % PY"
+              "nativeQueryRef": "Previous Year",
+              "displayName": "Previous Year"
             },
             {
               "field": {
@@ -60,27 +61,11 @@
                 }
               },
               "queryRef": "_Measures.Employee Attribution Rate %",
-              "nativeQueryRef": "Employee Attribution Rate %"
+              "nativeQueryRef": "Selected Year",
+              "displayName": "Selected Year"
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dim_date"
-                  }
-                },
-                "Property": "month_name"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ]
       }
     },
     "objects": {
@@ -332,7 +317,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },

@@ -24,11 +24,6 @@ table fact_returns
 		summarizeBy: none
 		sourceColumn: return_date
 
-		variation Variation
-			isDefault
-			relationship: 218d8559-e8cc-418e-b654-023a89e78c5a
-			defaultHierarchy: LocalDateTable_7be9fb89-e595-4063-b903-fae3c393e024.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

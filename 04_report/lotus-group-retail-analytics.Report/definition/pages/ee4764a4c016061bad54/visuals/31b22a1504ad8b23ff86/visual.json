@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "31b22a1504ad8b23ff86",
   "position": {
     "x": 543.17,
@@ -23,11 +23,11 @@
                       "Entity": "dim_date"
                     }
                   },
-                  "Property": "month_name"
+                  "Property": "short_month"
                 }
               },
-              "queryRef": "dim_date.month_name",
-              "nativeQueryRef": "month_name",
+              "queryRef": "dim_date.short_month",
+              "nativeQueryRef": "short_month",
               "active": true
             }
           ]
@@ -64,23 +64,6 @@
             }
           ]
         }
-      },
-      "sortDefinition": {
-        "sort": [
-          {
-            "field": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "dim_date"
-                  }
-                },
-                "Property": "month_name"
-              }
-            },
-            "direction": "Ascending"
-          }
-        ]
       }
     },
     "objects": {
@@ -332,7 +315,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -530,7 +513,7 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Subtitle Ret Monthly"
+                  "Property": "Subtitle Ret Trend"
                 }
               }
             },

@@ -16,11 +16,6 @@ table fact_orders
 		summarizeBy: none
 		sourceColumn: order_date
 
-		variation Variation
-			isDefault
-			relationship: 187e069b-e2bb-48ab-a2bb-beeed935c36a
-			defaultHierarchy: LocalDateTable_d015208f-7fe5-4996-8aca-afc42e275e18.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date

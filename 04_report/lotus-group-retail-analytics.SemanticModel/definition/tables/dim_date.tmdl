@@ -17,11 +17,6 @@ table dim_date
 		summarizeBy: none
 		sourceColumn: full_date
 
-		variation Variation
-			isDefault
-			relationship: 6ea28a49-d8e0-445c-9dd7-86cc9cdf3b55
-			defaultHierarchy: LocalDateTable_8ba0757f-e41a-4cbf-8986-4e7b5a3e4050.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
@@ -146,6 +141,15 @@ table dim_date
 			)
 		lineageTag: a20a84b9-2c1f-4708-8071-8ba87e7d55db
 		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column short_month = FORMAT ( dim_date[full_date], "mmm" )
+		lineageTag: 98463587-b388-44d5-b90b-bb807ccc96e9
+		summarizeBy: none
+		sortByColumn: month
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 

@@ -1639,7 +1639,17 @@ table _Measures
 		displayFolder: Titles
 		lineageTag: 3ef32d39-f119-5c50-ac92-8f90e7b9582d
 
-	measure 'Subtitle Emp Trend' = "Share of orders credited to an employee, by month · " & [Context Label]
+	measure 'Subtitle Emp Trend' =
+			
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			VAR legendText =
+			    IF (
+			        ISBLANK ( y ),
+			        "Share of orders credited to an employee, by month, selected years combined",
+			        "Share of orders credited to an employee · Solid line: " & y & " · Dashed line: " & ( y - 1 )
+			    )
+			RETURN
+			    legendText & " · " & [Filter Label]
 		displayFolder: Titles
 		lineageTag: 5c5da254-b208-50aa-8841-ce2ff0149d91
 
@@ -1846,6 +1856,20 @@ table _Measures
 			RETURN
 			    IF ( _isRamadan && _rest > 0, FORMAT ( DIVIDE ( _ramadan, _rest ) - 1, "+0%;-0%" ) )
 		lineageTag: 9f3d019e-8873-41ef-911d-d8a609e7c98e
+
+	measure 'Subtitle Ret Trend' =
+			
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			VAR legendText =
+			    IF (
+			        ISBLANK ( y ),
+			        "Returned value as % of sales, by month of order , selected years combined",
+			        "Returned value as % of sales, by month of order · Solid line: " & y & " · Dashed line: " & ( y - 1 )
+			    )
+			RETURN
+			    legendText & " · " & [Filter Label]
+		displayFolder: Titles
+		lineageTag: bc1e575e-c429-4c6a-af7d-f2ff366c7f02
 
 	column 'Measure Group'
 		isHidden

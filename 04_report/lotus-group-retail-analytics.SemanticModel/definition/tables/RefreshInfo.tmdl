@@ -10,11 +10,6 @@ table RefreshInfo
 		summarizeBy: none
 		sourceColumn: [Refreshed At]
 
-		variation Variation
-			isDefault
-			relationship: a3bf28e4-0d1b-4318-ae58-bd38d52341da
-			defaultHierarchy: LocalDateTable_5d29fb22-2d4e-4b6c-a93a-975658b86343.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 	partition RefreshInfo = calculated

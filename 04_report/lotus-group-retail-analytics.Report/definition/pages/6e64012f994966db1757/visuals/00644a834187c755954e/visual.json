@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.8.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
   "name": "00644a834187c755954e",
   "position": {
     "x": 543.17,
@@ -46,8 +46,9 @@
                 }
               },
               "queryRef": "_Measures.Store Floor Space",
-              "nativeQueryRef": "Store Floor Space",
-              "active": true
+              "nativeQueryRef": "Floor Space",
+              "active": true,
+              "displayName": "Floor Space"
             }
           ]
         },
@@ -65,7 +66,8 @@
                 }
               },
               "queryRef": "_Measures.Total Sales",
-              "nativeQueryRef": "Total Sales"
+              "nativeQueryRef": "Sales",
+              "displayName": "Sales"
             }
           ]
         }
