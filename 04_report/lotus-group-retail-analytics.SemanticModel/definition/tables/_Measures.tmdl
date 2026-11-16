@@ -110,24 +110,6 @@ table _Measures
 		formatString: #,0.00
 		lineageTag: d20bb1f2-78a8-426c-bdf4-38580c9a3868
 
-	measure 'Sales Previous Year' =
-			
-			CALCULATE(
-			    [Total Sales],
-			    SAMEPERIODLASTYEAR(dim_date[full_date])
-			)
-		formatString: #,0.00
-		lineageTag: 2a725f84-4cd0-4ea4-8464-4835bd91dfb3
-
-	measure 'YoY Sales Growth %' =
-			
-			DIVIDE(
-			    [Total Sales] - [Sales Previous Year],
-			    [Sales Previous Year]
-			)
-		formatString: 0.00%;-0.00%;0.00%
-		lineageTag: cde0e0ae-71a7-46fb-95cd-a1a1c98374e5
-
 	measure 'Ramadan Sales' =
 			
 			CALCULATE(
@@ -1256,13 +1238,6 @@ table _Measures
 		displayFolder: Colours
 		lineageTag: 0c87577b-d67d-53ae-93bd-ee9799eca1cb
 
-	measure 'Colour Top Tier Spend' =
-			VAR t = TOPN ( 1, ALLSELECTED ( dim_customers[loyalty_tier] ), [Sales per Customer], DESC )
-			RETURN
-			    IF ( SELECTEDVALUE ( dim_customers[loyalty_tier] ) IN SELECTCOLUMNS ( t, "@k", dim_customers[loyalty_tier] ), "#1F4E79", "#B8C0CC" )
-		displayFolder: Colours
-		lineageTag: c9975d88-b288-5d8a-ae1d-ccebdd10b6a2
-
 	measure 'Colour Sales vs PY' =
 			
 			IF (
@@ -1756,7 +1731,7 @@ table _Measures
 			VAR St =
 			    FILTER ( ADDCOLUMNS ( VALUES ( dim_stores[store_name] ), "@r", [Return Rate (Value) %] ), NOT ISBLANK ( [@r] ) )
 			VAR t = TOPN ( 1, St, [@r], DESC )
-			VAR ov = [Return Rate (Value) %]
+			VAR ov = CALCULATE ( [Return Rate (Value) %], REMOVEFILTERS ( dim_stores[store_name] ) )
 			RETURN
 			    IF (
 			        COUNTROWS ( St ) = 0,
