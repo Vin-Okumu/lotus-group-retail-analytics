@@ -1,0 +1,134 @@
+{
+  "name": "Lotus Clean",
+  "dataColors": [
+    "#1F4E79",
+    "#B8C0CC",
+    "#5B6573",
+    "#8FB3D9",
+    "#D9DEE5",
+    "#2E6A9E",
+    "#7A8594",
+    "#C9D9EA"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#1D2633",
+  "tableAccent": "#1F4E79",
+  "good": "#1A7F4B",
+  "bad": "#B42318",
+  "neutral": "#5B6573",
+  "maximum": "#1F4E79",
+  "center": "#8FB3D9",
+  "minimum": "#EAF0F7",
+  "null": "#D9DEE5",
+  "textClasses": {
+    "callout": {
+      "fontSize": 18,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1D2633"
+    },
+    "title": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1D2633"
+    },
+    "header": {
+      "fontSize": 11,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1D2633"
+    },
+    "label": {
+      "fontSize": 9,
+      "fontFace": "Segoe UI",
+      "color": "#5B6573"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E3E7EC"
+              }
+            },
+            "radius": 6
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "title": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#1D2633"
+              }
+            },
+            "fontSize": 11,
+            "bold": true,
+            "fontFamily": "Segoe UI Semibold"
+          }
+        ],
+        "subTitle": [
+          {
+            "fontColor": {
+              "solid": {
+                "color": "#5B6573"
+              }
+            },
+            "fontSize": 8,
+            "fontFamily": "Segoe UI"
+          }
+        ],
+        "valueAxis": [
+          {
+            "gridlineColor": {
+              "solid": {
+                "color": "#EDF0F3"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F5F6F8"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F5F6F8"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

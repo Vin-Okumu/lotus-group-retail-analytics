@@ -1,0 +1,113 @@
+table fact_orders
+	lineageTag: fb45170e-f301-43a5-bed9-53195936395d
+
+	column order_id
+		dataType: string
+		lineageTag: 3c312845-47f8-4bec-89af-99041a2c7f65
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c055de2b-c177-40db-b0ee-9dd49ea40089
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: 187e069b-e2bb-48ab-a2bb-beeed935c36a
+			defaultHierarchy: LocalDateTable_d015208f-7fe5-4996-8aca-afc42e275e18.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column date_id
+		dataType: int64
+		formatString: 0
+		lineageTag: d0308e8b-bd82-4296-8587-194938700799
+		summarizeBy: none
+		sourceColumn: date_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: ff853aad-e6a1-40f7-a6c4-a51b77dc17a5
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f3f9a2ce-1992-4ccc-af2c-e2112d339399
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column employee_id
+		dataType: string
+		lineageTag: d2cfbd5e-b04e-4dc3-8231-e1daa1296957
+		summarizeBy: none
+		sourceColumn: employee_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: 20a93f38-2321-447f-86d7-e6a18c4bbb06
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 89d92b30-bfd6-433f-8ec9-fcea237e0283
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: decimal
+		lineageTag: 8b319a62-9875-40be-937d-083aa03b7c2f
+		summarizeBy: sum
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_cost
+		dataType: decimal
+		lineageTag: c68cd765-141d-4cd2-b3e0-ea2a308f6b0b
+		summarizeBy: sum
+		sourceColumn: total_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_orders = m
+		mode: import
+		queryGroup: Facts
+		source =
+				let
+				    Source = Table.Combine({fact_orders_2022_2023, fact_orders_2024}),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"total_revenue", Currency.Type}, {"total_cost", Currency.Type}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each true),
+				    #"Trimmed Text" = Table.TransformColumns(#"Filtered Rows",{{"payment_method", Text.Trim, type text}})
+				in
+				    #"Trimmed Text"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,36 @@
+table 'Share Metric'
+	lineageTag: 0d42ce70-ce9f-4d99-8385-5d300785b720
+
+	column Metric
+		lineageTag: e8390138-6324-4d6e-8d5c-f24289bf427f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Metric]
+		sortByColumn: Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: 296c6d38-21ce-4975-937c-a01c3059e6aa
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Share Metric' = calculated
+		mode: import
+		source =
+				
+				DATATABLE (
+				    "Metric", STRING,
+				    "Order", INTEGER,
+				    {
+				        { "Share of sales", 1 },
+				        { "Share of profit", 2 }
+				    }
+				)
+
+	annotation PBI_Id = 2007a19f710d46b99a7b619713a66460
+

@@ -1,0 +1,25 @@
+table RefreshInfo
+	isHidden
+	lineageTag: 48ee17d6-1e36-5e17-b25c-6b2d0a470261
+
+	column 'Refreshed At'
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 1591b3d0-ac05-5e2e-bcf9-097e1f02be0c
+		summarizeBy: none
+		sourceColumn: [Refreshed At]
+
+		variation Variation
+			isDefault
+			relationship: a3bf28e4-0d1b-4318-ae58-bd38d52341da
+			defaultHierarchy: LocalDateTable_5d29fb22-2d4e-4b6c-a93a-975658b86343.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition RefreshInfo = calculated
+		mode: import
+		source = ROW ( "Refreshed At", NOW () )
+
+	annotation PBI_Id = 5940228a3cc05b0e93c347a8424f2b98
+

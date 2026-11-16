@@ -1,0 +1,86 @@
+table dim_stores
+	lineageTag: 1440c9c3-d2d4-4b8a-b2bf-7cc14d84184d
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 78fc2b07-a84d-41fc-ac56-cecb86fdd935
+		summarizeBy: none
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_name
+		dataType: string
+		lineageTag: b7182c12-af30-4943-82dc-0b34e776f18a
+		summarizeBy: none
+		sourceColumn: store_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 1e5fd0bb-9b54-4123-b1c9-63174bb0a2ea
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column district
+		dataType: string
+		lineageTag: c00c3d46-8a49-4127-b2b9-d0b70d1a7add
+		summarizeBy: none
+		sourceColumn: district
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		lineageTag: d2fec41a-2bb9-41ae-aab7-65f4a2d0937b
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column opening_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 9026fdab-c907-47e8-a031-437fde9994a4
+		summarizeBy: none
+		sourceColumn: opening_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column size_sqm
+		dataType: int64
+		formatString: 0
+		lineageTag: 98fa96f2-330e-46b5-84a8-31be459d7323
+		summarizeBy: none
+		sourceColumn: size_sqm
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_type
+		dataType: string
+		lineageTag: 19d04310-c69d-48d9-b115-651afdb783f2
+		summarizeBy: none
+		sourceColumn: store_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_stores = m
+		mode: import
+		queryGroup: Dimensions
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\admin\Documents\Projects\lotus-group-retail-analytics\01_data\raw\dim_stores.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"store_id", Int64.Type}, {"store_name", type text}, {"city", type text}, {"district", type text}, {"region", type text}, {"opening_year", Int64.Type}, {"size_sqm", Int64.Type}, {"store_type", type text}}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Changed Type","Lotus ","",Replacer.ReplaceText,{"store_name"})
+				in
+				    #"Replaced Value"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

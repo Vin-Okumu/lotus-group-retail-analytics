@@ -1,0 +1,211 @@
+expression fact_orders_2022_2023 =
+		let
+		    Source = Csv.Document(File.Contents("C:\Users\admin\Documents\Projects\lotus-group-retail-analytics\01_data\raw\fact_orders_2022_2023.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"order_id", type text}, {"order_date", type date}, {"date_id", Int64.Type}, {"customer_id", type text}, {"store_id", Int64.Type}, {"employee_id", type text}, {"payment_method", type text}, {"order_status", type text}, {"total_revenue", type number}, {"total_cost", Int64.Type}})
+		in
+		    #"Changed Type"
+	lineageTag: f04c1115-8f3d-4173-aa1b-f7798866269f
+	queryGroup: Stagging
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression fact_orders_2024 =
+		let
+		    Source = Csv.Document(File.Contents("C:\Users\admin\Documents\Projects\lotus-group-retail-analytics\01_data\raw\fact_orders_2024.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+		    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+		    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"order_id", type text}, {"order_date", type date}, {"date_id", Int64.Type}, {"customer_id", type text}, {"store_id", Int64.Type}, {"employee_id", type text}, {"payment_method", type text}, {"order_status", type text}, {"total_revenue", type number}, {"total_cost", Int64.Type}})
+		in
+		    #"Changed Type"
+	lineageTag: 15ab77a2-f7f9-4ed7-88e3-fb3e810cf915
+	queryGroup: Stagging
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
+expression profile_dim_date_validation =
+		let
+		    Source = dim_date,
+		    #"Added Custom" = Table.AddColumn(Source, "check_day", each if [day] = Date.Day([full_date])
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Added Custom",{"date_id", "full_date", "day", "check_day", "month", "month_name", "quarter", "quarter_name", "year", "day_of_week", "day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom1" = Table.AddColumn(#"Reordered Columns", "check_month", each if [month] = Date.Month([full_date])
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Added Custom1",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "quarter", "quarter_name", "year", "day_of_week", "day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom2" = Table.AddColumn(#"Reordered Columns1", "check_year", each if [year] = Date.Year([full_date])
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns2" = Table.ReorderColumns(#"Added Custom2",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "quarter", "quarter_name", "year", "check_year", "day_of_week", "day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom3" = Table.AddColumn(#"Reordered Columns2", "check_month_name", each if [month_name] = Date.MonthName([full_date])
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns3" = Table.ReorderColumns(#"Added Custom3",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "check_month_name", "quarter", "quarter_name", "year", "check_year", "day_of_week", "day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom4" = Table.AddColumn(#"Reordered Columns3", "check_quarter", each if [quarter] = Date.QuarterOfYear([full_date])
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns4" = Table.ReorderColumns(#"Added Custom4",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "check_month_name", "quarter", "check_quarter", "quarter_name", "year", "check_year", "day_of_week", "day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom5" = Table.AddColumn(#"Reordered Columns4", "check_quarter_name", each if [quarter_name] = "Q" & Text.From(Date.QuarterOfYear([full_date]))
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns5" = Table.ReorderColumns(#"Added Custom5",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "check_month_name", "quarter", "check_quarter", "quarter_name", "check_quarter_name", "year", "check_year", "day_of_week", "day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom6" = Table.AddColumn(#"Reordered Columns5", "check_day_of_week", each if [day_of_week] = Date.DayOfWeek([full_date], Day.Monday) + 1
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns6" = Table.ReorderColumns(#"Added Custom6",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "check_month_name", "quarter", "check_quarter", "quarter_name", "check_quarter_name", "year", "check_year", "day_of_week", "check_day_of_week", "day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom7" = Table.AddColumn(#"Reordered Columns6", "check_day_name", each if [day_name] = Date.DayOfWeekName([full_date])
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns7" = Table.ReorderColumns(#"Added Custom7",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "check_month_name", "quarter", "check_quarter", "quarter_name", "check_quarter_name", "year", "check_year", "day_of_week", "check_day_of_week", "day_name", "check_day_name", "is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom8" = Table.AddColumn(#"Reordered Columns7", "check_is_weekend", each if [is_weekend] =
+		    (if Date.DayOfWeek([full_date], Day.Sunday) >= 5
+		    then 1
+		    else 0)
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns8" = Table.ReorderColumns(#"Added Custom8",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "check_month_name", "quarter", "check_quarter", "quarter_name", "check_quarter_name", "year", "check_year", "day_of_week", "check_day_of_week", "day_name", "check_day_name", "is_weekend", "check_is_weekend", "week_of_year", "is_ramadan"}),
+		    #"Added Custom9" = Table.AddColumn(#"Reordered Columns8", "calculated_week", each Date.WeekOfYear([full_date])),
+		    #"Reordered Columns9" = Table.ReorderColumns(#"Added Custom9",{"date_id", "full_date", "day", "check_day", "month", "check_month", "month_name", "check_month_name", "quarter", "check_quarter", "quarter_name", "check_quarter_name", "year", "check_year", "day_of_week", "check_day_of_week", "day_name", "check_day_name", "is_weekend", "check_is_weekend", "week_of_year", "calculated_week", "is_ramadan"})
+		in
+		    #"Reordered Columns9"
+	lineageTag: 9018d33d-fc0f-4d85-b3f2-25bdc455b27f
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression profile_ramadan_dates =
+		let
+		    Source = dim_date,
+		    #"Sorted Rows" = Table.Sort(Source,{{"full_date", Order.Ascending}}),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Sorted Rows",{"date_id", "full_date", "is_ramadan", "day", "month", "month_name", "quarter", "quarter_name", "year", "day_of_week", "day_name", "is_weekend", "week_of_year"}),
+		    #"Filtered Rows" = Table.SelectRows(#"Reordered Columns", each ([is_ramadan] = 1))
+		in
+		    #"Filtered Rows"
+	lineageTag: 5c130c5c-3c3c-42a3-a5de-ca95a00b243e
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression profile_fact_orders =
+		let
+		    Source = Table.Combine({fact_orders_2022_2023, fact_orders_2024})
+		in
+		    Source
+	lineageTag: 348b75b0-75af-4e75-a525-1e3919edd726
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression audi_orders_missing_dates =
+		let
+		    Source = Table.NestedJoin(profile_fact_orders, {"date_id"}, dim_date, {"date_id"}, "dim_date", JoinKind.LeftAnti)
+		in
+		    Source
+	lineageTag: 7a11c461-157d-4ddd-86ad-48a4a2de9826
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression audit_orders_missing_customers =
+		let
+		    Source = Table.NestedJoin(profile_fact_orders, {"customer_id"}, dim_customers, {"customer_id"}, "dim_customers", JoinKind.LeftAnti)
+		in
+		    Source
+	lineageTag: 2fcbd24b-07e8-4b88-8e06-a650370b4e09
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression audit_orders_missing_stores =
+		let
+		    Source = Table.NestedJoin(profile_fact_orders, {"store_id"}, dim_stores, {"store_id"}, "dim_stores", JoinKind.LeftAnti)
+		in
+		    Source
+	lineageTag: 1674c117-b187-44bf-aaa8-6ad6d6785eef
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression audit_orders_missing_employees =
+		let
+		    Source = Table.NestedJoin(profile_fact_orders, {"employee_id"}, dim_employees, {"employee_id"}, "dim_employees", JoinKind.LeftAnti)
+		in
+		    Source
+	lineageTag: 049585b7-f06d-4961-90d2-e5e8b8993133
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression audit_details_missing_order =
+		let
+		    Source = Table.NestedJoin(fact_order_details, {"order_id"}, profile_fact_orders, {"order_id"}, "profile_fact_orders", JoinKind.LeftAnti)
+		in
+		    Source
+	lineageTag: 4743fab1-c36f-4578-a3db-c0a945fe9b00
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression audit_returns_missing_orders =
+		let
+		    Source = Table.NestedJoin(fact_returns, {"order_id"}, profile_fact_orders, {"order_id"}, "profile_fact_orders", JoinKind.LeftAnti)
+		in
+		    Source
+	lineageTag: 3a1c3310-e20e-481d-acd0-4d6cc527c77c
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression profile__details_financial_validation =
+		let
+		    Source = fact_order_details,
+		    #"Added Custom" = Table.AddColumn(Source, "calculated_selling_price", each [unit_price] * (1 - [discount_pct] / 100)),
+		    #"Reordered Columns" = Table.ReorderColumns(#"Added Custom",{"detail_id", "order_id", "product_id", "quantity", "unit_price", "discount_pct", "selling_price", "calculated_selling_price", "unit_cost", "line_total_revenue", "line_total_cost"}),
+		    #"Added Custom1" = Table.AddColumn(#"Reordered Columns", "check_selling_price", each if Number.Round([selling_price], 2) =
+		   Number.Round([calculated_selling_price], 2)
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns1" = Table.ReorderColumns(#"Added Custom1",{"detail_id", "order_id", "product_id", "quantity", "unit_price", "discount_pct", "selling_price", "calculated_selling_price", "check_selling_price", "unit_cost", "line_total_revenue", "line_total_cost"}),
+		    #"Added Custom2" = Table.AddColumn(#"Reordered Columns1", "calculated_line_revenue", each [quantity] * [selling_price]),
+		    #"Reordered Columns2" = Table.ReorderColumns(#"Added Custom2",{"detail_id", "order_id", "product_id", "quantity", "unit_price", "discount_pct", "selling_price", "calculated_selling_price", "check_selling_price", "unit_cost", "line_total_revenue", "calculated_line_revenue", "line_total_cost"}),
+		    #"Added Custom3" = Table.AddColumn(#"Reordered Columns2", "check_line_revenue", each if Number.Round([line_total_revenue], 2) =
+		   Number.Round([calculated_line_revenue], 2)
+		then "Valid"
+		else "Invalid"),
+		    #"Reordered Columns3" = Table.ReorderColumns(#"Added Custom3",{"detail_id", "order_id", "product_id", "quantity", "unit_price", "discount_pct", "selling_price", "calculated_selling_price", "check_selling_price", "unit_cost", "line_total_revenue", "calculated_line_revenue", "check_line_revenue", "line_total_cost"}),
+		    #"Added Custom4" = Table.AddColumn(#"Reordered Columns3", "calculated_line_cost", each [quantity] * [unit_cost]),
+		    #"Added Custom5" = Table.AddColumn(#"Added Custom4", "check_line_cost", each if Number.Round([line_total_cost], 2) =
+		   Number.Round([calculated_line_cost], 2)
+		then "Valid"
+		else "Invalid")
+		in
+		    #"Added Custom5"
+	lineageTag: 9d28251c-0e3a-4ee5-954f-fa405e2c56f8
+	queryGroup: 'Profiling and Audit'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

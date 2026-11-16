@@ -1,0 +1,53 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Dimensions
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup Facts
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup Stagging
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Profiling and Audit'
+
+	annotation PBI_QueryGroupOrder = 3
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dim_date","dim_customers","dim_products","dim_employees","dim_stores","fact_orders","fact_order_details","fact_returns","fact_orders_2022_2023","fact_orders_2024","profile_ramadan_dates","profile_fact_orders","profile_dim_date_validation","audi_orders_missing_dates","audit_orders_missing_customers","audit_orders_missing_stores","audit_orders_missing_employees","audit_details_missing_order","audit_returns_missing_orders","profile__details_financial_validation"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_customers
+ref table DateTableTemplate_a63f4cb6-02b1-44db-9221-b4b6efa73b3a
+ref table LocalDateTable_9fffffc3-a546-48ac-8df3-16097e7b4f84
+ref table dim_date
+ref table LocalDateTable_8ba0757f-e41a-4cbf-8986-4e7b5a3e4050
+ref table dim_employees
+ref table LocalDateTable_218498bb-6ecc-49df-be9b-f3b4b901467a
+ref table dim_products
+ref table dim_stores
+ref table fact_order_details
+ref table fact_returns
+ref table LocalDateTable_7be9fb89-e595-4063-b903-fae3c393e024
+ref table fact_orders
+ref table LocalDateTable_d015208f-7fe5-4996-8aca-afc42e275e18
+ref table LocalDateTable_4833b986-8d02-4f8b-bc9c-8684f55accfd
+ref table _Measures
+ref table CustomerDecile
+ref table RefreshInfo
+ref table 'Share Metric'
+ref table LocalDateTable_5d29fb22-2d4e-4b6c-a93a-975658b86343
+
+ref cultureInfo en-US
+

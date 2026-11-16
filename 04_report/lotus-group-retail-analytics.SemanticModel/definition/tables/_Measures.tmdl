@@ -1,0 +1,1875 @@
+table _Measures
+	lineageTag: c6f66441-bc06-450d-93fc-ec7751c3c9bd
+
+	measure 'Total Sales' =
+			
+			SUM(fact_order_details[line_total_revenue])
+		formatString: #,0
+		lineageTag: 51871990-d79b-4b8e-b3ff-0a30d7c78c8b
+
+	measure 'Total Cost' =
+			
+			SUM(fact_order_details[line_total_cost])
+		formatString: #,0
+		lineageTag: 046e5633-0dd5-47d6-8b61-8d5d4f288811
+
+	measure 'Gross Profit' =
+			
+			[Total Sales] - [Total Cost]
+		formatString: #,0
+		lineageTag: 1a6655e8-e437-49d9-95e4-54d95dbe0f14
+
+	measure 'Gross Margin %' =
+			
+			DIVIDE(
+			    [Gross Profit],
+			    [Total Sales]
+			)
+		formatString: 0.0%
+		lineageTag: b8d483c5-0093-41fc-981d-873b0e945337
+
+	measure 'Total Orders' = CALCULATE ( DISTINCTCOUNT ( fact_orders[order_id] ), CROSSFILTER ( fact_order_details[order_id], fact_orders[order_id], BOTH ) )
+		formatString: 0
+		lineageTag: ca91b516-e0a5-4a26-b3d7-bb6524ccd6bc
+
+	measure 'Units Sold' =
+			
+			SUM(fact_order_details[quantity])
+		formatString: 0
+		lineageTag: 31e8aacd-3fde-400b-98fa-40fc933cab28
+
+	measure 'Average Order Value' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    [Total Orders]
+			)
+		formatString: #,0
+		lineageTag: 08185b98-9aba-443b-9bb4-2c5c5b5637b1
+
+	measure 'Units per Order' =
+			
+			DIVIDE(
+			    [Units Sold],
+			    [Total Orders]
+			)
+		formatString: 0.00
+		lineageTag: 3e6a1ebd-52fe-4002-a2a4-f1beeaa05569
+
+	measure 'Total Customers' = CALCULATE ( DISTINCTCOUNT ( fact_orders[customer_id] ), CROSSFILTER ( fact_order_details[order_id], fact_orders[order_id], BOTH ) )
+		formatString: 0
+		lineageTag: 6a952934-119d-47cd-be42-00d72798cc4e
+
+	measure 'Sales per Customer' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    [Total Customers]
+			)
+		formatString: #,0
+		lineageTag: d80c7271-e5b3-40e8-b120-9d5455298e0b
+
+	measure 'Products Sold' =
+			
+			DISTINCTCOUNT(fact_order_details[product_id])
+		formatString: 0
+		lineageTag: e391e332-bb45-4850-b925-50ffd8011dbc
+
+	measure 'Average Selling Price' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    [Units Sold]
+			)
+		formatString: #,0.00
+		lineageTag: 89741cbc-7a6e-4802-b18a-781fde1b585e
+
+	measure 'Returned Amount' = CALCULATE ( SUM ( fact_returns[return_amount] ), CROSSFILTER ( fact_order_details[order_id], fact_orders[order_id], BOTH ) )
+		formatString: #,0
+		lineageTag: 8ecb1803-a3a1-4ee2-aa17-740f36e1fb03
+
+	measure 'Number of Returns' = CALCULATE ( DISTINCTCOUNT ( fact_returns[return_id] ), CROSSFILTER ( fact_order_details[order_id], fact_orders[order_id], BOTH ) )
+		formatString: 0
+		lineageTag: e6553cd2-21b4-402f-ac79-f1d06eca1b92
+
+	measure 'Return Rate %' =
+			
+			DIVIDE(
+			    [Number of Returns],
+			    [Total Orders]
+			)
+		formatString: 0.0%
+		lineageTag: cf99b30c-7e64-4b81-ac84-0ef01d0211c1
+
+	measure 'Sales YTD' =
+			
+			TOTALYTD(
+			    [Total Sales],
+			    dim_date[full_date]
+			)
+		formatString: #,0.00
+		lineageTag: d20bb1f2-78a8-426c-bdf4-38580c9a3868
+
+	measure 'Sales Previous Year' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    SAMEPERIODLASTYEAR(dim_date[full_date])
+			)
+		formatString: #,0.00
+		lineageTag: 2a725f84-4cd0-4ea4-8464-4835bd91dfb3
+
+	measure 'YoY Sales Growth %' =
+			
+			DIVIDE(
+			    [Total Sales] - [Sales Previous Year],
+			    [Sales Previous Year]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: cde0e0ae-71a7-46fb-95cd-a1a1c98374e5
+
+	measure 'Ramadan Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_ramadan] = 1
+			)
+		formatString: #,0.00
+		lineageTag: 8c39cbe3-54b0-4b1a-9f84-2328a3874a7b
+
+	measure 'Non-Ramadan Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_ramadan] = 0
+			)
+		formatString: #,0.00
+		lineageTag: b2224743-735a-4fcc-a1a4-cdee32a1558a
+
+	measure 'Weekend Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_weekend] = 1
+			)
+		formatString: #,0.00
+		lineageTag: f32242f2-c692-42dc-97ee-e7434981c760
+
+	measure 'Weekday Sales' =
+			
+			CALCULATE(
+			    [Total Sales],
+			    dim_date[is_weekend] = 0
+			)
+		formatString: #,0.00
+		lineageTag: 63e0b994-8b7a-46fd-b6dd-853663b5e744
+
+	measure 'Orders with Employee ID' =
+			
+			CALCULATE(
+			    [Total Orders], (fact_orders[employee_id] <> "")
+			)
+		formatString: 0
+		lineageTag: e4a515ca-64a0-438b-80e2-6231969bdb99
+
+	measure 'Orders without Employee ID' =
+			
+			CALCULATE(
+			    [Total Orders],
+			    (fact_orders[employee_id] = "")
+			)
+		formatString: 0
+		lineageTag: db95a00b-03f4-4c35-b316-46da32bd45c6
+
+	measure 'Employee Attribution Rate %' =
+			
+			DIVIDE(
+			    [Orders with Employee ID],
+			    [Total Orders]
+			)
+		formatString: 0.0%
+		lineageTag: dbb213cd-a695-4f47-ae3f-6d30b17947c2
+
+	measure 'Product Sales Contribution %' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    CALCULATE(
+			        [Total Sales],
+			        REMOVEFILTERS(dim_products)
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: e69d319f-c47a-4381-b76c-d2cb74ce0a03
+
+	measure 'Sales per Store' =
+			
+			DIVIDE(
+			    [Total Sales],
+			    DISTINCTCOUNT(dim_stores[store_id])
+			)
+		formatString: #,0.00
+		lineageTag: 47e93e90-083f-4b56-aabb-e83d77fcc778
+
+	measure 'Number of Employees' =
+			
+			DISTINCTCOUNT(fact_orders[employee_id])
+		formatString: 0
+		lineageTag: c046d87a-8240-482d-971d-4d7d4cdbdd43
+
+	measure 'Average Sales' =
+			
+			DIVIDE(
+			SUM(fact_order_details[line_total_revenue]),
+			COUNT(fact_order_details[line_total_revenue])
+			)
+		formatString: #,0.00
+		lineageTag: 0c09a39e-1bdd-43b9-9314-4d67977ade11
+
+	measure 'Total Orders Returned' = CALCULATE ( DISTINCTCOUNT ( fact_returns[order_id] ), CROSSFILTER ( fact_order_details[order_id], fact_orders[order_id], BOTH ) )
+		formatString: 0
+		lineageTag: 415ab811-70ea-45d9-8d8b-4cdfd596e444
+
+	measure 'Avg Returned Order Value' =
+			
+			DIVIDE(
+			    [Returned Amount],
+			    [Total Orders Returned]
+			)
+		formatString: #,0.00
+		lineageTag: 5601529a-b148-421d-b171-b244af961dd4
+
+	measure 'PY Label' = "vs " & FORMAT ( SELECTEDVALUE ( dim_date[year] ) - 1, "0" )
+		displayFolder: Labels
+		lineageTag: 824922a7-0c19-501f-9b2c-f73ae4a044c2
+
+	measure 'Context Label' =
+			VAR y =
+			    IF (
+			        HASONEVALUE ( dim_date[year] ),
+			        FORMAT ( VALUES ( dim_date[year] ), "0" ),
+			        IF ( ISFILTERED ( dim_date[year] ), "Selected years", "2022–2024" )
+			    )
+			VAR r =
+			    IF (
+			        ISFILTERED ( dim_stores[region] ),
+			        CONCATENATEX ( VALUES ( dim_stores[region] ), dim_stores[region], ", " ),
+			        "All regions"
+			    )
+			VAR c =
+			    IF (
+			        ISFILTERED ( dim_products[category] ),
+			        CONCATENATEX ( VALUES ( dim_products[category] ), dim_products[category], ", " ),
+			        "All categories"
+			    )
+			RETURN
+			    y & " · " & r & " · " & c
+		displayFolder: Labels
+		lineageTag: 36e91051-c64d-560e-9563-3fe922b677dc
+
+	measure 'Last Refreshed Text' = "Last refreshed " & FORMAT ( MAX ( RefreshInfo[Refreshed At] ), "d mmm yyyy" )
+		displayFolder: Labels
+		lineageTag: bc0be782-bf72-58e5-8db2-fe4030dd6c78
+
+	measure 'Sales Change vs PY' = IF ( NOT ISBLANK ( [Sales PY] ), [Total Sales] - [Sales PY] )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 5fd4d0e0-03d7-5f5f-9052-f537764e8bdc
+
+	measure 'Sales vs PY %' = DIVIDE ( [Total Sales] - [Sales PY], [Sales PY] )
+		formatString: 0.0%
+		displayFolder: Core
+		lineageTag: e42f6892-1796-53fb-8141-d3319da3441f
+
+	measure 'Orders per Customer' = DIVIDE ( [Total Orders], [Total Customers] )
+		formatString: 0.00
+		displayFolder: Core
+		lineageTag: 1bf4dae0-b4fe-5921-b492-a3b109b894a4
+
+	measure 'Return Rate (Value) %' = DIVIDE ( [Returned Amount], [Total Sales] )
+		formatString: 0.0%
+		displayFolder: Core
+		lineageTag: e910ef3e-895d-5a65-aed7-56af81e72d96
+
+	measure 'Preventable Returned Amount' = CALCULATE ( [Returned Amount], fact_returns[return_reason] IN { "Duplicate Order", "Wrong Item Delivered" } )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: c9b8d1f0-b445-57de-b035-2fc6b0c6dd15
+
+	measure 'Preventable Share %' = DIVIDE ( [Preventable Returned Amount], [Returned Amount] )
+		formatString: 0.0%
+		displayFolder: Core
+		lineageTag: fd546278-4f89-51f7-b522-d2fd6f92845f
+
+	measure 'Active Employees' = CALCULATE ( DISTINCTCOUNT ( fact_orders[employee_id] ), fact_orders[employee_id] <> "", CROSSFILTER ( fact_order_details[order_id], fact_orders[order_id], BOTH ) )
+		formatString: 0
+		displayFolder: Core
+		lineageTag: ad39c9f2-c67e-5f3c-8626-0b33d46e0d25
+
+	measure 'Attributed Sales' = CALCULATE ( [Total Sales], fact_orders[employee_id] <> "" )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: f866e423-d7bf-5f86-aed0-ff9f518b605e
+
+	measure 'Sales per Employee' = DIVIDE ( [Attributed Sales], [Active Employees] )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 7d677dd0-5725-52e8-9eb9-814c893b1037
+
+	measure 'Orders per Employee' = DIVIDE ( [Orders with Employee ID], [Active Employees] )
+		formatString: 0.0
+		displayFolder: Core
+		lineageTag: 773ecc24-fa98-537c-bbd6-530216b82f9e
+
+	measure 'Store Floor Space' = SUM ( dim_stores[size_sqm] )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 8caa9562-ecb7-5216-9e35-4301be49febe
+
+	measure 'Sales per m²' = DIVIDE ( [Total Sales], [Store Floor Space] )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: cda69df8-002f-563b-a54c-b8fe73ddccce
+
+	measure 'Store Count' = COUNTROWS ( FILTER ( VALUES ( dim_stores[store_name] ), [Total Sales] > 0 ) )
+		formatString: 0
+		displayFolder: Core
+		lineageTag: dd30d9ce-86f2-5697-a0f9-823d73d50cb6
+
+	measure 'Stores Growing' = COUNTROWS ( FILTER ( VALUES ( dim_stores[store_name] ), [Sales vs PY %] > 0 ) )
+		formatString: 0
+		displayFolder: Core
+		lineageTag: f15e3bfb-9487-5485-a894-899be9b85d71
+
+	measure 'Stores Shrinking' = COUNTROWS ( FILTER ( VALUES ( dim_stores[store_name] ), [Sales vs PY %] < 0 ) )
+		formatString: 0
+		displayFolder: Core
+		lineageTag: cb13c1d2-bec5-590e-8fea-fe8271a1dcb7
+
+	measure 'Sales Share %' = DIVIDE ( [Total Sales], CALCULATE ( [Total Sales], ALLSELECTED ( dim_products[category] ) ) )
+		formatString: 0.0%
+		displayFolder: Core
+		lineageTag: 1e5b6d22-ba8c-571a-ae97-358ad9dc1c09
+
+	measure 'Gross Profit Share %' = DIVIDE ( [Gross Profit], CALCULATE ( [Gross Profit], ALLSELECTED ( dim_products[category] ) ) )
+		formatString: 0.0%
+		displayFolder: Core
+		lineageTag: 3faff8ff-5cad-5855-94da-7cb3b77e0aca
+
+	measure 'Avg Daily Sales' = DIVIDE ( [Total Sales], COUNTROWS ( dim_date ) )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 0373298e-3ad1-520a-a2f5-527f4a610ee3
+
+	measure 'Ramadan Daily Sales' = CALCULATE ( [Avg Daily Sales], dim_date[is_ramadan] = 1 )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: efd77b1f-6c3b-5bea-9672-96518b1f23c9
+
+	measure 'Non-Ramadan Daily Sales' = CALCULATE ( [Avg Daily Sales], dim_date[is_ramadan] = 0 )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 8de79bca-438a-5572-83a6-8481ad842014
+
+	measure 'Weekend Daily Sales' = CALCULATE ( [Avg Daily Sales], dim_date[is_weekend] = 1 )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 80e4027f-183c-57bb-b644-c5d1a550b5a8
+
+	measure 'Weekday Daily Sales' = CALCULATE ( [Avg Daily Sales], dim_date[is_weekend] = 0 )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 92f283aa-78d8-55f1-ac78-6a75f8acba60
+
+	measure 'Ramadan Days' = CALCULATE ( COUNTROWS ( dim_date ), dim_date[is_ramadan] = 1 )
+		formatString: 0
+		displayFolder: Core
+		lineageTag: 227ba791-bd0a-54e4-bdbd-ef4b1f7ff4f1
+
+	measure 'Ramadan Seasons' = CALCULATE ( DISTINCTCOUNT ( dim_date[year] ), dim_date[is_ramadan] = 1 )
+		formatString: 0
+		displayFolder: Core
+		lineageTag: 50fbb8bf-1f22-51de-a3ef-d6f3b0283beb
+
+	measure 'Avg Monthly Sales' = DIVIDE ( [Total Sales], DISTINCTCOUNT ( dim_date[year] ) )
+		formatString: #,0
+		displayFolder: Core
+		lineageTag: 8d39510f-353a-580c-b8e9-23aa37ff808a
+
+	measure 'Cumulative Revenue Share' =
+			VAR d = SELECTEDVALUE ( CustomerDecile[Decile] )
+			VAR Cust =
+			    FILTER (
+			        ADDCOLUMNS ( VALUES ( fact_orders[customer_id] ), "@s", [Total Sales] ),
+			        [@s] > 0
+			    )
+			VAR n = COUNTROWS ( Cust )
+			VAR k = ROUNDUP ( n * d / 10, 0 )
+			RETURN
+			    IF ( NOT ISBLANK ( d ) && n > 0, DIVIDE ( SUMX ( TOPN ( k, Cust, [@s], DESC ), [@s] ), SUMX ( Cust, [@s] ) ) )
+		formatString: 0%
+		displayFolder: Core
+		lineageTag: 82f9ebcf-7021-588e-b52c-ffd5515b9bc9
+
+	measure 'Top 20% Revenue Share' =
+			VAR Cust =
+			    FILTER (
+			        ADDCOLUMNS ( VALUES ( fact_orders[customer_id] ), "@s", [Total Sales] ),
+			        [@s] > 0
+			    )
+			VAR k = INT ( COUNTROWS ( Cust ) * 0.2 )
+			RETURN
+			    IF ( k > 0, DIVIDE ( SUMX ( TOPN ( k, Cust, [@s], DESC ), [@s] ), SUMX ( Cust, [@s] ) ) )
+		formatString: 0.0%
+		displayFolder: Core
+		lineageTag: 7df6794c-f31e-520f-a3c6-4dcc8adae584
+
+	measure 'Employee Store' =
+			VAR s = SELECTEDVALUE ( dim_employees[store_id] )
+			RETURN
+			    SUBSTITUTE ( LOOKUPVALUE ( dim_stores[store_name], dim_stores[store_id], s ), "Lotus ", "" )
+		displayFolder: Core
+		lineageTag: 06cb3ae8-ee7e-5335-835b-2dbff1f1b718
+
+	measure 'Sales PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Total Sales], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: 6ecdbb78-9a99-599a-8213-d113b7557db8
+
+	measure 'Gross Profit PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Gross Profit], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: bf5c6840-bdec-5381-b788-8a18b78ef7ea
+
+	measure 'Gross Margin % PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Gross Margin %], dim_date[year] = y - 1 ) )
+		formatString: 0.0%
+		displayFolder: Prior Year
+		lineageTag: ba90c5b2-57bf-5cc3-af7c-a2de09e8b6e6
+
+	measure 'Orders PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Total Orders], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: 71cb9fcb-3ca8-5e85-be61-e6e041a44409
+
+	measure 'Units Sold PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Units Sold], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: 27b13751-aefd-59e0-99c7-3f746442e4ae
+
+	measure 'Average Order Value PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Average Order Value], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: 786a34a7-45ef-5a48-9e6f-56886fc42378
+
+	measure 'Customers PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Total Customers], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: b3dee6ee-7a62-5d89-abb6-ab5cbccb3477
+
+	measure 'Sales per Customer PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Sales per Customer], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: bf0e790e-058e-5a91-a8d4-0eb7b49becb4
+
+	measure 'Orders per Customer PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Orders per Customer], dim_date[year] = y - 1 ) )
+		formatString: 0.00
+		displayFolder: Prior Year
+		lineageTag: 16a73e7c-0742-5530-98f0-8882194863d2
+
+	measure 'Return Rate (Value) % PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Return Rate (Value) %], dim_date[year] = y - 1 ) )
+		formatString: 0.0%
+		displayFolder: Prior Year
+		lineageTag: 8f5e9ecf-a4fc-577b-9883-25e25926440b
+
+	measure 'Returned Amount PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Returned Amount], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: d563c81b-b9ba-56e0-8140-a47eb38d2b9f
+
+	measure 'Number of Returns PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Number of Returns], dim_date[year] = y - 1 ) )
+		formatString: 0
+		displayFolder: Prior Year
+		lineageTag: 1a13d4d0-b8bd-5627-99ba-2956a4ac82c8
+
+	measure 'Preventable Share % PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Preventable Share %], dim_date[year] = y - 1 ) )
+		formatString: 0.0%
+		displayFolder: Prior Year
+		lineageTag: b87e857b-cf58-5009-be02-8623b0b937dc
+
+	measure 'Attribution Rate % PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Employee Attribution Rate %], dim_date[year] = y - 1 ) )
+		formatString: 0.0%
+		displayFolder: Prior Year
+		lineageTag: 0c4bbc54-76af-524c-b781-f3df844866da
+
+	measure 'Orders without Employee ID PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Orders without Employee ID], dim_date[year] = y - 1 ) )
+		formatString: 0
+		displayFolder: Prior Year
+		lineageTag: 6a3b15c8-e56f-514e-9bd2-240be1969363
+
+	measure 'Sales per Employee PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Sales per Employee], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: b8d0dfe6-8ed0-51a8-a176-c45f9b7fc52f
+
+	measure 'Orders per Employee PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Orders per Employee], dim_date[year] = y - 1 ) )
+		formatString: 0.0
+		displayFolder: Prior Year
+		lineageTag: e09d6a53-6e8d-5d1f-bffa-0eebffa0641b
+
+	measure 'Sales per m² PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Sales per m²], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: 9d13a881-52eb-550a-8943-1c8d24ff4ea2
+
+	measure 'Top 20% Revenue Share PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Top 20% Revenue Share], dim_date[year] = y - 1 ) )
+		formatString: 0.0%
+		displayFolder: Prior Year
+		lineageTag: 833c329f-462b-5ffb-a4bd-5eb99586dbe4
+
+	measure 'Avg Daily Sales PY' =
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF ( NOT ISBLANK ( y ), CALCULATE ( [Avg Daily Sales], dim_date[year] = y - 1 ) )
+		formatString: #,0
+		displayFolder: Prior Year
+		lineageTag: 84dfc95f-e1b2-5824-a3c1-7792858cacd9
+
+	measure 'KPI Sales' =
+			VAR v = [Total Sales]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", IF ( ABS ( v ) >= 1000000, "EGP " & FORMAT ( v / 1000000, "#,0.00" ) & "M", IF ( ABS ( v ) >= 10000, "EGP " & FORMAT ( v / 1000, "#,0" ) & "K", "EGP " & FORMAT ( v, "#,0" ) ) ) )
+		displayFolder: KPI Tiles
+		lineageTag: 141ceea2-194f-5fa6-9add-3f1d23f1d636
+
+	measure 'KPI Sales Δ' =
+			VAR cur = [Total Sales]
+			VAR b = [Sales PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: b7f15641-1f98-5b4e-8a3a-d5c61d3960ad
+
+	measure 'KPI Sales Colour' =
+			VAR cur = [Total Sales]
+			VAR b = [Sales PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 4605f8b3-6de8-568b-965e-f51402848338
+
+	measure 'KPI Gross Profit' =
+			VAR v = [Gross Profit]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", IF ( ABS ( v ) >= 1000000, "EGP " & FORMAT ( v / 1000000, "#,0.00" ) & "M", IF ( ABS ( v ) >= 10000, "EGP " & FORMAT ( v / 1000, "#,0" ) & "K", "EGP " & FORMAT ( v, "#,0" ) ) ) )
+		displayFolder: KPI Tiles
+		lineageTag: 2e4f6287-f3ee-5e53-9aab-fb9b9a64d093
+
+	measure 'KPI Gross Profit Δ' =
+			VAR cur = [Gross Profit]
+			VAR b = [Gross Profit PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 97518fbf-113f-5673-becf-76d2288197b2
+
+	measure 'KPI Gross Profit Colour' =
+			VAR cur = [Gross Profit]
+			VAR b = [Gross Profit PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: d4ae093a-2336-5aef-a138-f5ef934a0e3e
+
+	measure 'KPI Gross Margin' =
+			VAR v = [Gross Margin %]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "0.0%" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 12f3f1ad-8e69-5d84-8234-9fbbdf5dd59f
+
+	measure 'KPI Gross Margin Δ' =
+			VAR cur = [Gross Margin %]
+			VAR b = [Gross Margin % PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( cur - b ) * 100, "0.0" ) & " pts" & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 16508e82-398b-5840-a644-2fe8d1cff5d6
+
+	measure 'KPI Gross Margin Colour' =
+			VAR cur = [Gross Margin %]
+			VAR b = [Gross Margin % PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 8b2995d4-d41a-5861-b7ed-424177ec345e
+
+	measure 'KPI Orders' =
+			VAR v = [Total Orders]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 0ae17cc4-6cde-5483-ad25-6b6ace92c958
+
+	measure 'KPI Orders Δ' =
+			VAR cur = [Total Orders]
+			VAR b = [Orders PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: b4ad3c3e-735e-5d34-b6cb-9231af90b5f3
+
+	measure 'KPI Orders Colour' =
+			VAR cur = [Total Orders]
+			VAR b = [Orders PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 20e15275-2eaf-5ec0-a435-d743234cbe22
+
+	measure 'KPI Return Rate' =
+			VAR v = [Return Rate (Value) %]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "0.0%" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 555b82f6-1a28-5e83-a0f2-ade88fc53c64
+
+	measure 'KPI Return Rate Δ' =
+			VAR cur = [Return Rate (Value) %]
+			VAR b = [Return Rate (Value) % PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( cur - b ) * 100, "0.0" ) & " pts" & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 96e5050f-f6ad-5c59-b5bd-19c8c50bfe31
+
+	measure 'KPI Return Rate Colour' =
+			VAR cur = [Return Rate (Value) %]
+			VAR b = [Return Rate (Value) % PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#B42318", "#1A7F4B" ) )
+		displayFolder: KPI Tiles
+		lineageTag: e9462695-6cef-5e04-a1dd-e35a2c7d5bf7
+
+	measure 'KPI Units' =
+			VAR v = [Units Sold]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 79aa7ec7-38bd-52d1-be85-2e0aa66f8e6d
+
+	measure 'KPI Units Δ' =
+			VAR cur = [Units Sold]
+			VAR b = [Units Sold PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: ba04670d-2ec6-5f32-b528-af2c5ed30893
+
+	measure 'KPI Units Colour' =
+			VAR cur = [Units Sold]
+			VAR b = [Units Sold PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 090de4f8-c0a3-5cbc-8d04-c928b207de63
+
+	measure 'KPI AOV' =
+			VAR v = [Average Order Value]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", "EGP " & FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 79fb4475-2092-528b-9b3d-10ffc0cce454
+
+	measure 'KPI AOV Δ' =
+			VAR cur = [Average Order Value]
+			VAR b = [Average Order Value PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 3d646593-e14b-5039-936c-72b18673851f
+
+	measure 'KPI AOV Colour' =
+			VAR cur = [Average Order Value]
+			VAR b = [Average Order Value PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 9ffee994-ccd8-5308-b4be-401edf054d7c
+
+	measure 'KPI Sales per m2' =
+			VAR v = [Sales per m²]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", "EGP " & FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 933beac3-1711-5cac-b14b-5df4e784e1d2
+
+	measure 'KPI Sales per m2 Δ' =
+			VAR cur = [Sales per m²]
+			VAR b = [Sales per m² PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 181addf6-8b7c-51cd-879a-40c6b9a552f4
+
+	measure 'KPI Sales per m2 Colour' =
+			VAR cur = [Sales per m²]
+			VAR b = [Sales per m² PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: cd022a06-3b3a-5a7a-8e22-4e99018bd903
+
+	measure 'KPI Stores Growing' = [Stores Growing] & " of " & [Store Count]
+		displayFolder: KPI Tiles
+		lineageTag: 18d9ac95-c5ab-5cb8-a991-ae1a31fb6984
+
+	measure 'KPI Stores Growing Δ' = IF ( ISBLANK ( [Sales PY] ), "No prior-year comparison", [Stores Shrinking] & " stores shrank " & [PY Label] )
+		displayFolder: KPI Tiles
+		lineageTag: 67382e5f-7486-5644-8c20-f34649961b0f
+
+	measure 'KPI Stores Growing Colour' = IF ( ISBLANK ( [Sales PY] ) || [Stores Shrinking] = 0, "#5B6573", "#B42318" )
+		displayFolder: KPI Tiles
+		lineageTag: 2e1ada15-aecd-5e4a-a2b6-eb74031beb66
+
+	measure 'KPI Customers' =
+			VAR v = [Total Customers]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: ecd5e7e0-7622-52a6-afae-766cc8a5cc74
+
+	measure 'KPI Customers Δ' =
+			VAR cur = [Total Customers]
+			VAR b = [Customers PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 887ac0a6-c62e-5fc1-98a1-11a36f5ceee4
+
+	measure 'KPI Customers Colour' =
+			VAR cur = [Total Customers]
+			VAR b = [Customers PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 543f6cc7-f795-53f9-9ca8-a0c514abb2e1
+
+	measure 'KPI Sales per Customer' =
+			VAR v = [Sales per Customer]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", "EGP " & FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 8fdac559-6df6-5a18-ab27-050c62efd822
+
+	measure 'KPI Sales per Customer Δ' =
+			VAR cur = [Sales per Customer]
+			VAR b = [Sales per Customer PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: fd3d12ea-9f8f-518c-9dac-acbf704c01ab
+
+	measure 'KPI Sales per Customer Colour' =
+			VAR cur = [Sales per Customer]
+			VAR b = [Sales per Customer PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 91f36854-a974-597d-87d1-435b5c25b288
+
+	measure 'KPI Top20 Share' =
+			VAR v = [Top 20% Revenue Share]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "0%" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 15b72ca4-30d1-5925-82b8-df70fd4a0295
+
+	measure 'KPI Top20 Share Δ' =
+			VAR cur = [Top 20% Revenue Share]
+			VAR b = [Top 20% Revenue Share PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( cur - b ) * 100, "0.0" ) & " pts" & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: f6ef9486-7777-5df8-986a-1c24f93b3309
+
+	measure 'KPI Top20 Share Colour' =
+			VAR cur = [Top 20% Revenue Share]
+			VAR b = [Top 20% Revenue Share PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#5B6573", "#5B6573" ) )
+		displayFolder: KPI Tiles
+		lineageTag: ad9c6379-3d12-58a4-87f1-4bbd6205c658
+
+	measure 'KPI Orders per Customer' =
+			VAR v = [Orders per Customer]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "0.00" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 9df740c6-f58e-5b8f-a73d-93f67f681d30
+
+	measure 'KPI Orders per Customer Δ' =
+			VAR cur = [Orders per Customer]
+			VAR b = [Orders per Customer PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: dcf1f365-6297-5e5b-b860-b560633817ed
+
+	measure 'KPI Orders per Customer Colour' =
+			VAR cur = [Orders per Customer]
+			VAR b = [Orders per Customer PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 8e4a144a-a334-56cf-96a6-00f434d07ca1
+
+	measure 'KPI Attribution' =
+			VAR v = [Employee Attribution Rate %]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "0.0%" ) )
+		displayFolder: KPI Tiles
+		lineageTag: c61a4c7a-8df0-5e4e-833d-0aba968685b6
+
+	measure 'KPI Attribution Δ' =
+			VAR cur = [Employee Attribution Rate %]
+			VAR b = [Attribution Rate % PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( cur - b ) * 100, "0.0" ) & " pts" & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 794a906e-bf29-5780-a53d-c621de90e127
+
+	measure 'KPI Attribution Colour' =
+			VAR cur = [Employee Attribution Rate %]
+			VAR b = [Attribution Rate % PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: eb217b21-884f-5b9a-b861-435542a8659e
+
+	measure 'KPI Unattributed' =
+			VAR v = [Orders without Employee ID]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: a8587c1e-0a27-542a-8d24-5929f1face44
+
+	measure 'KPI Unattributed Δ' =
+			VAR cur = [Orders without Employee ID]
+			VAR b = [Orders without Employee ID PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( cur - b ), "#,0" ) & " orders" & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 8ab46ee9-a12d-5bdd-baaf-912d587dc2a9
+
+	measure 'KPI Unattributed Colour' =
+			VAR cur = [Orders without Employee ID]
+			VAR b = [Orders without Employee ID PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#B42318", "#1A7F4B" ) )
+		displayFolder: KPI Tiles
+		lineageTag: f38cafb9-8124-5200-9cb1-05f884ea13c7
+
+	measure 'KPI Sales per Employee' =
+			VAR v = [Sales per Employee]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", "EGP " & FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: cc1e358d-d6bc-505a-a7c5-014f35d7f02e
+
+	measure 'KPI Sales per Employee Δ' =
+			VAR cur = [Sales per Employee]
+			VAR b = [Sales per Employee PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 4893081b-6623-5624-80d5-b79d1b99608f
+
+	measure 'KPI Sales per Employee Colour' =
+			VAR cur = [Sales per Employee]
+			VAR b = [Sales per Employee PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 6d680a20-5966-5089-8b64-2be8a04193e1
+
+	measure 'KPI Orders per Employee' =
+			VAR v = [Orders per Employee]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "0.0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 176261cc-a53f-5475-b4cf-67245b3f2fdb
+
+	measure 'KPI Orders per Employee Δ' =
+			VAR cur = [Orders per Employee]
+			VAR b = [Orders per Employee PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: b9dd8823-510c-51b9-a25f-8338bfa62cb3
+
+	measure 'KPI Orders per Employee Colour' =
+			VAR cur = [Orders per Employee]
+			VAR b = [Orders per Employee PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 156a5270-770a-52d1-970e-e4cfa1d0f71d
+
+	measure 'KPI Avg Daily Sales' =
+			VAR v = [Avg Daily Sales]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", "EGP " & FORMAT ( v / 1000, "#,0.0" ) & "K" )
+		displayFolder: KPI Tiles
+		lineageTag: 64ab329d-f0be-5403-88dc-b1ff377fec6d
+
+	measure 'KPI Avg Daily Sales Δ' =
+			VAR cur = [Avg Daily Sales]
+			VAR b = [Avg Daily Sales PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "Across " & FORMAT ( COUNTROWS ( dim_date ), "#,0" ) & " trading days",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 161816e4-e187-5da8-bf25-c1379017c64d
+
+	measure 'KPI Avg Daily Sales Colour' =
+			VAR cur = [Avg Daily Sales]
+			VAR b = [Avg Daily Sales PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 9f5c8a62-ae21-5946-a9e9-b42894034e85
+
+	measure 'KPI Ramadan Daily' =
+			VAR v = [Ramadan Daily Sales]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", "EGP " & FORMAT ( v / 1000, "#,0.0" ) & "K" )
+		displayFolder: KPI Tiles
+		lineageTag: 6d26fba4-0ac8-5bdf-9e1a-621483c6a0c6
+
+	measure 'KPI Ramadan Daily Δ' =
+			VAR cur = [Ramadan Daily Sales]
+			VAR b = [Non-Ramadan Daily Sales]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No Ramadan days in this selection",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & "vs rest of year"
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 775c706e-cbb7-5e84-80a9-099cedc212e4
+
+	measure 'KPI Ramadan Daily Colour' =
+			VAR cur = [Ramadan Daily Sales]
+			VAR b = [Non-Ramadan Daily Sales]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 95e2cafb-60db-5a0c-b72e-9c4b75bcf363
+
+	measure 'KPI Weekend Daily' =
+			VAR v = [Weekend Daily Sales]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", "EGP " & FORMAT ( v / 1000, "#,0.0" ) & "K" )
+		displayFolder: KPI Tiles
+		lineageTag: 97fb2919-17d5-539c-a650-cfb6cd765974
+
+	measure 'KPI Weekend Daily Δ' =
+			VAR cur = [Weekend Daily Sales]
+			VAR b = [Weekday Daily Sales]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & "vs weekdays"
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 2299e313-6ffe-5a1d-9df8-f47f930f6880
+
+	measure 'KPI Weekend Daily Colour' =
+			VAR cur = [Weekend Daily Sales]
+			VAR b = [Weekday Daily Sales]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#1A7F4B", "#B42318" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 6bd3cc66-1bb7-5edc-81a9-29362b81a28b
+
+	measure 'KPI Ramadan Days' =
+			VAR v = [Ramadan Days]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 66b1fed7-9cc0-5823-9b77-b9f69ae13481
+
+	measure 'KPI Ramadan Days Δ' = [Ramadan Seasons] & IF ( [Ramadan Seasons] = 1, " Ramadan season", " Ramadan seasons" )
+		displayFolder: KPI Tiles
+		lineageTag: e006716d-0adb-503a-9fae-8faceabfd4e2
+
+	measure 'KPI Ramadan Days Colour' = "#5B6573"
+		displayFolder: KPI Tiles
+		lineageTag: 2c121597-501a-5a50-b5e7-501c166101a0
+
+	measure 'KPI Returned Value' =
+			VAR v = [Returned Amount]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", IF ( ABS ( v ) >= 1000000, "EGP " & FORMAT ( v / 1000000, "#,0.00" ) & "M", IF ( ABS ( v ) >= 10000, "EGP " & FORMAT ( v / 1000, "#,0" ) & "K", "EGP " & FORMAT ( v, "#,0" ) ) ) )
+		displayFolder: KPI Tiles
+		lineageTag: d224b83f-b2ef-5759-a04c-57770e84b5fc
+
+	measure 'KPI Returned Value Δ' =
+			VAR cur = [Returned Amount]
+			VAR b = [Returned Amount PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: a3c6a95f-c16d-5352-be24-1cc05d9bfe5c
+
+	measure 'KPI Returned Value Colour' =
+			VAR cur = [Returned Amount]
+			VAR b = [Returned Amount PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#B42318", "#1A7F4B" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 2e4ff650-0bf9-5193-b536-d3658e040def
+
+	measure 'KPI Returns' =
+			VAR v = [Number of Returns]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "#,0" ) )
+		displayFolder: KPI Tiles
+		lineageTag: dae32151-a834-5d34-9f52-b460ffd7aa9c
+
+	measure 'KPI Returns Δ' =
+			VAR cur = [Number of Returns]
+			VAR b = [Number of Returns PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( DIVIDE ( cur - b, b ) ), "0.0%" ) & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: a2794ac5-bce9-56fe-8c2f-74fa2472f549
+
+	measure 'KPI Returns Colour' =
+			VAR cur = [Number of Returns]
+			VAR b = [Number of Returns PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#B42318", "#1A7F4B" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 105945fd-3d4b-5352-b38d-f8e74ab8e279
+
+	measure 'KPI Preventable Share' =
+			VAR v = [Preventable Share %]
+			RETURN
+			    IF ( ISBLANK ( v ), "–", FORMAT ( v, "0%" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 6e39bddf-23ee-5df9-bbb1-5ed993263252
+
+	measure 'KPI Preventable Share Δ' =
+			VAR cur = [Preventable Share %]
+			VAR b = [Preventable Share % PY]
+			RETURN
+			    IF (
+			        ISBLANK ( b ) || b = 0,
+			        "No prior-year comparison",
+			        IF ( cur >= b, "▲ ", "▼ " ) & FORMAT ( ABS ( cur - b ) * 100, "0.0" ) & " pts" & " " & [PY Label]
+			    )
+		displayFolder: KPI Tiles
+		lineageTag: 287b7f1c-f935-56af-8415-207a1220cbcc
+
+	measure 'KPI Preventable Share Colour' =
+			VAR cur = [Preventable Share %]
+			VAR b = [Preventable Share % PY]
+			RETURN
+			    IF ( ISBLANK ( b ) || b = 0 || cur = b, "#5B6573", IF ( cur > b, "#B42318", "#1A7F4B" ) )
+		displayFolder: KPI Tiles
+		lineageTag: 1a399680-c25b-5a79-bbc9-ed593828bc61
+
+	measure 'Colour Clothing' = IF ( SELECTEDVALUE ( dim_products[category] ) = "Clothing", "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: 9936fe29-b365-589b-8b56-824ceca5134d
+
+	measure 'Colour Weekend' = IF ( SELECTEDVALUE ( dim_date[is_weekend] ) = 1, "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: b6cf9fde-e2e6-52c8-813e-b0776256e349
+
+	measure 'Colour Preventable Reason' = IF ( SELECTEDVALUE ( fact_returns[return_reason] ) IN { "Duplicate Order", "Wrong Item Delivered" }, "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: 8c02ed39-576d-55d8-b59c-e8d9a1cec4da
+
+	measure 'Colour Region Gain' =
+			
+			VAR hasPY = NOT ISBLANK ( CALCULATE ( [Sales PY], ALLSELECTED ( dim_stores[region] ) ) )
+			VAR bestGain = MAXX ( TOPN ( 1, ALLSELECTED ( dim_stores[region] ), [Sales Change vs PY], DESC ), dim_stores[region] )
+			VAR bestSales = MAXX ( TOPN ( 1, ALLSELECTED ( dim_stores[region] ), [Total Sales], DESC ), dim_stores[region] )
+			VAR target = IF ( hasPY, bestGain, bestSales )
+			RETURN
+			    IF ( SELECTEDVALUE ( dim_stores[region] ) = target, "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: dd52d492-f572-58d4-8049-27fb543f0ac9
+
+	measure 'Colour Top Sales per m2' =
+			VAR t = TOPN ( 1, ALLSELECTED ( dim_stores[store_name] ), [Sales per m²], DESC )
+			RETURN
+			    IF ( SELECTEDVALUE ( dim_stores[store_name] ) IN SELECTCOLUMNS ( t, "@k", dim_stores[store_name] ), "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: 36247617-8f81-5631-9c34-abce718e847f
+
+	measure 'Colour Top Unattributed' =
+			VAR t = TOPN ( 3, ALLSELECTED ( dim_stores[store_name] ), [Orders without Employee ID], DESC )
+			RETURN
+			    IF ( SELECTEDVALUE ( dim_stores[store_name] ) IN SELECTCOLUMNS ( t, "@k", dim_stores[store_name] ), "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: 74db551c-89ff-5c31-b9c2-b19c1ed8aefe
+
+	measure 'Colour Top Return Rate' =
+			VAR t = TOPN ( 1, ALLSELECTED ( dim_stores[store_name] ), [Return Rate (Value) %], DESC )
+			RETURN
+			    IF ( SELECTEDVALUE ( dim_stores[store_name] ) IN SELECTCOLUMNS ( t, "@k", dim_stores[store_name] ), "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: 0c87577b-d67d-53ae-93bd-ee9799eca1cb
+
+	measure 'Colour Top Tier Spend' =
+			VAR t = TOPN ( 1, ALLSELECTED ( dim_customers[loyalty_tier] ), [Sales per Customer], DESC )
+			RETURN
+			    IF ( SELECTEDVALUE ( dim_customers[loyalty_tier] ) IN SELECTCOLUMNS ( t, "@k", dim_customers[loyalty_tier] ), "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: c9975d88-b288-5d8a-ae1d-ccebdd10b6a2
+
+	measure 'Colour Sales vs PY' =
+			
+			IF (
+			    ISBLANK ( [Sales vs PY %] ),
+			    "#5B6573",
+			    IF ( [Sales vs PY %] >= 0, "#1A7F4B", "#B42318" )
+			)
+		displayFolder: Colours
+		lineageTag: 6a06f2b1-18a7-539d-9915-a42c3d2245d0
+
+	measure 'Colour Tier Flag' = IF ( SELECTEDVALUE ( dim_customers[loyalty_tier] ) IN { "Bronze", "Silver" }, "#B42318", "#1D2633" )
+		displayFolder: Colours
+		lineageTag: ae858eb6-07f2-5ce2-89f8-cff9f0b9d7f6
+
+	measure 'Colour Low Margin' = IF ( [Gross Margin %] < 0.12, "#B42318", "#1D2633" )
+		displayFolder: Colours
+		lineageTag: d61b56ae-1527-5536-99ef-c6e64f49e09a
+
+	measure 'Colour Margin Scale' =
+			VAR m = [Gross Margin %]
+			RETURN
+			    SWITCH ( TRUE (), ISBLANK ( m ), BLANK (), m >= 0.23, "#C9D9EA", m >= 0.21, "#E1EAF3", "#F4F7FA" )
+		displayFolder: Colours
+		lineageTag: 91e3dd82-de9a-5cd9-ac5a-10d49f32d903
+
+	measure 'Title Exec Monthly' =
+			VAR cur = [Total Sales]
+			VAR py = [Sales PY]
+			VAR Mo = ADDCOLUMNS ( VALUES ( dim_date[month_name] ), "@s", [Total Sales] )
+			VAR bm = MAXX ( TOPN ( 1, Mo, [@s], DESC ), dim_date[month_name] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( cur ), "No sales for this selection",
+			        ISBLANK ( py ) || py = 0, bm & " was the strongest month for sales",
+			        "Sales " & IF ( cur >= py, "grew ", "fell " ) & FORMAT ( ABS ( DIVIDE ( cur - py, py ) ), "0.0%" ) & " " & [PY Label] & "; " & bm & " was the strongest month"
+			    )
+		displayFolder: Titles
+		lineageTag: 1e3187e9-9e11-5060-8823-2ab95979646f
+
+	measure 'Subtitle Exec Monthly' =
+			
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			VAR legendText =
+			    IF (
+			        ISBLANK ( y ),
+			        "Monthly sales (EGP), selected years combined",
+			        "Monthly sales (EGP) · Solid line: " & y & " · Dashed line: " & ( y - 1 )
+			    )
+			RETURN
+			    legendText & " · " & [Filter Label]
+		displayFolder: Titles
+		lineageTag: ab926eca-bf2c-508a-b989-a3550c357d9d
+
+	measure 'Title Exec Category' =
+			VAR C =
+			    ADDCOLUMNS ( VALUES ( dim_products[category] ), "@ss", [Sales Share %], "@gs", [Gross Profit Share %] )
+			VAR t = TOPN ( 1, C, [@gs] - [@ss], DESC )
+			RETURN
+			    IF (
+			        COUNTROWS ( C ) <= 1,
+			        SELECTEDVALUE ( dim_products[category] ) & " only: gross margin " & FORMAT ( [Gross Margin %], "0.0%" ),
+			        MAXX ( t, dim_products[category] ) & " is " & FORMAT ( MAXX ( t, [@ss] ), "0%" ) & " of sales but "
+			            & FORMAT ( MAXX ( t, [@gs] ), "0%" ) & " of gross profit"
+			    )
+		displayFolder: Titles
+		lineageTag: 7a0712e1-b4dc-5b2c-8c2d-2055ecf8e51b
+
+	measure 'Subtitle Exec Category' = "Share of sales vs share of gross profit, by category · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 4c98eafc-4e83-5f53-a1b5-ceb9a41073eb
+
+	measure 'Title Exec Region' =
+			VAR R =
+			    ADDCOLUMNS ( VALUES ( dim_stores[region] ), "@d", [Sales Change vs PY], "@g", [Sales vs PY %], "@s", [Total Sales] )
+			VAR t = TOPN ( 1, R, [@d], DESC )
+			VAR big = TOPN ( 1, R, [@s], DESC )
+			VAR d = MAXX ( t, [@d] )
+			VAR ad = ABS ( d )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        COUNTROWS ( R ) = 1, SELECTEDVALUE ( dim_stores[region] ) & " sales: " & IF ( ABS ( [Total Sales] ) >= 1000000, "EGP " & FORMAT ( [Total Sales] / 1000000, "#,0.00" ) & "M", IF ( ABS ( [Total Sales] ) >= 10000, "EGP " & FORMAT ( [Total Sales] / 1000, "#,0" ) & "K", "EGP " & FORMAT ( [Total Sales], "#,0" ) ) ),
+			        ISBLANK ( [Sales PY] ), MAXX ( big, dim_stores[region] ) & " is the largest region with " & FORMAT ( DIVIDE ( MAXX ( big, [@s] ), [Total Sales] ), "0%" ) & " of sales",
+			        d >= 0, MAXX ( t, dim_stores[region] ) & " added " & IF ( ABS ( ad ) >= 1000000, "EGP " & FORMAT ( ad / 1000000, "#,0.00" ) & "M", IF ( ABS ( ad ) >= 10000, "EGP " & FORMAT ( ad / 1000, "#,0" ) & "K", "EGP " & FORMAT ( ad, "#,0" ) ) ) & " (" & FORMAT ( MAXX ( t, [@g] ), "+0%;-0%" ) & ") " & [PY Label] & ", the biggest gain of any region",
+			        "Every region shrank " & [PY Label] & "; " & MAXX ( t, dim_stores[region] ) & " fell least (" & FORMAT ( MAXX ( t, [@g] ), "+0%;-0%" ) & ")"
+			    )
+		displayFolder: Titles
+		lineageTag: 78f1f392-d45a-5a19-8782-c2736eebe232
+
+	measure 'Subtitle Exec Region' = "Sales by region (EGP); highlighted = biggest gain · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 533905cb-4b5a-5ecf-b382-0ec82a31e3fd
+
+	measure 'Title Exec Stores' =
+			VAR St = ADDCOLUMNS ( VALUES ( dim_stores[store_name] ), "@s", [Total Sales], "@g", [Sales vs PY %] )
+			VAR top3 = TOPN ( 3, St, [@s], DESC )
+			VAR share = DIVIDE ( SUMX ( top3, [@s] ), CALCULATE ( [Total Sales], REMOVEFILTERS ( dim_stores[store_name] ) ) )
+			VAR shrank = COUNTROWS ( FILTER ( top3, [@g] < 0 ) )
+			RETURN
+			    IF (
+			        COUNTROWS ( St ) < 4,
+			        "Store performance for this selection",
+			        "The top 3 stores deliver " & FORMAT ( share, "0%" ) & " of sales"
+			            & IF ( ISBLANK ( [Sales PY] ), "", IF ( shrank = 0, ", and all 3 grew", ", but " & shrank & " of them shrank" ) )
+			    )
+		displayFolder: Titles
+		lineageTag: 3948e4b7-3802-5e7a-aa2c-20e0446c5d6c
+
+	measure 'Subtitle Exec Stores' =
+			
+			VAR y = SELECTEDVALUE ( dim_date[year] )
+			RETURN
+			    IF (
+			        ISBLANK ( y ),
+			        "Top 6 stores by sales · " & [Context Label],
+			        "Top 6 stores by sales, " & y & " · % change vs " & ( y - 1 ) & " · " & [Filter Label]
+			    )
+		displayFolder: Titles
+		lineageTag: beb68b21-bf05-511e-b899-72a51b63eea2
+
+	measure 'Title Sales Subcategory' =
+			
+			VAR _subcat = VALUES ( dim_products[subcategory] )
+			VAR _top3 = TOPN ( 3, _subcat, [Gross Profit], DESC )
+			VAR _clothingInTop3 =
+			    COUNTROWS (
+			        FILTER ( _top3, CALCULATE ( SELECTEDVALUE ( dim_products[category] ) ) = "Clothing" )
+			    ) + 0
+			VAR _best = TOPN ( 1, _subcat, [Gross Profit], DESC )
+			VAR _bestName = MAXX ( _best, dim_products[subcategory] )
+			VAR _bestMargin = CALCULATE ( [Gross Margin %], _best )
+			VAR _categoryFiltered = ISFILTERED ( dim_products[category] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        COUNTROWS ( _subcat ) >= 3 && _clothingInTop3 = 3 && NOT _categoryFiltered,
+			            "The 3 most profitable subcategories are all clothing",
+			        COUNTROWS ( _subcat ) >= 3 && _clothingInTop3 = 0 && NOT _categoryFiltered,
+			            "The 3 most profitable subcategories are all electronics",
+			        _bestName & " is the most profitable subcategory (" & FORMAT ( _bestMargin, "0%" ) & " margin)"
+			    )
+		displayFolder: Titles
+		lineageTag: 92cbec2b-a93c-596c-8034-42f1ae008708
+
+	measure 'Subtitle Sales Subcategory' = "Gross profit by subcategory (EGP); clothing highlighted · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 06ab40da-9e03-52e9-8178-a65442e15dc5
+
+	measure 'Title Sales Scatter' =
+			VAR Sub =
+			    FILTER (
+			        ADDCOLUMNS (
+			            VALUES ( dim_products[subcategory] ),
+			            "@c", CALCULATE ( SELECTEDVALUE ( dim_products[category] ) ),
+			            "@m", [Gross Margin %]
+			        ),
+			        NOT ISBLANK ( [@m] )
+			    )
+			VAR E = FILTER ( Sub, [@c] = "Electronics" )
+			VAR C = FILTER ( Sub, [@c] = "Clothing" )
+			VAR et = IF ( COUNTROWS ( E ) > 0, "Electronics earns " & FORMAT ( MINX ( E, [@m] ), "0%" ) & "–" & FORMAT ( MAXX ( E, [@m] ), "0%" ) & " margins" )
+			VAR ct = IF ( COUNTROWS ( C ) > 0, "clothing earns " & FORMAT ( MINX ( C, [@m] ), "0%" ) & "–" & FORMAT ( MAXX ( C, [@m] ), "0%" ) )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        NOT ISBLANK ( et ) && NOT ISBLANK ( ct ), et & "; " & ct,
+			        NOT ISBLANK ( et ), et,
+			        NOT ISBLANK ( ct ), "Clothing earns " & FORMAT ( MINX ( C, [@m] ), "0%" ) & "–" & FORMAT ( MAXX ( C, [@m] ), "0%" ) & " margins",
+			        "Sales vs margin by subcategory"
+			    )
+		displayFolder: Titles
+		lineageTag: d7557c0b-f376-51f5-8641-02510c50dc3d
+
+	measure 'Subtitle Sales Scatter' = "Each dot is a subcategory: sales (x) vs gross margin (y) · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 2cdc7aaf-15d6-5446-baa2-9991d88be7b2
+
+	measure 'Title Sales Products' =
+			VAR _top = TOPN ( 1, VALUES ( dim_products[product_name_raw] ), [Gross Profit], DESC )
+			VAR gp = CALCULATE ( [Gross Profit], _top )
+			VAR gm = CALCULATE ( [Gross Margin %], _top )
+			RETURN
+			    IF (
+			        ISBLANK ( gp ),
+			        "No product sales for this selection",
+			        MAXX ( _top, dim_products[product_name_raw] ) & " is the top profit earner: " & IF ( ABS ( gp ) >= 1000000, "EGP " & FORMAT ( gp / 1000000, "#,0.00" ) & "M", IF ( ABS ( gp ) >= 10000, "EGP " & FORMAT ( gp / 1000, "#,0" ) & "K", "EGP " & FORMAT ( gp, "#,0" ) ) ) & " at " & FORMAT ( gm, "0.0%" ) & " margin"
+			    )
+		displayFolder: Titles
+		lineageTag: 472cc609-3386-5614-ac61-eb8a86dd372b
+
+	measure 'Subtitle Sales Products' = "Products ranked by gross profit; margin under 12% in red · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 204f7568-7d15-578e-81ad-dc55bb9d804a
+
+	measure 'Title Stores Psm' =
+			VAR St =
+			    ADDCOLUMNS ( FILTER ( VALUES ( dim_stores[store_name] ), [Total Sales] > 0 ), "@p", [Sales per m²] )
+			VAR n = COUNTROWS ( St )
+			VAR TopRow = TOPN ( 1, St, [@p], DESC )
+			VAR nm = SUBSTITUTE ( MAXX ( TopRow, dim_stores[store_name] ), "Lotus ", "" )
+			VAR v = MAXX ( TopRow, [@p] )
+			VAR others = AVERAGEX ( EXCEPT ( St, TopRow ), [@p] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        n = 0, "No store sales for this selection",
+			        n = 1, nm & " earns EGP " & FORMAT ( v, "#,0" ) & " per m²",
+			        nm & " earns the most per m², " & FORMAT ( DIVIDE ( v, others ) - 1, "0%" ) & " above the other " & ( n - 1 ) & " stores' average"
+			    )
+		displayFolder: Titles
+		lineageTag: 6b46eb9e-f7fc-5e94-8e7b-7eaba4dd7f87
+
+	measure 'Subtitle Stores Psm' = "Sales per m² of floor space (EGP) · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 5dd4be88-8759-51b7-8c54-3da7881ebdf1
+
+	measure 'Title Stores Scatter' =
+			
+			VAR _stores =
+			    FILTER (
+			        ADDCOLUMNS (
+			            VALUES ( dim_stores[store_name] ),
+			            "@x", [Store Floor Space],
+			            "@y", [Total Sales],
+			            "@p", [Sales per m²]
+			        ),
+			        NOT ISBLANK ( [@y] )
+			    )
+			VAR _n = COUNTROWS ( _stores )
+			VAR _sx = SUMX ( _stores, [@x] )
+			VAR _sy = SUMX ( _stores, [@y] )
+			VAR _sxy = SUMX ( _stores, [@x] * [@y] )
+			VAR _sxx = SUMX ( _stores, [@x] * [@x] )
+			VAR _slope = DIVIDE ( _n * _sxy - _sx * _sy, _n * _sxx - _sx * _sx )
+			VAR _intercept = DIVIDE ( _sy - _slope * _sx, _n )
+			VAR _best = TOPN ( 1, _stores, [@p], DESC )
+			VAR _name = MAXX ( _best, dim_stores[store_name] )
+			VAR _size = MAXX ( _best, [@x] )
+			VAR _sales = MAXX ( _best, [@y] )
+			VAR _uplift = DIVIDE ( _sales, _intercept + _slope * _size ) - 1
+			VAR _beaten = FILTER ( _stores, [@x] > _size && [@y] < _sales )
+			VAR _nBeaten = COUNTROWS ( _beaten ) + 0
+			VAR _clause =
+			    SWITCH (
+			        TRUE (),
+			        _nBeaten = 1, " and outsold the bigger " & MAXX ( _beaten, dim_stores[store_name] ),
+			        _nBeaten > 1, " and outsold " & _nBeaten & " bigger stores",
+			        ""
+			    )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        _n < 3, "Store size vs sales",
+			        _uplift > 0, _name & " sells " & FORMAT ( _uplift, "0%" ) & " more than its size predicts" & _clause,
+			        _name & " earns the most per m² of floor space"
+			    )
+		displayFolder: Titles
+		lineageTag: b6113696-2b89-5948-9428-ec7df6eb2225
+
+	measure 'Subtitle Stores Scatter' =
+			
+			"Each dot is a store: floor space in m² (x) vs sales in EGP (y); dashed line = trend; highlighted = most sales per m² · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 74332fe7-b347-5343-89c5-a4cacd414b4f
+
+	measure 'Title Stores Table' =
+			VAR St =
+			    FILTER ( ADDCOLUMNS ( VALUES ( dim_stores[store_name] ), "@g", [Sales vs PY %] ), NOT ISBLANK ( [@g] ) )
+			VAR n = COUNTROWS ( St )
+			VAR neg = COUNTROWS ( FILTER ( St, [@g] < 0 ) )
+			VAR w = TOPN ( 1, St, [@g], ASC )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        n = 0, "Store league table (no prior-year comparison)",
+			        neg = 0, "All " & n & " stores grew " & [PY Label],
+			        neg & " of " & n & " stores shrank " & [PY Label] & ", led by "
+			            & SUBSTITUTE ( MAXX ( w, dim_stores[store_name] ), "Lotus ", "" ) & " (" & FORMAT ( MAXX ( w, [@g] ), "+0%;-0%" ) & ")"
+			    )
+		displayFolder: Titles
+		lineageTag: 8c68bc07-f4d1-5876-82de-c310b8801050
+
+	measure 'Subtitle Stores Table' = "Stores sorted by change vs prior year, weakest first · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 161bfe24-a3b5-59bf-9132-4aaa664b8086
+
+	measure 'Title Cust Pareto' =
+			VAR s = [Top 20% Revenue Share]
+			RETURN
+			    IF ( ISBLANK ( s ), "Customer revenue concentration", "The top 20% of customers drive " & FORMAT ( s, "0%" ) & " of revenue" )
+		displayFolder: Titles
+		lineageTag: f2f4c41c-2586-58ad-b546-d3b45a3c5814
+
+	measure 'Subtitle Cust Pareto' = "Cumulative share of revenue by top X% of customers · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: f2098c5c-0478-51a2-8366-1a6d66669f1e
+
+	measure 'Title Cust Tier' =
+			
+			VAR _tiers =
+			    FILTER (
+			        ADDCOLUMNS ( VALUES ( dim_customers[loyalty_tier] ), "@p", [Sales per Customer] ),
+			        NOT ISBLANK ( [@p] )
+			    )
+			VAR _platinum = MAXX ( FILTER ( _tiers, dim_customers[loyalty_tier] = "Platinum" ), [@p] )
+			VAR _best = TOPN ( 1, _tiers, [@p], DESC )
+			VAR _bestName = MAXX ( _best, dim_customers[loyalty_tier] )
+			VAR _bestSpend = MAXX ( _best, [@p] )
+			VAR _lowest = TOPN ( 1, _tiers, [@p], ASC )
+			VAR _lowName = MAXX ( _lowest, dim_customers[loyalty_tier] )
+			VAR _lowSpend = MAXX ( _lowest, [@p] )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( _platinum ) || COUNTROWS ( _tiers ) < 2, "Spend per customer by loyalty tier",
+			        _bestName = "Platinum",
+			            "Platinum members spend the most: " & FORMAT ( DIVIDE ( _platinum, _lowSpend ) - 1, "0%" )
+			                & " more per head than " & _lowName & " members",
+			        "Platinum members spend " & FORMAT ( 1 - DIVIDE ( _platinum, _bestSpend ), "0%" )
+			            & " less per head than " & _bestName & " members: Tiers don't track value"
+			    )
+		displayFolder: Titles
+		lineageTag: 0d796553-09d6-5d3d-832e-3ea8422208d1
+
+	measure 'Subtitle Cust Tier' =
+			
+			"Average spend per customer by loyalty tier (EGP); Platinum highlighted · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 1c7a90a7-109f-538d-8f29-af3f552b688d
+
+	measure 'Title Cust Top' =
+			VAR T10 = TOPN ( 10, FILTER ( VALUES ( dim_customers[customer_id] ), [Total Sales] > 0 ), [Total Sales], DESC )
+			VAR nLow = COUNTROWS ( FILTER ( T10, CALCULATE ( SELECTEDVALUE ( dim_customers[loyalty_tier] ) ) IN { "Bronze", "Silver" } ) )
+			RETURN
+			    IF ( COUNTROWS ( T10 ) = 0, "Top customers", nLow & " of the top " & COUNTROWS ( T10 ) & " spenders are Bronze or Silver members" )
+		displayFolder: Titles
+		lineageTag: d480bc73-6b14-50a8-b646-4f6137c9a589
+
+	measure 'Subtitle Cust Top' =
+			
+			"Top 10 customers by spend; Bronze/Silver flagged in red · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: d3e05280-2e89-56ff-8d5c-e66e5335c0bb
+
+	measure 'Title Emp Unattributed' =
+			VAR St = ADDCOLUMNS ( VALUES ( dim_stores[store_name] ), "@u", [Orders without Employee ID] )
+			VAR tot = [Orders without Employee ID]
+			VAR t3 = TOPN ( 3, St, [@u], DESC )
+			RETURN
+			    IF (
+			        ISBLANK ( tot ) || tot = 0,
+			        "Every order has an employee recorded",
+			        "3 stores account for " & FORMAT ( DIVIDE ( SUMX ( t3, [@u] ), tot ), "0%" ) & " of orders with no employee, led by "
+			            & SUBSTITUTE ( MAXX ( TOPN ( 1, St, [@u], DESC ), dim_stores[store_name] ), "Lotus ", "" )
+			    )
+		displayFolder: Titles
+		lineageTag: 14230e9c-672e-5b9e-9710-b92c800bf77a
+
+	measure 'Subtitle Emp Unattributed' = "Orders with no employee recorded, by store; top 3 highlighted · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 25925492-b906-5a03-a567-b2b95f7205a6
+
+	measure 'Title Emp Trend' =
+			VAR Mo =
+			    FILTER ( ADDCOLUMNS ( VALUES ( dim_date[month_name] ), "@r", [Employee Attribution Rate %] ), NOT ISBLANK ( [@r] ) )
+			VAR lo = TOPN ( 1, Mo, [@r], ASC )
+			RETURN
+			    IF (
+			        COUNTROWS ( Mo ) = 0,
+			        "Attribution rate by month",
+			        "Attribution ranged " & FORMAT ( MINX ( Mo, [@r] ), "0.0%" ) & "–" & FORMAT ( MAXX ( Mo, [@r] ), "0.0%" ) & "; lowest in " & MAXX ( lo, dim_date[month_name] )
+			    )
+		displayFolder: Titles
+		lineageTag: 3ef32d39-f119-5c50-ac92-8f90e7b9582d
+
+	measure 'Subtitle Emp Trend' = "Share of orders credited to an employee, by month · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 5c5da254-b208-50aa-8841-ce2ff0149d91
+
+	measure 'Title Emp Top' =
+			VAR _top = TOPN ( 1, FILTER ( VALUES ( dim_employees[employee_id] ), [Total Sales] > 0 ), [Total Sales], DESC )
+			VAR nm = CALCULATE ( SELECTEDVALUE ( dim_employees[Employee Name] ), _top )
+			VAR s = CALCULATE ( [Total Sales], _top )
+			VAR o = CALCULATE ( [Total Orders], _top )
+			VAR st = CALCULATE ( [Employee Store], _top )
+			RETURN
+			    IF (
+			        ISBLANK ( s ),
+			        "Top employees by attributed sales",
+			        nm & " (" & st & ") leads with " & IF ( ABS ( s ) >= 1000000, "EGP " & FORMAT ( s / 1000000, "#,0.00" ) & "M", IF ( ABS ( s ) >= 10000, "EGP " & FORMAT ( s / 1000, "#,0" ) & "K", "EGP " & FORMAT ( s, "#,0" ) ) ) & " from " & o & " orders"
+			    )
+		displayFolder: Titles
+		lineageTag: 74d0f652-61e5-5bfe-bc8d-c8251c3e9e2b
+
+	measure 'Subtitle Emp Top' = "Employees ranked by attributed sales · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 256fd85e-259a-5784-ae75-07ead7e49c7f
+
+	measure 'Title Season Ramadan' =
+			VAR C =
+			    ADDCOLUMNS (
+			        VALUES ( dim_products[category] ),
+			        "@c",
+			            VAR r = [Ramadan Daily Sales]
+			            VAR n = [Non-Ramadan Daily Sales]
+			            RETURN
+			                IF ( r > 0 && n > 0, r / n - 1 )
+			    )
+			VAR txt =
+			    CONCATENATEX ( FILTER ( C, NOT ISBLANK ( [@c] ) ), dim_products[category] & " " & FORMAT ( [@c], "+0%;-0%" ), ", ", [@c], ASC )
+			RETURN
+			    IF ( [Ramadan Days] = 0 || ISBLANK ( [Ramadan Days] ), "No Ramadan days in this selection", "Ramadan changes daily sales: " & txt )
+		displayFolder: Titles
+		lineageTag: 20753eb3-7f46-5c37-bd87-95426ba5be07
+
+	measure 'Subtitle Season Ramadan' = "Average daily sales (EGP), Ramadan vs rest of year · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 9af49fe0-5144-5ac1-b277-b9eb9fa57d18
+
+	measure 'Title Season Weekday' =
+			VAR g = DIVIDE ( [Weekend Daily Sales], [Weekday Daily Sales] ) - 1
+			RETURN
+			    IF (
+			        ISBLANK ( [Weekend Daily Sales] ),
+			        "Average daily sales by day of week",
+			        "Weekends (Fri–Sat) average " & FORMAT ( ABS ( g ), "0%" ) & IF ( g < 0, " below ", " above " ) & "weekdays"
+			    )
+		displayFolder: Titles
+		lineageTag: f5f42716-1d25-5875-a34b-10ba3af2157a
+
+	measure 'Subtitle Season Weekday' = "Average daily sales by day of week (EGP); weekend highlighted · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 7feb14cf-f8bf-5b05-835a-e6dcfc7afdf7
+
+	measure 'Title Season Monthly' =
+			VAR Mo = FILTER ( ADDCOLUMNS ( VALUES ( dim_date[month_name] ), "@s", [Avg Monthly Sales] ), NOT ISBLANK ( [@s] ) )
+			VAR hi = MAXX ( TOPN ( 1, Mo, [@s], DESC ), dim_date[month_name] )
+			VAR lo = MAXX ( TOPN ( 1, Mo, [@s], ASC ), dim_date[month_name] )
+			RETURN
+			    IF ( COUNTROWS ( Mo ) < 2, "Average monthly sales", hi & " is the strongest month and " & lo & " the weakest" )
+		displayFolder: Titles
+		lineageTag: 68b02ac8-1720-5f50-91ae-d73b307dcd32
+
+	measure 'Subtitle Season Monthly' = "Average sales per month across selected years (EGP); Ramadan fell in Mar–May · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 44a26426-804d-592a-ba5e-949d3d0e1249
+
+	measure 'Title Ret Reason' =
+			IF (
+			    ISBLANK ( [Returned Amount] ),
+			    "No returns in this selection",
+			    "Preventable errors (duplicate orders, wrong items) are " & FORMAT ( [Preventable Share %], "0%" ) & " of returned value"
+			)
+		displayFolder: Titles
+		lineageTag: fd32d8f4-5a99-51a8-b451-93b7d50af97b
+
+	measure 'Subtitle Ret Reason' = "Returned value by reason (EGP); preventable reasons highlighted · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: d1c3fdb7-5216-543a-b5aa-36fd39ac7cd7
+
+	measure 'Title Ret Monthly' =
+			VAR Mo =
+			    FILTER ( ADDCOLUMNS ( VALUES ( dim_date[month_name] ), "@r", [Return Rate (Value) %] ), NOT ISBLANK ( [@r] ) )
+			VAR pk = TOPN ( 1, Mo, [@r], DESC )
+			RETURN
+			    IF (
+			        COUNTROWS ( Mo ) = 0,
+			        "Return rate by month",
+			        "Returns peaked at " & FORMAT ( MAXX ( pk, [@r] ), "0.0%" ) & " of sales in " & MAXX ( pk, dim_date[month_name] )
+			            & ", vs " & FORMAT ( [Return Rate (Value) %], "0.0%" ) & " overall"
+			    )
+		displayFolder: Titles
+		lineageTag: c5278e58-7a0f-561c-ad18-79f8f254b62e
+
+	measure 'Subtitle Ret Monthly' = "Returned value as % of sales, by month of order · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: 4c2cabb8-910b-58f1-bfb6-2194f9ade39c
+
+	measure 'Title Ret Store' =
+			VAR St =
+			    FILTER ( ADDCOLUMNS ( VALUES ( dim_stores[store_name] ), "@r", [Return Rate (Value) %] ), NOT ISBLANK ( [@r] ) )
+			VAR t = TOPN ( 1, St, [@r], DESC )
+			VAR ov = [Return Rate (Value) %]
+			RETURN
+			    IF (
+			        COUNTROWS ( St ) = 0,
+			        "Return rate by store",
+			        SUBSTITUTE ( MAXX ( t, dim_stores[store_name] ), "Lotus ", "" ) & " returns " & FORMAT ( MAXX ( t, [@r] ), "0.0%" )
+			            & " of its sales, " & FORMAT ( DIVIDE ( MAXX ( t, [@r] ), ov ), "0.0" ) & "× the overall rate"
+			    )
+		displayFolder: Titles
+		lineageTag: cc63d237-08c1-512f-834a-56e60fd70456
+
+	measure 'Subtitle Ret Store' = "Returned value as % of sales, by store; highest highlighted · " & [Context Label]
+		displayFolder: Titles
+		lineageTag: ef3fc0ff-fa7e-5115-a8db-ca55396e5791
+
+	measure 'Filter Label' =
+			
+			VAR r =
+			    IF (
+			        ISFILTERED ( dim_stores[region] ),
+			        CONCATENATEX ( VALUES ( dim_stores[region] ), dim_stores[region], ", " ),
+			        "All regions"
+			    )
+			VAR c =
+			    IF (
+			        ISFILTERED ( dim_products[category] ),
+			        CONCATENATEX ( VALUES ( dim_products[category] ), dim_products[category], ", " ),
+			        "All categories"
+			    )
+			RETURN
+			    r & " · " & c
+		lineageTag: e5d8b7f3-0b43-4056-aeba-e958e43d68ad
+
+	measure Measure
+		lineageTag: cb306f94-8e0d-4f34-9a6e-075001951a07
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Category Share' =
+			
+			SWITCH (
+			    SELECTEDVALUE ( 'Share Metric'[Order] ),
+			    1, [Sales Share %],
+			    2, [Gross Profit Share %]
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 5836f735-7768-4ab2-b581-363c22e627be
+
+	measure 'Colour Sales vs PY Fill' =
+			
+			IF (
+			    ISBLANK ( [Sales vs PY %] ),
+			    BLANK (),
+			    IF ( [Sales vs PY %] >= 0, "#E8F4EE", "#FCEBEA" )
+			)
+		displayFolder: Colours
+		lineageTag: 7f65b034-514b-4b74-8b4d-6e35c195928f
+
+	measure 'Colour Platinum' =
+			
+			IF (
+			    SELECTEDVALUE ( dim_customers[loyalty_tier] ) = "Platinum",
+			    "#1F4E79",
+			    "#B8C0CC"
+			)
+		displayFolder: Colours
+		lineageTag: e5924b45-756f-4a11-aa9c-08f928b03235
+
+	measure 'Colour Ramadan' =
+			
+			IF ( SELECTEDVALUE ( dim_date[Period Type] ) = "Ramadan", "#1F4E79", "#B8C0CC" )
+		displayFolder: Colours
+		lineageTag: 839c1b0e-718e-42c2-bf0e-b63420314c8b
+
+	measure 'Colour Ramadan Change' =
+			
+			VAR _isRamadan = SELECTEDVALUE ( dim_date[Period Type] ) = "Ramadan"
+			VAR _ramadan =
+			    CALCULATE ( [Avg Daily Sales], REMOVEFILTERS ( dim_date[Period Type] ), dim_date[is_ramadan] = 1 )
+			VAR _rest =
+			    CALCULATE ( [Avg Daily Sales], REMOVEFILTERS ( dim_date[Period Type] ), dim_date[is_ramadan] = 0 )
+			RETURN
+			    IF (
+			        _isRamadan && _rest > 0,
+			        IF ( _ramadan >= _rest, "#1A7F4B", "#B42318" ),
+			        "#1D2633"
+			    )
+		displayFolder: Colours
+		lineageTag: b43d40cc-2b0e-4d9b-98d7-4b87945da3e5
+
+	measure 'Ramadan Change Label' =
+			
+			VAR _isRamadan = SELECTEDVALUE ( dim_date[Period Type] ) = "Ramadan"
+			VAR _ramadan =
+			    CALCULATE ( [Avg Daily Sales], REMOVEFILTERS ( dim_date[Period Type] ), dim_date[is_ramadan] = 1 )
+			VAR _rest =
+			    CALCULATE ( [Avg Daily Sales], REMOVEFILTERS ( dim_date[Period Type] ), dim_date[is_ramadan] = 0 )
+			RETURN
+			    IF ( _isRamadan && _rest > 0, FORMAT ( DIVIDE ( _ramadan, _rest ) - 1, "+0%;-0%" ) )
+		lineageTag: 9f3d019e-8873-41ef-911d-d8a609e7c98e
+
+	column 'Measure Group'
+		isHidden
+		lineageTag: ba831cc5-3b7f-4e8e-80d3-ee07be3bdc97
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Measure Group]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source =
+				DATATABLE(
+				    "Measure Group", STRING,
+				    {
+				        {"Sales"},
+				        {"Orders"},
+				        {"Customers"},
+				        {"Products"},
+				        {"Returns"},
+				        {"Performance"}
+				    }
+				)
+
+	annotation PBI_Id = c3e2e890d4bf4fb6815bdd7abd648c97
+
