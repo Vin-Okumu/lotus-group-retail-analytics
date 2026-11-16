@@ -1723,10 +1723,6 @@ table _Measures
 		displayFolder: Titles
 		lineageTag: c5278e58-7a0f-561c-ad18-79f8f254b62e
 
-	measure 'Subtitle Ret Monthly' = "Returned value as % of sales, by month of order · " & [Context Label]
-		displayFolder: Titles
-		lineageTag: 4c2cabb8-910b-58f1-bfb6-2194f9ade39c
-
 	measure 'Title Ret Store' =
 			VAR St =
 			    FILTER ( ADDCOLUMNS ( VALUES ( dim_stores[store_name] ), "@r", [Return Rate (Value) %] ), NOT ISBLANK ( [@r] ) )
@@ -1831,20 +1827,6 @@ table _Measures
 			RETURN
 			    IF ( _isRamadan && _rest > 0, FORMAT ( DIVIDE ( _ramadan, _rest ) - 1, "+0%;-0%" ) )
 		lineageTag: 9f3d019e-8873-41ef-911d-d8a609e7c98e
-
-	measure 'Subtitle Ret Trend' =
-			
-			VAR y = SELECTEDVALUE ( dim_date[year] )
-			VAR legendText =
-			    IF (
-			        ISBLANK ( y ),
-			        "Returned value as % of sales, by month of order , selected years combined",
-			        "Returned value as % of sales, by month of order · Solid line: " & y & " · Dashed line: " & ( y - 1 )
-			    )
-			RETURN
-			    legendText & " · " & [Filter Label]
-		displayFolder: Titles
-		lineageTag: bc1e575e-c429-4c6a-af7d-f2ff366c7f02
 
 	column 'Measure Group'
 		isHidden
