@@ -27,6 +27,9 @@ This document describes every table and column in the Lotus Group dataset: what 
 | `fact_orders` | Fact | One row per order | 7,942 + 4,058 | 12,000 |
 | `fact_order_details` | Fact | One row per order line (order × product) | 25,099 | 25,099 |
 | `fact_returns` | Fact | One row per return | 1,056 | 1,056 |
+| `CustomerDecile` | Helper (DAX table) | One row per customer decile | — | 10 |
+| `Share Metric` | Helper (DAX table) | One row per share metric | — | 2 |
+| `RefreshInfo` | Helper (DAX table, hidden) | One row: time of last refresh | — | 1 |
 
 `fact_orders` is built by appending `fact_orders_2022_2023` and `fact_orders_2024`. The two source tables are kept as staging queries but aren't loaded into the model.
 
@@ -58,18 +61,21 @@ Calendar table covering every day in the analysis period. Used for all time inte
 | Column | Key | Type | Description | Values / Range | Notes |
 |---|---|---|---|---|---|
 | `date_id` | PK | Whole Number | Date key in `YYYYMMDD` format | 20220101 – 20241231 | Joins to `fact_orders[date_id]` |
-| `full_date` | | Date | Calendar date | 2022-01-01 – 2024-12-31 | Joins to `fact_returns[return_date]`; marked as the model's date table |
+| `full_date` | | Date | Calendar date | 2022-01-01 – 2024-12-31 | Not used in relationships; the date table joins on `date_id` |
 | `day` | | Whole Number | Day of the month | 1 – 31 | |
 | `month` | | Whole Number | Month number | 1 – 12 | Sort column for `month_name` |
-| `month_name` | | Text | Month name | January – December | |
+| `month_name` | | Text | Month name | January – December | Sorted by `month` |
 | `quarter` | | Whole Number | Quarter number | 1 – 4 | |
 | `quarter_name` | | Text | Quarter label | Q1 – Q4 | |
 | `year` | | Whole Number | Calendar year | 2022, 2023, 2024 | |
 | `day_of_week` | | Whole Number | Day number, Monday = 1 | 1 – 7 | Sort column for `day_name` |
-| `day_name` | | Text | Day name | Monday – Sunday | |
+| `day_name` | | Text | Day name | Monday – Sunday | Sorted by `day_of_week` |
 | `is_weekend` | | Whole Number (flag) | 1 if the day falls on the Egyptian weekend | 0, 1 | Weekend = **Friday and Saturday**, following Egyptian convention |
 | `week_of_year` | | Whole Number | ISO week number | 1 – 52 | Early-January days can belong to week 52 of the previous year (ISO convention) |
 | `is_ramadan` | | Whole Number (flag) | 1 if the day falls in Ramadan | 0, 1 | 90 days: 2 Apr – 1 May 2022, 23 Mar – 21 Apr 2023, 11 Mar – 9 Apr 2024 |
+| `Period Type` | | Text (calculated) | Ramadan or the rest of the year | Ramadan, Rest of year | DAX column from `is_ramadan`; sorted by `is_ramadan` so *Rest of year* comes first. |
+| `Day Type` | | Text (calculated) | Weekend or weekday | Weekend, Weekday | DAX column from `is_weekend` |
+| `short_month` | | Text (calculated) | Three-letter month name | Jan – Dec | DAX column `FORMAT(full_date, "mmm")`; sorted by `month`; used on compact chart axes |
 
 ## dim_employees
 
@@ -110,7 +116,7 @@ Lotus Group store locations.
 | Column | Key | Type | Description | Values / Range | Notes |
 |---|---|---|---|---|---|
 | `store_id` | PK | Whole Number | Unique store identifier | 1 – 15 | |
-| `store_name` | | Text | Store name | e.g. Lotus Cairo Festival City | |
+| `store_name` | | Text | Store name | e.g. Cairo Festival City | The "Lotus " prefix in the raw data is removed in Power Query |
 | `city` | | Text | City | 13 cities | Cairo and Alexandria each have 2 stores |
 | `district` | | Text | District or neighbourhood | 15 districts | |
 | `region` | | Text | Region | Greater Cairo, Alexandria, Nile Delta, Canal Zone, Upper Egypt, Red Sea, South Sinai | |
@@ -163,12 +169,38 @@ One row per returned order.
 | Column | Key | Type | Description | Values / Range | Notes |
 |---|---|---|---|---|---|
 | `return_id` | PK | Text | Unique return identifier | `RET00001` – `RET01056` | |
-| `order_id` | | Text | Order that was returned | | One return per order; every ID matches `fact_orders`. Not used as a relationship in the current model |
-| `return_date` | FK → `dim_date[full_date]` | Date | Date the return was logged | 2022-01-08 – 2024-12-31 | |
+| `order_id` | FK → `fact_orders` | Text | Order that was returned | | One return per order; every ID matches `fact_orders`. This relationship lets returns respond to the date, store, customer and category slicers |
+| `return_date` | | Date | Date the return was logged | 2022-01-08 – 2024-12-31 | Kept for reference; the report dates returns by the **order** date, through `fact_orders` |
 | `return_reason` | | Text | Customer's reason for returning | Duplicate Order, Changed Mind, Quality Issue, Wrong Item Delivered, Size Issue, Defective Product | |
 | `return_amount` | | Fixed Decimal | Value returned | EGP | Used by **Returned Amount** |
 | `refund_method` | | Text | How the refund was paid | Cash, Credit Card, Debit Card, Fawry, InstaPay, Vodafone Cash | |
 | `return_status` | | Text | Outcome of the return | Refunded (77.6%), Pending (14.2%), Rejected (8.2%) | |
+
+---
+
+# Helper tables
+
+These small tables are built with DAX inside the model. They have no relationships and exist only to support specific visuals.
+
+## CustomerDecile
+
+| Column | Type | Description | Values |
+|---|---|---|---|
+| `Decile` | Whole Number | Decile number; sort column for `Customer Group` | 1 – 10 |
+| `Customer Group` | Text | Axis label for the revenue-concentration curve | Top 10%, Top 20% … Top 90%, All |
+
+## Share Metric
+
+| Column | Type | Description | Values |
+|---|---|---|---|
+| `Metric` | Text | Bar label on the category share chart | Share of sales, Share of profit |
+| `Order` | Whole Number | Sort column for `Metric`; read by the `Category Share` measure | 1, 2 |
+
+## RefreshInfo (hidden)
+
+| Column | Type | Description |
+|---|---|---|
+| `Refreshed At` | Date/Time | `NOW()` at the last refresh; feeds the "Last refreshed" footer on every page |
 
 ---
 
@@ -180,8 +212,15 @@ One row per returned order.
 | **Gross Profit** | Total Sales − Total Cost |
 | **Gross Margin %** | Gross Profit ÷ Total Sales |
 | **Average Order Value (AOV)** | Total Sales ÷ number of distinct orders |
-| **Return Rate %** | Number of returns ÷ total orders |
+| **Return Rate (Value) %** | Returned value ÷ Total Sales. The return rate shown on every report page |
+| **Return Rate %** | Number of returns ÷ total orders. Kept in the model for reference; not shown on the pages |
+| **Preventable share** | Returned value from *Duplicate Order* and *Wrong Item Delivered* ÷ total returned value |
 | **Employee Attribution Rate %** | Orders with an `employee_id` ÷ total orders |
+| **Attributed Sales** | Sales from orders that have an `employee_id`. Used for employee rankings, so orders with no employee never appear as a *(Blank)* employee |
+| **Sales per m²** | Total Sales ÷ store floor space (`size_sqm`) |
+| **Top 20% revenue share** | Share of revenue from the 20% of customers who spent the most in the selected period |
+| **Prior year (PY)** | The same measure for the year before the one selected in the Year slicer. Blank when no single year is selected, so comparisons switch off |
 | **Ramadan Sales** | Sales on days where `is_ramadan = 1` |
+| **Daily sales (Ramadan / rest of year)** | Sales in the period ÷ number of calendar days in it. Used instead of totals, because Ramadan is only about 30 days a year |
 | **Weekend** | Friday and Saturday (Egyptian working week) |
 | **Fawry / InstaPay / Vodafone Cash** | Egyptian electronic payment services |

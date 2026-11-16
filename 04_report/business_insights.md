@@ -2,9 +2,9 @@
 
 # Purpose
 
-This document summarises what the analysis found, why it matters, and what Lotus Group management should do about it. It sits on top of the Power BI report in [`05_power_bi/`](../05_power_bi/) and uses the measures defined in [`DAX_measures_catalog.md`](../04_DAX/DAX_measures_catalog.md).
+This document summarises what the analysis found, why it matters, and what Lotus Group management should do about it. It sits on top of the Power BI report in this folder ([`lotus-group-retail-analytics.pbip`](lotus-group-retail-analytics.pbip), screenshots in [`figures/`](figures/)) and uses the measures defined in [`DAX_measures_catalog.md`](../03_powerbi_analysis/DAX/DAX_measures_catalog.md).
 
-All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian pounds (EGP)** unless stated otherwise.
+Sections 1–7 cover the full period, **1 January 2022 – 31 December 2024**. Section 8 looks at the **latest year, 2024 compared with 2023**, which is the report's default view. All figures are in **Egyptian pounds (EGP)**.
 
 ---
 
@@ -20,7 +20,7 @@ All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian 
 | Average Order Value | EGP 3,779 |
 | Customers who purchased | 2,945 |
 | Returned Amount | EGP 4.01M (8.8% of sales) |
-| Return Rate % (orders) | 8.8% |
+| Returns as % of orders | 8.8% |
 | Employee Attribution Rate % | 94.7% |
 
 **Five things management should know:**
@@ -29,7 +29,9 @@ All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian 
 2. **Three Greater Cairo flagship stores produce 37% of all sales.**
 3. **The top 20% of customers drive 59% of revenue, but the loyalty tiers don't identify them.**
 4. **Ramadan lowers electronics sales by 19% a day, while clothing sales hold steady.**
-5. **37% of returned value comes from preventable process errors.**
+5. **37% of returned value comes from preventable process errors, rising to 47% in 2024.**
+
+**In 2024 specifically** (section 8): sales grew 7.3% but margin slipped 0.7 points; Nile Delta drove the growth while two of the three flagships shrank; and the return rate rose to 9.2% of sales, with Mansoura Mega Mall returning 21.4% of its sales.
 
 ---
 
@@ -92,11 +94,13 @@ All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian 
 - The three flagships (Cairo Festival City, City Stars and Mall of Egypt) are the top three stores and together produce 36.8% of sales.
 - Each Small store averages about one third of a flagship's revenue.
 - The weakest stores are Luxor Mall (2.3% of sales), Sharm Plaza (2.9%) and Ismailia Festival (3.5%).
-- On the Executive Overview, *average sales per transaction line* is highest in South Sinai and lowest in Upper Egypt. Average basket value varies far less between stores than total sales does, so the gap between stores comes mainly from the number of orders, not from basket size.
+- Average basket value varies far less between stores than total sales does, so the gap between stores comes mainly from the number of orders, not from basket size.
+- Sales per m² of floor space tells a different story from total sales. In 2024, **Mansoura Mega Mall** (a 220 m² Standard store) earned EGP 6.0K per m², 46% above the other stores' average and more than any flagship. It sold 39% more than its size would predict, and more than San Stefano, which is 41% bigger.
 
 **What it means**
 - Performance depends heavily on Greater Cairo. Any disruption at the flagships would have an outsized effect on group results.
 - Smaller stores aren't failing on basket value. They're handling fewer orders. That points to footfall and traffic (location, marketing) rather than in-store selling.
+- Mansoura shows what a well-located mid-size store can do, which makes it a useful model when planning new stores or refits.
 
 ---
 
@@ -126,6 +130,7 @@ All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian 
 - 632 of 12,000 orders (5.3%) have no employee recorded. In 2024 this was 205 orders, giving a 94.95% attribution rate.
 - Every recorded employee ID matches a valid employee in `dim_employees`, so the problem is that IDs weren't captured, not that wrong IDs were entered.
 - Cashiers are the largest staff group (80 of 216 employees) and account for the largest share of attributed sales.
+- The gap is concentrated: in 2024 the three flagships accounted for **43% of the orders with no employee** (Mall of Egypt 31, Cairo Festival City 29, City Stars 29).
 
 **What it means**
 - At 95% attribution, employee-level reporting is usable but not complete. It isn't yet reliable enough to base commissions or individual performance reviews on.
@@ -164,7 +169,7 @@ All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian 
 # 7. Returns
 
 **What we see**
-- 1,056 returns worth **EGP 4.01M**, equal to 8.8% of sales value and 8.8% of orders.
+- 1,056 returns worth **EGP 4.01M**, equal to 8.8% of sales value and 8.8% of orders. The report's return rate is **returned value ÷ sales**.
 - 77.6% of returns were refunded, 14.2% are still pending and 8.2% were rejected.
 
 | Return Reason | Returned Value | Share of Value | Count |
@@ -183,17 +188,42 @@ All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian 
 
 ---
 
+# 8. The latest year: 2024 vs 2023
+
+| KPI | 2024 | vs 2023 |
+|---|---|---|
+| Total Sales | EGP 15.58M | ▲ 7.3% |
+| Gross Profit | EGP 3.32M | ▲ 4.1% |
+| Gross Margin % | 21.3% | ▼ 0.7 pts |
+| Orders | 4,058 | ▲ 1.8% |
+| Average Order Value | EGP 3,840 | ▲ 5.5% |
+| Active customers | 2,243 | ▲ 1.5% |
+| Return rate (value ÷ sales) | 9.2% | ▲ 1.3 pts |
+| Employee Attribution Rate % | 94.9% | ▲ 0.5 pts |
+
+**What we see**
+- **Growth came from a few months and one region.** January, June, September and December were well above 2023. **Nile Delta added EGP 967K (+47%)**, the biggest gain of any region, while Greater Cairo was flat.
+- **Two of the three flagships shrank:** Cairo Festival City (−8.7%) and City Stars (−6.4%). Mall of Egypt grew 19.4%. Overall, 6 of 15 stores shrank, led by Port Said Mega (−18.4%) and San Stefano (−11.1%).
+- **Customer concentration is sharper within a single year:** the top 20% of customers drove **74%** of 2024 revenue (59% over three years, because spending evens out over a longer period). **9 of the top 10 spenders were Bronze or Silver members**, and Platinum members spent about 2% less per head than Silver.
+- **Returns got worse.** Returned value rose 24% to EGP 1.44M. Duplicate orders and wrong items made up **47%** of it (up 10.9 points). **Mansoura Mega Mall returned 21.4% of its sales**, 2.3× the overall rate; July peaked at 18.8% of sales.
+
+**What it means**
+- The margin slip and rising returns mean 2024's sales growth translated into less profit than it should have. Fixing returns is the quickest way to recover it.
+- Mansoura is both the best store per m² and the worst for returns. A returns review there is the clearest single action in the data.
+
+---
+
 # Recommendations
 
 | # | Recommendation | Based on | Expected impact |
 |---|---|---|---|
 | 1 | **Grow clothing:** give it more floor space, stock depth and marketing, especially in Small stores | Clothing = 54% of profit at a 47% margin | Higher group margin without needing more traffic |
 | 2 | **Bundle electronics with higher-margin add-ons** (accessories, warranties, audio) | Electronics margin of 13% | Raises margin on the largest revenue stream |
-| 3 | **Add duplicate-order checks at the point of sale and verify items at fulfilment** | 37% of returned value is preventable | Up to ~EGP 0.5M a year in avoided returns |
-| 4 | **Rebuild the loyalty tiers around actual spend** and target the top 20% of customers | Top 20% = 59% of revenue; tiers show no difference in spend | Better retention of the highest-value customers |
+| 3 | **Add duplicate-order checks at the point of sale and verify items at fulfilment, starting with Mansoura Mega Mall** | 37% of returned value is preventable (47% in 2024); Mansoura returns 21.4% of its sales | Up to ~EGP 0.5M a year in avoided returns (EGP 0.68M was preventable in 2024) |
+| 4 | **Rebuild the loyalty tiers around actual spend** and target the top 20% of customers | Top 20% = 59% of revenue (74% in 2024); 9 of the top 10 spenders in 2024 were Bronze or Silver | Better retention of the highest-value customers |
 | 5 | **Promote clothing during Ramadan and move electronics campaigns to the weeks around it** | Electronics −19% during Ramadan, clothing +3% | Smaller seasonal dip |
 | 6 | **Grow footfall at Small stores** (local marketing, weekend events) | Small stores are short on order volume, not basket value | Less dependence on Greater Cairo |
-| 7 | **Make employee ID a required field at checkout** | 5.3% of orders have no employee | Reliable staff performance and commission reporting |
+| 7 | **Make employee ID a required field at checkout, starting at the flagships** | 5.3% of orders have no employee; the flagships account for 43% of them (2024) | Reliable staff performance and commission reporting |
 | 8 | **Clear the backlog of pending returns** | 14% of returns are pending | Better customer experience, more accurate refund reporting |
 
 ---
@@ -201,7 +231,8 @@ All figures cover **1 January 2022 – 31 December 2024** and are in **Egyptian 
 # Limitations and assumptions
 
 - **Total Sales is gross sales.** It includes orders marked *Cancelled* (EGP 1.68M) and *Returned*. Returns are reported separately in the Returns measures rather than subtracted from sales.
-- **Returns are linked to the date dimension only.** In the current model, returns can be analysed by date but not directly by store, product or customer.
+- **Returns are dated by the order date.** Returns link to their original order, so they respond to every slicer, and a return counts in the month the order was placed, not the month it was logged.
+- **Category filtering of returns works at order level.** An order containing both clothing and electronics counts for both categories when the Category slicer is used.
 - **Employee attribution reflects who processed an order**, not necessarily who made the sale.
 - **Loyalty tier rules are unknown**, so the finding that tiers don't track spend is based on observed spend only.
 - **Ramadan analysis is based on 3 seasons** and should be treated as directional.
